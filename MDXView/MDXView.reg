@@ -1,0 +1,15 @@
+REGEDIT
+; This .REG file may be used by your SETUP program.
+;   If a SETUP program is not available, the entries below will be
+;   registered in your InitInstance automatically with a call to
+;   CWinApp::RegisterShellFileTypes and COleObjectFactory::UpdateRegistryAll.
+
+HKEY_CLASSES_ROOT\.glm-Ghoul2Model = MDXView.Document
+HKEY_CLASSES_ROOT\MDXView.Document\shell\open\command = MDXView.EXE %1
+HKEY_CLASSES_ROOT\MDXView.Document\shell\open\ddeexec = [open("%1")]
+HKEY_CLASSES_ROOT\MDXView.Document\shell\open\ddeexec\application = MDXView
+    ; note: the application is optional
+    ;  (it defaults to the app name in "command")
+
+HKEY_CLASSES_ROOT\MDXView.Document = MDXView.Document
+
