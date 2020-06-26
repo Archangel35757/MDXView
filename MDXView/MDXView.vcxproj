@@ -95,13 +95,13 @@
       <CompileAs>Default</CompileAs>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
-      <AdditionalIncludeDirectories>C:\dev\SDL2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\dev\SDL2\include;C:\dev\glew2\include;C:\dev\freeglut3\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
-      <AdditionalLibraryDirectories>C:\dev\SDL2\lib\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>SDL2.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\dev\SDL2\lib\x86;C:\dev\freeglut3\lib;C:\dev\glew2\lib\Release\Win32;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>sdl2.lib;opengl32.lib;glu32.lib;freeglut.lib;glew32.lib</AdditionalDependencies>
       <IgnoreSpecificDefaultLibraries>
       </IgnoreSpecificDefaultLibraries>
       <LinkStatus>
@@ -150,14 +150,14 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <DisableSpecificWarnings>4996;4297;4503;4018;4244;4838</DisableSpecificWarnings>
-      <AdditionalIncludeDirectories>C:\dev\SDL2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\dev\SDL2\include;C:\dev\glew2\include;C:\dev\freeglut3\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>SDL2.lib</AdditionalDependencies>
-      <AdditionalLibraryDirectories>C:\dev\SDL2\lib\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>sdl2.lib;opengl32.lib;glu32.lib;freeglut.lib;glew32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\dev\SDL2\lib\x86;C:\dev\freeglut3\lib;C:\dev\glew2\lib\Release\Win32;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <IgnoreSpecificDefaultLibraries>
       </IgnoreSpecificDefaultLibraries>
       <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
@@ -200,7 +200,6 @@
     </ResourceCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <Text Include="LICENSE.txt" />
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
@@ -484,8 +483,10 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />
+    <None Include="fshader.glsl" />
     <None Include="MDXView.reg" />
     <None Include="res\MDXView.rc2" />
+    <None Include="vshader.glsl" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="MDXView.rc" />

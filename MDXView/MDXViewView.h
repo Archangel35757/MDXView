@@ -3,6 +3,10 @@
 //
 
 #pragma once
+#include <SDL.h>
+
+// Include the OpenGL headers
+
 
 
 class CMDXViewView : public CView
@@ -34,9 +38,21 @@ public:
 
 protected:
 
+
+
 // Generated message map functions
 protected:
+	SDL_Window* m_sdlScreen;
+
+	//{{AFX_MSG(CMDXViewView)
+	afx_msg void OnDestroy();
+	afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
+	afx_msg void OnSize(UINT nType, int cx, int cy);
+	//}}AFX_MSG
 	DECLARE_MESSAGE_MAP()
+
+
+
 };
 
 #ifndef _DEBUG  // debug version in MDXViewView.cpp

@@ -25,10 +25,12 @@
     <Filter Include="ZLIB">
       <UniqueIdentifier>{77863511-5904-47e3-9fbd-8d10ecefd943}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GLSL Shader Files">
+      <UniqueIdentifier>{36d588cc-eda3-4e46-91b2-cd7f64c76ad0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
-    <Text Include="LICENSE.txt" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MDXView.h">
@@ -346,6 +348,12 @@
       <Filter>Resource Files</Filter>
     </None>
     <None Include="ClassDiagram.cd" />
+    <None Include="fshader.glsl">
+      <Filter>GLSL Shader Files</Filter>
+    </None>
+    <None Include="vshader.glsl">
+      <Filter>GLSL Shader Files</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="MDXView.rc">
