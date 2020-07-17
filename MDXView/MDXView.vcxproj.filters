@@ -28,6 +28,9 @@
     <Filter Include="GLSL Shader Files">
       <UniqueIdentifier>{36d588cc-eda3-4e46-91b2-cd7f64c76ad0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GLView">
+      <UniqueIdentifier>{eade95af-0f79-4b9e-a3d7-7adbcf2f8fcc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -201,6 +204,24 @@
     <ClInclude Include="zlib\zutil.h">
       <Filter>ZLIB</Filter>
     </ClInclude>
+    <ClInclude Include="GLView.h">
+      <Filter>GLView</Filter>
+    </ClInclude>
+    <ClInclude Include="trackball.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="drag.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ogl.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GLShader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GLProgram.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MDXView.cpp">
@@ -341,6 +362,27 @@
     <ClCompile Include="zlib\zutil.c">
       <Filter>ZLIB</Filter>
     </ClCompile>
+    <ClCompile Include="GLView.cpp">
+      <Filter>GLView</Filter>
+    </ClCompile>
+    <ClCompile Include="trackball.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="drag.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="model.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ogl.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GLShader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GLProgram.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="MDXView.reg" />
@@ -348,10 +390,10 @@
       <Filter>Resource Files</Filter>
     </None>
     <None Include="ClassDiagram.cd" />
-    <None Include="fshader.glsl">
+    <None Include="minimal.frag">
       <Filter>GLSL Shader Files</Filter>
     </None>
-    <None Include="vshader.glsl">
+    <None Include="minimal.vert">
       <Filter>GLSL Shader Files</Filter>
     </None>
   </ItemGroup>

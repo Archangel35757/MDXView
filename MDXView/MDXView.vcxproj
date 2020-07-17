@@ -31,6 +31,7 @@
     <PlatformToolset>v140</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
     <UseOfMfc>Static</UseOfMfc>
+    <CLRSupport>false</CLRSupport>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
@@ -91,23 +92,27 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_WINDOWS;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <DisableSpecificWarnings>4996;4297</DisableSpecificWarnings>
+      <DisableSpecificWarnings>4996;4297;4503;4018;4244;4838</DisableSpecificWarnings>
       <CompileAs>Default</CompileAs>
-      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
-      <AdditionalIncludeDirectories>C:\dev\SDL2\include;C:\dev\glew2\include;C:\dev\freeglut3\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\dev\wgl;D:\dev\glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <ExceptionHandling>Async</ExceptionHandling>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
-      <AdditionalLibraryDirectories>C:\dev\SDL2\lib\x86;C:\dev\freeglut3\lib;C:\dev\glew2\lib\Release\Win32;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>sdl2.lib;opengl32.lib;glu32.lib;freeglut.lib;glew32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>opengl32.lib;glu32.lib</AdditionalDependencies>
       <IgnoreSpecificDefaultLibraries>
       </IgnoreSpecificDefaultLibraries>
       <LinkStatus>
       </LinkStatus>
       <Version>1.0</Version>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <IgnoreAllDefaultLibraries>
+      </IgnoreAllDefaultLibraries>
     </Link>
     <Midl>
       <MkTypLibCompatible>false</MkTypLibCompatible>
@@ -150,14 +155,14 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <DisableSpecificWarnings>4996;4297;4503;4018;4244;4838</DisableSpecificWarnings>
-      <AdditionalIncludeDirectories>C:\dev\SDL2\include;C:\dev\glew2\include;C:\dev\freeglut3\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\dev\SDL2\include;C:\dev\glew2\include;C:\dev\glfw\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>sdl2.lib;opengl32.lib;glu32.lib;freeglut.lib;glew32.lib</AdditionalDependencies>
-      <AdditionalLibraryDirectories>C:\dev\SDL2\lib\x86;C:\dev\freeglut3\lib;C:\dev\glew2\lib\Release\Win32;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>opengl32.lib;glu32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <IgnoreSpecificDefaultLibraries>
       </IgnoreSpecificDefaultLibraries>
       <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
@@ -205,11 +210,15 @@
   <ItemGroup>
     <ClInclude Include="common_headers.h" />
     <ClInclude Include="disablewarnings.h" />
+    <ClInclude Include="drag.h" />
     <ClInclude Include="files.h" />
     <ClInclude Include="GenericParser2.h" />
     <ClInclude Include="generic_stuff.h" />
     <ClInclude Include="getstring.h" />
     <ClInclude Include="glm_code.h" />
+    <ClInclude Include="GLProgram.h" />
+    <ClInclude Include="GLShader.h" />
+    <ClInclude Include="GLView.h" />
     <ClInclude Include="includes.h" />
     <ClInclude Include="jpeg6\jconfig.h" />
     <ClInclude Include="jpeg6\jdct.h" />
@@ -231,6 +240,7 @@
     <ClInclude Include="MDXViewView.h" />
     <ClInclude Include="mdx_format.h" />
     <ClInclude Include="model.h" />
+    <ClInclude Include="ogl.h" />
     <ClInclude Include="oldskins.h" />
     <ClInclude Include="png\png.h" />
     <ClInclude Include="Resource.h" />
@@ -248,6 +258,7 @@
     <ClInclude Include="targetver.h" />
     <ClInclude Include="text.h" />
     <ClInclude Include="textures.h" />
+    <ClInclude Include="trackball.h" />
     <ClInclude Include="zlib\deflate.h" />
     <ClInclude Include="zlib\infblock.h" />
     <ClInclude Include="zlib\infcodes.h" />
@@ -261,6 +272,7 @@
     <ClInclude Include="zlib\zutil.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="drag.cpp" />
     <ClCompile Include="files.cpp" />
     <ClCompile Include="GenericParser2.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -268,6 +280,14 @@
     </ClCompile>
     <ClCompile Include="generic_stuff.cpp" />
     <ClCompile Include="getstring.cpp" />
+    <ClCompile Include="GLProgram.cpp" />
+    <ClCompile Include="GLShader.cpp" />
+    <ClCompile Include="GLView.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+      </PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </PrecompiledHeader>
+    </ClCompile>
     <ClCompile Include="jpeg6\jcomapi.c">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
       </PrecompiledHeader>
@@ -399,6 +419,8 @@
     <ClCompile Include="MDXViewDoc.cpp" />
     <ClCompile Include="MDXViewTreeView.cpp" />
     <ClCompile Include="MDXViewView.cpp" />
+    <ClCompile Include="model.cpp" />
+    <ClCompile Include="ogl.cpp" />
     <ClCompile Include="png\png.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
       </PrecompiledHeader>
@@ -413,6 +435,12 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="trackball.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+      </PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="zlib\adler32.c">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -483,10 +511,10 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />
-    <None Include="fshader.glsl" />
     <None Include="MDXView.reg" />
+    <None Include="minimal.frag" />
+    <None Include="minimal.vert" />
     <None Include="res\MDXView.rc2" />
-    <None Include="vshader.glsl" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="MDXView.rc" />

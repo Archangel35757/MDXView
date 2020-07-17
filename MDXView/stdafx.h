@@ -41,8 +41,9 @@
 #define DIALOG_TO_DATA TRUE
 
 
-
-
+//--- OpenGL---
+#include "ogl.h"
+//--------------
 
 
 #ifdef _UNICODE

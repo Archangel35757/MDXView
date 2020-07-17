@@ -6,6 +6,7 @@
 #define MODEL_H
 
 #include "stl.h"
+#include "MDXView.h"
 
 
 
@@ -226,6 +227,7 @@ struct ModelContainer
 const double ANIM_SLOWER = 1.3;
 const double ANIM_FASTER = 0.9;
 
+
 typedef struct
 {
 	CString			strLoadedModelPath;	// full disk path of primary model
@@ -281,6 +283,13 @@ typedef struct
 	float	xPos_SCROLL, yPos_SCROLL, zPos_SCROLL;
 	float	rotAngleX_SCROLL, rotAngleY_SCROLL, rotAngleZ_SCROLL;
 
+	// for mousewheel
+	float	zDelta;
+	bool	bMouseWheel;
+
+	// trackball stuff
+	glm::mat4 tballMat4;
+	float lastQuat[4], currQuat[4]; // rotation tracking quaternions
 
 	// other crap...
 	//
@@ -293,11 +302,12 @@ typedef struct
 	
 	//  some really tacky stuff...
 	//
-	int		iSurfaceNumToHighlight;	// only valid when  this->bSurfaceHighlight == true
-	ModelHandle_t hModelToHighLight;
-	ModelHandle_t hModelLastLoaded;	// useful for some simple batch stuff, may only be temp?
+//	int		iSurfaceNumToHighlight;	// only valid when  this->bSurfaceHighlight == true
+//	ModelHandle_t hModelToHighLight;
+//	ModelHandle_t hModelLastLoaded;	// useful for some simple batch stuff, may only be temp?
   
 } ModViewAppVars_t;
+
 
 extern ModViewAppVars_t AppVars;
 
@@ -432,7 +442,6 @@ bool	Model_MultiSeq_AlreadyContains(ModelHandle_t hModel, int iSequenceNumber, b
 bool	Model_MultiSeq_AlreadyContains(ModelContainer_t *pContainer, int iSequenceNumber, bool bPrimary);
 
 #endif	// #ifndef MODEL_H
-
 
 ////////////// eof /////////////
 

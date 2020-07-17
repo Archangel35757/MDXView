@@ -140,6 +140,19 @@ BEGIN
     END
 END
 
+IDR_TREEPOPUP_MODEL MENU
+BEGIN
+    POPUP "Model"
+    BEGIN
+        MENUITEM "Info",                        IDM_TREE_MODEL_INFO
+        MENUITEM "Unbolt this model from parent", IDM_TREE_MODEL_UNBOLTME
+        MENUITEM SEPARATOR
+        MENUITEM "Expand all",                  IDM_TREE_MODEL_EXPANDALL
+        MENUITEM "Collapse all",                IDM_TREE_MODEL_COLLAPSEALL
+        MENUITEM "Find tree item containing <text>", IDM_TREE_MODEL_FINDANY
+    END
+END
+
 
 /////////////////////////////////////////////////////////////////////////////
 //

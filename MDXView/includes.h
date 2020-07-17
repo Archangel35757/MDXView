@@ -4,13 +4,14 @@
 #ifndef INCLUDES_H
 #define INCLUDES_H
 
-#include <GL\glew.h>
-#include <GL\wglew.h>
-#include <GL\freeglut.h>
-#include <GL\freeglut_ext.h>
+//#include <GL\glew.h>
+//#include <GL\wglew.h>
+//#include <GL\freeglut.h>
+//#include <GL\freeglut_ext.h>
 
-#include <gl\gl.h>
-#include <gl\glu.h>
+#include "ogl.h"
+//#include <gl\gl.h>
+//#include <gl\glu.h>
 #include <assert.h>
 #include <math.h>
 

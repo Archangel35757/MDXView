@@ -1,3 +1,6 @@
+// MDXViewTreeView.h : header file
+//
+
 #pragma once
 
 
@@ -31,16 +34,37 @@ protected:
 #endif
 	void UpdateUI(CMenu* pMenu);
 
+	// Generated message map functions
 protected:
+	//{{AFX_MSG(CMDXViewTreeView)
+//	afx_msg BOOL OnEraseBkgnd(CDC* pDC);
+	afx_msg void OnSize(UINT nType, int cx, int cy);
+	afx_msg void OnSizing(UINT fwSide, LPRECT pRect);
+	afx_msg void OnRButtonDown(UINT nFlags, CPoint point);
+	afx_msg void OnTreeModelInfo();
+	afx_msg void OnTreeModelUnboltme();
+	afx_msg void OnTreeModelExpandall();
+	afx_msg void OnTreeModelCollapseall();
+	afx_msg void OnTreeModelFindany();
+
+
+	//}}AFX_MSG
 	DECLARE_MESSAGE_MAP()
 
+protected:
+	void R_ApplyToTreeItem(void(*pFunction) (HTREEITEM hTreeItem), HTREEITEM hTreeItem, bool bProcessSiblings = false, bool bSkipProcessingOfInitialItem = false);
+	static void ExpandTreeItem(HTREEITEM hTreeItem);
+	static void CollapseTreeItem(HTREEITEM hTreeItem);
+	static void SearchTreeItem(HTREEITEM hTreeItem);
+
+
 public:
-	BOOL DeleteAllItems();
+	BOOL	  DeleteAllItems();
 	HTREEITEM InsertItem(LPCTSTR psName, HTREEITEM hParent, UINT32 uiUserData = NULL, HTREEITEM hInsertAfter = TVI_LAST);
 	HTREEITEM GetRootItem();
 
 
-
+	afx_msg void OnLButtonDblClk(UINT nFlags, CPoint point);
 };
 
 

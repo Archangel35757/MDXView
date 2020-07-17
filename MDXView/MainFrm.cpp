@@ -16,8 +16,6 @@
 #include "files.h"
 #include "r_common.h"
 
-#include <SDL.h>
-
 #include "MainFrm.h"
 
 

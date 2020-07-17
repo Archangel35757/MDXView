@@ -3,6 +3,7 @@
 //
 
 #include "stdafx.h"
+#include "includes.h"
 #include "afxwinappex.h"
 #include "afxdialogex.h"
 #include "MDXView.h"
@@ -10,6 +11,8 @@
 
 #include "MDXViewDoc.h"
 #include "MDXViewView.h"
+#include "textures.h"
+#include "Splash.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -113,6 +116,8 @@ BOOL CMDXViewApp::InitInstance()
 	CCommandLineInfo cmdInfo;
 	ParseCommandLine(cmdInfo);
 
+	CSplashWnd::EnableSplashScreen(cmdInfo.m_bShowSplash);
+
 	// Enable DDE Execute open
 	EnableShellOpen();
 	RegisterShellFileTypes(TRUE);
@@ -126,10 +131,17 @@ BOOL CMDXViewApp::InitInstance()
 	// The one and only window has been initialized, so show and update it
 	m_pMainWnd->ShowWindow(SW_SHOW);
 	m_pMainWnd->UpdateWindow();
+
+	gbMainFrameInitialised = true;
+
 	// call DragAcceptFiles only if there's a suffix
 	//  In an SDI app, this should occur after ProcessShellCommand
 	// Enable drag/drop open
 	m_pMainWnd->DragAcceptFiles();
+
+	CSplashWnd::HideSplashScreen(true);
+	StatusMessage(NULL);
+
 	return TRUE;
 }
 
