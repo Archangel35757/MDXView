@@ -65,7 +65,7 @@
  * simple example, though, so that is left as an Exercise for the
  * Programmer.
  */
-#define TRACKBALLSIZE  (0.8f)
+#define TRACKBALLSIZE  (1.0f)
 
 extern char *va(char *format, ...);
 
@@ -244,9 +244,11 @@ void add_quats(float q1[4], float q2[4], float dest[4])
     float t1[4], t2[4], t3[4];
     float tf[4];
 
-#if 0
-printf("q1 = %f %f %f %f\n", q1[0], q1[1], q1[2], q1[3]);
-printf("q2 = %f %f %f %f\n", q2[0], q2[1], q2[2], q2[3]);
+#if _DEBUG
+	OutputDebugStringA(va("q1 = %f %f %f %f\n", q1[0], q1[1], q1[2], q1[3]));
+	//printf("q1 = %f %f %f %f\n", q1[0], q1[1], q1[2], q1[3]);
+	OutputDebugStringA(va("q2 = %f %f %f %f\n", q2[0], q2[1], q2[2], q2[3]));
+	//printf("q2 = %f %f %f %f\n", q2[0], q2[1], q2[2], q2[3]);
 #endif
 
     vcopy(q1,t1);
@@ -260,8 +262,9 @@ printf("q2 = %f %f %f %f\n", q2[0], q2[1], q2[2], q2[3]);
     vadd(t3,tf,tf);
     tf[3] = q1[3] * q2[3] - vdot(q1,q2);
 
-#if 0
-printf("tf = %f %f %f %f\n", tf[0], tf[1], tf[2], tf[3]);
+#if _DEBUG
+	OutputDebugStringA(va("tf = %f %f %f %f\n", tf[0], tf[1], tf[2], tf[3]));
+	//printf("tf = %f %f %f %f\n", tf[0], tf[1], tf[2], tf[3]);
 #endif
 
     dest[0] = tf[0];
@@ -273,11 +276,16 @@ printf("tf = %f %f %f %f\n", tf[0], tf[1], tf[2], tf[3]);
         count = 0;
         normalize_quat(dest);
     }
+
+#if _DEBUG
+	OutputDebugStringA(va("dest = %f %f %f %f\n", dest[0], dest[1], dest[2], dest[3]));
+#endif
+
 }
 
 /*
  * Quaternions always obey:  a^2 + b^2 + c^2 + d^2 = 1.0
- * If they don't add up to 1.0, dividing by their magnitued will
+ * If they don't add up to 1.0, dividing by their magnitude will
  * renormalize them.
  *
  * Note: See the following for more information on quaternions:
@@ -321,6 +329,13 @@ void build_rotmatrix(float m[4][4], float q[4])
     m[3][1] = 0.0;
     m[3][2] = 0.0;
     m[3][3] = 1.0;
+
+#if _DEBUG
+	OutputDebugStringA(va("row0 = %f  %f  %f  %f\n", m[0][0], m[1][0], m[2][0], m[3][0]));
+	OutputDebugStringA(va("row1 = %f  %f  %f  %f\n", m[0][1], m[1][1], m[2][1], m[3][1]));
+	OutputDebugStringA(va("row2 = %f  %f  %f  %f\n", m[0][2], m[1][2], m[2][2], m[3][2]));
+	OutputDebugStringA(va("row3 = %f  %f  %f  %f\n", m[0][3], m[1][3], m[2][3], m[3][3]));
+#endif
 }
 
 /*
@@ -348,6 +363,13 @@ void build_glmrotmatrix(glm::mat4& m, float q[4])
 	m[3][1] = 0.0;
 	m[3][2] = 0.0;
 	m[3][3] = 1.0;
+
+#if _DEBUG
+	OutputDebugStringA(va("row0 = %f  %f  %f  %f\n", m[0][0], m[1][0], m[2][0], m[3][0]));
+	OutputDebugStringA(va("row1 = %f  %f  %f  %f\n", m[0][1], m[1][1], m[2][1], m[3][1]));
+	OutputDebugStringA(va("row2 = %f  %f  %f  %f\n", m[0][2], m[1][2], m[2][2], m[3][2]));
+	OutputDebugStringA(va("row3 = %f  %f  %f  %f\n", m[0][3], m[1][3], m[2][3], m[3][3]));
+#endif
 }
 
 /*

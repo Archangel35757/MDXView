@@ -107,6 +107,9 @@ CGLView::CGLView()
 	m_hDC = NULL;
 	m_hGLRC = NULL;
 
+	m_iViewWidth	= 100;
+	m_iViewHeight	= 100;
+
 	nRange = 100;
 	m_bAntiAlias = true;
 
@@ -158,27 +161,35 @@ void CGLView::Resize(unsigned short iWidth, unsigned short iHeight)
 	GLdouble projMatrix[16];
 	GLint viewport[4];
 
-	winH = (GLdouble)iHeight;
-	winW = (GLdouble)iWidth;
 
 	// setup viewport, projection etc.:
 	/* Prevent a divide by zero*/
 	if(iHeight == 0)
 		iHeight = 1;
 
+
+	winH = (GLdouble)iHeight;
+	winW = (GLdouble)iWidth;
+
+	m_iViewWidth = iWidth;
+	m_iViewHeight = iHeight;
+
 	wglMakeCurrent(m_hDC, m_hGLRC);
 
 	glViewport (0, 0, (GLsizei)iWidth, (GLsizei)iHeight);
 	glMatrixMode (GL_PROJECTION);
 	glLoadIdentity ();
+
 	if (iWidth <= iHeight)
 		glOrtho (-nRange, nRange, -nRange*iHeight/iWidth, nRange*iHeight/iWidth, -nRange*10000, nRange*10000);
 	else
 		glOrtho (-nRange*iWidth/iHeight, nRange*iWidth/iHeight, -nRange, nRange, -nRange*10000, nRange*10000);
+
 	glMatrixMode (GL_MODELVIEW);
 	glLoadIdentity ();
 
-	/* store limits for gradient background */
+
+	// store limits for gradient background
 	glGetDoublev (GL_PROJECTION_MATRIX, projMatrix);
 	glGetDoublev (GL_MODELVIEW_MATRIX, modelMatrix);
 	glGetIntegerv (GL_VIEWPORT, viewport);
@@ -568,9 +579,9 @@ void CGLView::DrawTorus(int numMajor, int numMinor, float majorRadius, float min
 }
 */
 
-void CGLView::PrepareScene(CDC *pDC)
+void CGLView::PrepareScene(HDC hdc)
 {
-	wglMakeCurrent(pDC->m_hDC, m_hGLRC);
+	wglMakeCurrent(m_hDC, m_hGLRC);
 	//---------------------------------
 	// White background
 	//glClearColor (1.0, 1.0, 1.0, 0.0);
@@ -616,9 +627,9 @@ void CGLView::PrepareScene(CDC *pDC)
 	wglMakeCurrent(NULL, NULL);
 }
 
-void CGLView::DestroyScene(CDC *pDC)
+void CGLView::DestroyScene()
 {
-	wglMakeCurrent(pDC->m_hDC, m_hGLRC);
+	wglMakeCurrent(m_hDC, m_hGLRC);
 	//--------------------------------
 	m_pProgram->DetachShader(m_pVertSh);
 	m_pProgram->DetachShader(m_pFragSh);
@@ -638,11 +649,6 @@ void CGLView::DestroyScene(CDC *pDC)
 		wglDeleteContext(m_hGLRC);
 		m_hGLRC = NULL;
 	}
-	if (m_hDC)
-	{
-		delete m_hDC;
-		m_hDC = NULL;
-	}
 }
 
 
@@ -651,8 +657,8 @@ void CGLView::SetData()
 	// Get a handle for our "MVP" uniform
 	GLuint MatrixID = m_pProgram->GetUniformLocation("MVP");
 
-	// Projection matrix : 45° Field of View, 4:3 ratio, display range : 0.1 unit <-> 100 units
-	glm::mat4 Projection = glm::perspective(degreesToRadians(45.0f), 16.0f / 9.0f, 0.1f, 100.0f);
+	// Projection matrix : 45° Field of View, 4:3 ratio, display range : 0.01 unit <-> 1000 units
+	glm::mat4 Projection = glm::perspective(degreesToRadians(45.0f), m_iViewWidth / (float)m_iViewHeight, 0.01f, 1000.0f);
 
 	// Camera matrix
 	/*	glm::mat4 View		 = glm::lookAt(
@@ -841,10 +847,10 @@ GLuint CGLView::loadBMP_custom(const char * imagepath)
 	}
 
 	// Read ints from the byte array
-	m_bmpDataPos = *(int*)&(m_bmpHeader[0x0A]);
-	m_bmpImageSize = *(int*)&(m_bmpHeader[0x22]);
-	m_bmpWidth = *(int*)&(m_bmpHeader[0x12]);
-	m_bmpHeight = *(int*)&(m_bmpHeader[0x16]);
+	m_bmpDataPos	= *(int*)&(m_bmpHeader[0x0A]);
+	m_bmpImageSize	= *(int*)&(m_bmpHeader[0x22]);
+	m_bmpWidth		= *(int*)&(m_bmpHeader[0x12]);
+	m_bmpHeight		= *(int*)&(m_bmpHeader[0x16]);
 
 	// Some BMP files are misformatted, guess missing information
 	if (m_bmpImageSize == 0)
@@ -881,7 +887,6 @@ GLuint CGLView::loadBMP_custom(const char * imagepath)
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
 	glGenerateMipmap(GL_TEXTURE_2D);
-
 
 	// Return the ID of the texture we just created
 	return textureID;

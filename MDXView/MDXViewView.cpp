@@ -90,18 +90,18 @@ void CMDXViewView::OnInitialUpdate()
 	// TODO: Add your specialized code here and/or call the base class
 	if (m_pGLView)
 	{
-		CDC* pDC = GetDC();
-
 		m_pGLView->SetWindow(GetSafeHwnd());
 		m_pGLView->SetupGLContext(true);
 
 		CRect rect;
 		GetClientRect(&rect);
+		m_pGLView->m_iViewWidth = rect.Width();
+		m_pGLView->m_iViewHeight = rect.Height();
 		m_pGLView->Resize(rect.Width(), rect.Height());
 
-		m_pGLView->PrepareScene(pDC);
-
-		ReleaseDC(pDC);
+		//CDC* pDC = GetDC();
+		m_pGLView->PrepareScene(m_pGLView->m_hDC);
+		//ReleaseDC(pDC);
 	}
 }
 
@@ -158,13 +158,12 @@ int CMDXViewView::OnCreate(LPCREATESTRUCT lpCreateStruct)
 
 
 void CMDXViewView::OnDestroy()
-{
+{	
 	CView::OnDestroy();
-
 	// TODO: Add your message handler code here
-	CDC* pDC = GetDC();
-	m_pGLView->DestroyScene(pDC);
-	ReleaseDC(pDC);
+//	CDC* pDC = GetDC();
+	m_pGLView->DestroyScene();
+//	ReleaseDC(pDC);
 }
 
 
@@ -192,9 +191,10 @@ void CMDXViewView::OnPrepareDC(CDC* pDC, CPrintInfo* pInfo)
 
 BOOL CMDXViewView::OnEraseBkgnd(CDC* pDC)
 {
-	// TODO: Add your message handler code here and/or call default
+	//This prevents the window from flickering
+	return TRUE;
 
-	return CView::OnEraseBkgnd(pDC);
+	//return CView::OnEraseBkgnd(pDC);
 }
 
 

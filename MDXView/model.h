@@ -302,14 +302,14 @@ typedef struct
 	
 	//  some really tacky stuff...
 	//
-//	int		iSurfaceNumToHighlight;	// only valid when  this->bSurfaceHighlight == true
-//	ModelHandle_t hModelToHighLight;
-//	ModelHandle_t hModelLastLoaded;	// useful for some simple batch stuff, may only be temp?
+	int		iSurfaceNumToHighlight;	// only valid when  this->bSurfaceHighlight == true
+	ModelHandle_t hModelToHighLight;
+	ModelHandle_t hModelLastLoaded;	// useful for some simple batch stuff, may only be temp?
   
-} ModViewAppVars_t;
+} MDXViewAppVars_t;
 
 
-extern ModViewAppVars_t AppVars;
+extern MDXViewAppVars_t AppVars;
 
 void AppVars_Init(void);
 void AppVars_ResetViewParams(void);

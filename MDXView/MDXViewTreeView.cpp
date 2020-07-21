@@ -518,31 +518,27 @@ void CMDXViewTreeView::OnLButtonDblClk(UINT nFlags, CPoint point)
 
 			switch (TreeItemData.iItemType)
 			{
-/*
-			case TREEITEMTYPE_SEQUENCE:
-			{
-				// multiseqlock or single lock?...
-				//
-				if (Model_MultiSeq_IsActive(gTreeItemData.iModelHandle, true))
+				case TREEITEMTYPE_SEQUENCE:
 				{
-					Model_MultiSeq_Add(gTreeItemData.iModelHandle, gTreeItemData.iItemNumber, true);
+					// multiseqlock or single lock?...
+					//
+					if (Model_MultiSeq_IsActive(gTreeItemData.iModelHandle, true))
+					{
+						Model_MultiSeq_Add(gTreeItemData.iModelHandle, gTreeItemData.iItemNumber, true);
+					}
+					else
+					{
+						Model_Sequence_Lock(gTreeItemData.iModelHandle, gTreeItemData.iItemNumber, true);
+						ModelList_Rewind();
+					}
 				}
-				else
-				{
-					Model_Sequence_Lock(gTreeItemData.iModelHandle, gTreeItemData.iItemNumber, true);
-					ModelList_Rewind();
-				}
-			}
-			break;
+				break;
 
-			case TREEITEMTYPE_OLDSKIN:
-			{
-				CString strSkin(GetTreeCtrl().GetItemText(ghTreeItem_RButtonMenu));
-				Model_ApplyOldSkin(gTreeItemData.iModelHandle, strSkin);
-			}
-			break;
-*/
-			default:
+				case TREEITEMTYPE_OLDSKIN:
+				{
+					CString strSkin(GetTreeCtrl().GetItemText(ghTreeItem_RButtonMenu));
+					Model_ApplyOldSkin(gTreeItemData.iModelHandle, strSkin);
+				}
 				break;
 			}
 		}

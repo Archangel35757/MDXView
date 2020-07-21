@@ -17,7 +17,8 @@ const float MOUSE_YPOS_SCALE = 0.1f;
 int m_x, m_y;
 extern int g_iScreenHeight;
 extern int g_iScreenWidth;
-
+float last[4] = { 1.0f, 0.0f, 0.0f, 0.0f };
+float cur[4] = { 1.0f, 0.0f, 0.0f, 0.0f };
 
 void zoomCameraDelta(int delta)
 {
@@ -66,21 +67,27 @@ static bool drag_actual(  mkey_enum keyFlags, int x, int y )
 					}
 					else
 					{
-						AppVars.rotAngleY += (float)(x - m_x) * MOUSE_ROT_SCALE;
-						AppVars.rotAngleX += (float)(y - m_y) * MOUSE_ROT_SCALE;
-						if (AppVars.rotAngleY> 360.0f) AppVars.rotAngleY=AppVars.rotAngleY-360.0f;
-						if (AppVars.rotAngleY<-360.0f) AppVars.rotAngleY=AppVars.rotAngleY+360.0f;
-						if (AppVars.rotAngleX> 360.0f) AppVars.rotAngleX=AppVars.rotAngleX-360.0f;
-						if (AppVars.rotAngleX<-360.0f) AppVars.rotAngleX=AppVars.rotAngleX+360.0f;
-
+						//AppVars.rotAngleY += (float)(x - m_x) * MOUSE_ROT_SCALE;
+						//AppVars.rotAngleX += (float)(y - m_y) * MOUSE_ROT_SCALE;
+						//if (AppVars.rotAngleY> 360.0f) AppVars.rotAngleY=AppVars.rotAngleY-360.0f;
+						//if (AppVars.rotAngleY<-360.0f) AppVars.rotAngleY=AppVars.rotAngleY+360.0f;
+						//if (AppVars.rotAngleX> 360.0f) AppVars.rotAngleX=AppVars.rotAngleX-360.0f;
+						//if (AppVars.rotAngleX<-360.0f) AppVars.rotAngleX=AppVars.rotAngleX+360.0f;
+						add_quats(last, cur, cur);
 						p1x = (2.0*m_x - g_iScreenWidth) / g_iScreenWidth;
 						p1y = (g_iScreenHeight - 2.0*m_y) / g_iScreenHeight;
 						p2x = (2.0*x - g_iScreenWidth) / g_iScreenWidth;
 						p2y = (g_iScreenHeight - 2.0*y) / g_iScreenHeight;
-						trackball(AppVars.lastQuat, p1x, p1y, p2x, p2y);
-						add_quats(AppVars.lastQuat, AppVars.currQuat, AppVars.currQuat);
+						trackball(last, p1x, p1y, p2x, p2y);
+						add_quats(last, cur, cur);
 						//magic
-						build_glmrotmatrix(AppVars.tballMat4, AppVars.currQuat);
+#if _DEBUG
+						OutputDebugStringA(va("tball0 = %f  %f  %f  %f\n", AppVars.tballMat4[0][0], AppVars.tballMat4[1][0], AppVars.tballMat4[2][0], AppVars.tballMat4[3][0]));
+						OutputDebugStringA(va("tball1 = %f  %f  %f  %f\n", AppVars.tballMat4[0][1], AppVars.tballMat4[1][1], AppVars.tballMat4[2][1], AppVars.tballMat4[3][1]));
+						OutputDebugStringA(va("tball2 = %f  %f  %f  %f\n", AppVars.tballMat4[0][2], AppVars.tballMat4[1][2], AppVars.tballMat4[2][2], AppVars.tballMat4[3][2]));
+						OutputDebugStringA(va("tball3 = %f  %f  %f  %f\n", AppVars.tballMat4[0][3], AppVars.tballMat4[1][3], AppVars.tballMat4[2][3], AppVars.tballMat4[3][3]));
+#endif
+						build_glmrotmatrix(AppVars.tballMat4, cur);
 					}
 				}
 				bRepaintAndSetCursor = true;

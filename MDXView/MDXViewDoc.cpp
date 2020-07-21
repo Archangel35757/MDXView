@@ -26,7 +26,7 @@ END_MESSAGE_MAP()
 
 
 // CMDXViewDoc construction/destruction
-
+CMDXViewDoc* g_pDocument = NULL;
 CMDXViewDoc::CMDXViewDoc()
 {
 	// TODO: add one-time construction code here
@@ -135,3 +135,11 @@ void CMDXViewDoc::Dump(CDumpContext& dc) const
 
 
 // CMDXViewDoc commands
+
+
+// allows main doc code to be called by wintalk command
+//
+bool Document_ModelLoadPrimary(LPCSTR psFilename)
+{
+	return !!(!g_pDocument ? NULL : g_pDocument->OnOpenDocument(psFilename));
+}

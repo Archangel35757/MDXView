@@ -139,7 +139,7 @@ void COM_DefaultExtension (char *path, int maxSize, const char *extension ) {
 }
 
 
-void Crap_Printf( int printLevel, const char *format, ...)
+void RI_Printf( int printLevel, const char *format, ...)
 {
 	va_list		argptr;
 	static char		string[16][16384];
@@ -180,7 +180,7 @@ void Crap_Printf( int printLevel, const char *format, ...)
 	}
 }
 
-void Crap_Error( int errorLevel, const char *format, ...)
+void RI_Error( int errorLevel, const char *format, ...)
 {
 	va_list		argptr;
 	static char	string[1024];
@@ -203,7 +203,7 @@ typedef enum {
 	throw (string );
 }
 
-void *Crap_Malloc( int bytes )
+void *RI_Malloc( int bytes )
 {
 	void *pvBlah = malloc(bytes);
 	if (pvBlah)
@@ -219,15 +219,15 @@ void *Crap_Malloc( int bytes )
 	return pvBlah;
 }
 
-void Crap_Free( void *buf )
+void RI_Free( void *buf )
 {
 	free(buf);
 }
 
 // change this?  Nah....
-void *Crap_HunkAlloc(int size)
+void *RI_HunkAlloc(int size)
 {
-	return Crap_Malloc(size);
+	return RI_Malloc(size);
 }
 
 
@@ -239,7 +239,7 @@ void *Crap_HunkAlloc(int size)
 // a null buffer will just return the file length without loading
 // ============
 bool bHackToAllowFullPathDuringTestFunc = false;	// leave as false!!!!!!!!
-int Crap_FS_ReadFile( const char *qpath, void **buffer )
+int RI_FS_ReadFile( const char *qpath, void **buffer )
 {
 	byte*	buf = NULL;
 
@@ -272,12 +272,12 @@ int Crap_FS_ReadFile( const char *qpath, void **buffer )
 // ============
 // FS_ReadFile
 // 
-// Filename are relative to the quake search path
+// Filenames are relative to the quake search path
 // a null buffer will just return the file length without loading
 // ============
 // -1 return = fail, else len written
 
-int Crap_FS_WriteFile( const char *qpath, const void *pBuffer, int iSize )
+int RI_FS_WriteFile( const char *qpath, const void *pBuffer, int iSize )
 {
 	if ( !gamedir[0]) {
 		Com_Error( ERR_FATAL, "Filesystem call made without initialization\n" );
@@ -294,7 +294,7 @@ int Crap_FS_WriteFile( const char *qpath, const void *pBuffer, int iSize )
 }
 
 
-void Crap_FS_FreeFile( void *buffer ) 
+void RI_FS_FreeFile( void *buffer ) 
 {		
 	if ( !buffer ) {
 		Com_Error( ERR_FATAL, "FS_FreeFile( NULL )" );
@@ -1182,22 +1182,22 @@ void R_ModelBounds( qhandle_t handle, vec3_t mins, vec3_t maxs ) {
 */
 
 
-void OnceOnlyCrap(void)
+void OnceOnlyRefImport(void)
 {
-	ri.Hunk_Alloc				= Crap_HunkAlloc;
+	ri.Hunk_Alloc				= RI_HunkAlloc;
 	
-	ri.Hunk_AllocateTempMemory	= Crap_HunkAlloc;
-	ri.Hunk_FreeTempMemory		= Crap_Free;
+	ri.Hunk_AllocateTempMemory	= RI_HunkAlloc;
+	ri.Hunk_FreeTempMemory		= RI_Free;
 	
-	ri.Malloc					= Crap_Malloc;
-	ri.Free						= Crap_Free;	
+	ri.Malloc					= RI_Malloc;
+	ri.Free						= RI_Free;	
 
-	ri.Printf					= Crap_Printf;
-	ri.Error					= Crap_Error;
+	ri.Printf					= RI_Printf;
+	ri.Error					= RI_Error;
 
-	ri.FS_ReadFile				= Crap_FS_ReadFile;
-	ri.FS_WriteFile				= Crap_FS_WriteFile;
-	ri.FS_FreeFile				= Crap_FS_FreeFile;
+	ri.FS_ReadFile				= RI_FS_ReadFile;
+	ri.FS_WriteFile				= RI_FS_WriteFile;
+	ri.FS_FreeFile				= RI_FS_FreeFile;
 
 	ZEROMEM(tr);
 	ZEROMEM(tess);
@@ -1205,7 +1205,7 @@ void OnceOnlyCrap(void)
 	R_ModelInitOnceOnly();
 }
 
-/*
+
 void trap_G2_SurfaceOffList( int a, void *b)
 {
 	G2_GetSurfaceList( (qhandle_t) a, (surfaceInfo_t *) b);
@@ -1231,7 +1231,7 @@ qboolean trap_G2_Set_Bone_Anim(int a, void *b, void *c, int d, int e, int f, flo
 	return G2_Set_Bone_Anim((qhandle_t) a, (boneInfo_t *) b, (char *) c, d, e, f, g);
 }
 
-*/
+
 
 //////////////// eof ///////////////
 

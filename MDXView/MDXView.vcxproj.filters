@@ -222,6 +222,36 @@
     <ClInclude Include="GLProgram.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="anims.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="parser.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="matcomp.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="r_surface.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="r_glm.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="r_md3.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="r_mdr.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="mc_compress2.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="wintalk.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="commarea.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MDXView.cpp">
@@ -323,9 +353,6 @@
     <ClCompile Include="jpeg6\jutils.c">
       <Filter>JPEG Source</Filter>
     </ClCompile>
-    <ClCompile Include="r_common.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="png\png.cpp">
       <Filter>PNG</Filter>
     </ClCompile>
@@ -381,6 +408,66 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="GLProgram.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="r_model.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="glm_code.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="skins.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="oldskins.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="sequence.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="r_surface.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="r_glm.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="r_md3.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="r_mdr.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="mc_compress2.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="anims.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="parser.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="shader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="textures.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="text.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="script.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="sof2npcviewer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="matcomp.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="wintalk.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="commarea.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

@@ -30,13 +30,14 @@
 #define IDM_TREE_MODEL_FINDTREEITEMCONTAINING 32780
 #define IDM_TREE_MODEL_UNBOLTME         32781
 #define IDM_TREE_MODEL_FINDANY          32782
+#define ID_BUTTON32788                  32788
 
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        314
-#define _APS_NEXT_COMMAND_VALUE         32783
+#define _APS_NEXT_COMMAND_VALUE         32789
 #define _APS_NEXT_CONTROL_VALUE         1005
 #define _APS_NEXT_SYMED_VALUE           102
 #endif

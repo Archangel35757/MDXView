@@ -41,10 +41,17 @@ public:
 
 	bool SetupGLContext(bool iSetPixelFormat);
 	void Resize(unsigned short iWidth, unsigned short iHeight);
-	void PrepareScene(CDC* pDC);			// Scene preparation stuff
+	void PrepareScene(HDC hdc);			// Scene preparation stuff
 	void RenderScene(void);
 	void Refresh(void);
-	void DestroyScene(CDC* pDC);			// Cleanup
+	void DestroyScene();			// Cleanup
+
+	HWND m_hWnd;
+	HDC  m_hDC;
+	HGLRC m_hGLRC;
+
+	int m_iViewWidth;
+	int m_iViewHeight;
 
 protected:
 	void SetData(void);
@@ -56,10 +63,6 @@ protected:
 //	void DrawGradientBackground();
 //	void InitDisplayLists();
 //	void DoAntialiasing();
-
-	HWND m_hWnd;
-	HDC  m_hDC;
-	HGLRC m_hGLRC;
 
 	GLuint m_vboID;				// ID of geometry VBO
 	GLuint m_uvBuffer;			// ID of uv buffer VBO

@@ -62,6 +62,9 @@ int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 		return -1;      // fail to create
 	}
 
+	// Set the height of the Toolbar (Archangel)
+	//m_wndToolBar.SetHeight(40);
+
 	if (!m_wndStatusBar.Create(this) ||
 		!m_wndStatusBar.SetIndicators(indicators,
 			sizeof(indicators) / sizeof(UINT)))
@@ -161,6 +164,9 @@ BOOL CMainFrame::OnCreateClient(LPCREATESTRUCT lpcs, CCreateContext* pContext)
 
 	//change flag to show splitter created
 	m_bInitSplitter = true;
+
+	// set the active pane to the MDXViewView pane
+	m_mainSplitter.SetActivePane(0, 1);
 
 	//return TRUE instead of the parent method since that would not show our window
 	return TRUE;

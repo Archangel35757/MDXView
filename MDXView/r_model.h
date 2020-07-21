@@ -10,7 +10,7 @@
 
 
 
-void OnceOnlyCrap(void);
+void OnceOnlyRefImport(void);
 
 void*			RE_GetModelData( ModelHandle_t hModel );
 modtype_t		RE_GetModelType( ModelHandle_t hModel );

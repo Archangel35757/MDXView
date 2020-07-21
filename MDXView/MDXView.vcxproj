@@ -92,7 +92,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_WINDOWS;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <DisableSpecificWarnings>4996;4297;4503;4018;4244;4838</DisableSpecificWarnings>
+      <DisableSpecificWarnings>4996;4297;4503;4018;4244;4838;4804</DisableSpecificWarnings>
       <CompileAs>Default</CompileAs>
       <BasicRuntimeChecks>Default</BasicRuntimeChecks>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
@@ -111,8 +111,7 @@
       </LinkStatus>
       <Version>1.0</Version>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <IgnoreAllDefaultLibraries>
-      </IgnoreAllDefaultLibraries>
+      <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
     </Link>
     <Midl>
       <MkTypLibCompatible>false</MkTypLibCompatible>
@@ -154,8 +153,8 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <DisableSpecificWarnings>4996;4297;4503;4018;4244;4838</DisableSpecificWarnings>
-      <AdditionalIncludeDirectories>C:\dev\SDL2\include;C:\dev\glew2\include;C:\dev\glfw\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DisableSpecificWarnings>4996;4297;4503;4018;4244;4838;4804</DisableSpecificWarnings>
+      <AdditionalIncludeDirectories>D:\dev\wgl;D:\dev\glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -208,6 +207,8 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="anims.h" />
+    <ClInclude Include="commarea.h" />
     <ClInclude Include="common_headers.h" />
     <ClInclude Include="disablewarnings.h" />
     <ClInclude Include="drag.h" />
@@ -232,6 +233,8 @@
     <ClInclude Include="jpeg6\jversion.h" />
     <ClInclude Include="jpeg_interface.h" />
     <ClInclude Include="MainFrm.h" />
+    <ClInclude Include="matcomp.h" />
+    <ClInclude Include="mc_compress2.h" />
     <ClInclude Include="md3_format.h" />
     <ClInclude Include="mdr_format.h" />
     <ClInclude Include="MDXView.h" />
@@ -242,11 +245,16 @@
     <ClInclude Include="model.h" />
     <ClInclude Include="ogl.h" />
     <ClInclude Include="oldskins.h" />
+    <ClInclude Include="parser.h" />
     <ClInclude Include="png\png.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="r_common.h" />
+    <ClInclude Include="r_glm.h" />
     <ClInclude Include="r_image.h" />
+    <ClInclude Include="r_md3.h" />
+    <ClInclude Include="r_mdr.h" />
     <ClInclude Include="r_model.h" />
+    <ClInclude Include="r_surface.h" />
     <ClInclude Include="script.h" />
     <ClInclude Include="sequence.h" />
     <ClInclude Include="shader.h" />
@@ -259,6 +267,7 @@
     <ClInclude Include="text.h" />
     <ClInclude Include="textures.h" />
     <ClInclude Include="trackball.h" />
+    <ClInclude Include="wintalk.h" />
     <ClInclude Include="zlib\deflate.h" />
     <ClInclude Include="zlib\infblock.h" />
     <ClInclude Include="zlib\infcodes.h" />
@@ -272,6 +281,8 @@
     <ClInclude Include="zlib\zutil.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="anims.cpp" />
+    <ClCompile Include="commarea.cpp" />
     <ClCompile Include="drag.cpp" />
     <ClCompile Include="files.cpp" />
     <ClCompile Include="GenericParser2.cpp">
@@ -280,6 +291,7 @@
     </ClCompile>
     <ClCompile Include="generic_stuff.cpp" />
     <ClCompile Include="getstring.cpp" />
+    <ClCompile Include="glm_code.cpp" />
     <ClCompile Include="GLProgram.cpp" />
     <ClCompile Include="GLShader.cpp" />
     <ClCompile Include="GLView.cpp">
@@ -415,20 +427,36 @@
     </ClCompile>
     <ClCompile Include="jpeg_interface.cpp" />
     <ClCompile Include="MainFrm.cpp" />
+    <ClCompile Include="matcomp.cpp" />
+    <ClCompile Include="mc_compress2.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NotUsing</PrecompiledHeader>
+    </ClCompile>
     <ClCompile Include="MDXView.cpp" />
     <ClCompile Include="MDXViewDoc.cpp" />
     <ClCompile Include="MDXViewTreeView.cpp" />
     <ClCompile Include="MDXViewView.cpp" />
     <ClCompile Include="model.cpp" />
     <ClCompile Include="ogl.cpp" />
+    <ClCompile Include="oldskins.cpp" />
+    <ClCompile Include="parser.cpp" />
     <ClCompile Include="png\png.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
       </PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
       </PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="r_common.cpp" />
+    <ClCompile Include="r_glm.cpp" />
     <ClCompile Include="r_image.cpp" />
+    <ClCompile Include="r_md3.cpp" />
+    <ClCompile Include="r_mdr.cpp" />
+    <ClCompile Include="r_model.cpp" />
+    <ClCompile Include="r_surface.cpp" />
+    <ClCompile Include="script.cpp" />
+    <ClCompile Include="sequence.cpp" />
+    <ClCompile Include="shader.cpp" />
+    <ClCompile Include="skins.cpp" />
+    <ClCompile Include="sof2npcviewer.cpp" />
     <ClCompile Include="Splash.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -436,12 +464,15 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="text.cpp" />
+    <ClCompile Include="textures.cpp" />
     <ClCompile Include="trackball.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
       </PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
       </PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="wintalk.cpp" />
     <ClCompile Include="zlib\adler32.c">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
       </PrecompiledHeader>

@@ -14,6 +14,9 @@
 #include "textures.h"
 #include "Splash.h"
 
+
+void App_Init(void);
+
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #endif
@@ -118,6 +121,8 @@ BOOL CMDXViewApp::InitInstance()
 
 	CSplashWnd::EnableSplashScreen(cmdInfo.m_bShowSplash);
 
+	App_Init();
+
 	// Enable DDE Execute open
 	EnableShellOpen();
 	RegisterShellFileTypes(TRUE);
@@ -143,6 +148,15 @@ BOOL CMDXViewApp::InitInstance()
 	StatusMessage(NULL);
 
 	return TRUE;
+}
+
+// GL not running at this point, it gets started when the window is created. This is for stuff before that.
+//
+void App_Init(void)
+{
+	App_OnceOnly();
+	//FakeCvars_OnceOnlyInit();
+	//CommArea_ServerInitOnceOnly();
 }
 
 int CMDXViewApp::ExitInstance()
@@ -199,3 +213,13 @@ void CMDXViewApp::OnAppAbout()
 
 
 
+
+
+BOOL CMDXViewApp::PreTranslateMessage(MSG* pMsg)
+{
+	// CG: The following lines were added by the Splash Screen component.
+	if (CSplashWnd::PreTranslateAppMessage(pMsg))
+		return TRUE;
+
+	return CWinApp::PreTranslateMessage(pMsg);
+}
