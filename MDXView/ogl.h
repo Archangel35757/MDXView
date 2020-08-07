@@ -16,6 +16,11 @@
 
 using namespace glm;
 
+extern CString csGLVendor;
+extern CString csGLRenderer;
+extern CString csGLVersion;
+extern CString csGLExtensions;
+
 //----------------
 // Program
 extern PFNGLCREATEPROGRAMPROC glCreateProgram;

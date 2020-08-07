@@ -252,6 +252,12 @@
     <ClInclude Include="commarea.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="SepComboBox.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="clipboard.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MDXView.cpp">
@@ -470,6 +476,12 @@
     <ClCompile Include="commarea.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="SepComboBox.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="clipboard.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="MDXView.reg" />
@@ -500,6 +512,9 @@
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="Splsh16.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\MDXViewToolbar.bmp">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>

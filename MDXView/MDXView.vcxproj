@@ -208,6 +208,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="anims.h" />
+    <ClInclude Include="clipboard.h" />
     <ClInclude Include="commarea.h" />
     <ClInclude Include="common_headers.h" />
     <ClInclude Include="disablewarnings.h" />
@@ -256,6 +257,7 @@
     <ClInclude Include="r_model.h" />
     <ClInclude Include="r_surface.h" />
     <ClInclude Include="script.h" />
+    <ClInclude Include="SepComboBox.h" />
     <ClInclude Include="sequence.h" />
     <ClInclude Include="shader.h" />
     <ClInclude Include="skins.h" />
@@ -282,6 +284,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="anims.cpp" />
+    <ClCompile Include="clipboard.cpp" />
     <ClCompile Include="commarea.cpp" />
     <ClCompile Include="drag.cpp" />
     <ClCompile Include="files.cpp" />
@@ -453,6 +456,7 @@
     <ClCompile Include="r_model.cpp" />
     <ClCompile Include="r_surface.cpp" />
     <ClCompile Include="script.cpp" />
+    <ClCompile Include="SepComboBox.cpp" />
     <ClCompile Include="sequence.cpp" />
     <ClCompile Include="shader.cpp" />
     <ClCompile Include="skins.cpp" />
@@ -553,6 +557,7 @@
   <ItemGroup>
     <Image Include="res\MDXView.ico" />
     <Image Include="res\MDXViewDoc.ico" />
+    <Image Include="res\MDXViewToolbar.bmp" />
     <Image Include="res\Toolbar.bmp" />
     <Image Include="Splsh16.bmp" />
   </ItemGroup>

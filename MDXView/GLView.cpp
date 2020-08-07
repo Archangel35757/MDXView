@@ -16,6 +16,7 @@ using std::endl;
 
 #define degreesToRadians(x) x*(3.141592f/180.0f)
 
+
 //*********************************************************************
 // Our vertices. Tree consecutive floats give a 3D vertex; Three consecutive vertices give a triangle.
 // A cube has 6 faces with 2 triangles each, so this makes 6*2=12 triangles, and 12*3 vertices
@@ -240,7 +241,9 @@ void CGLView::RenderScene(void)
 	wglMakeCurrent(m_hDC, m_hGLRC);
 	//--------------------------------
 	// clear buffer
+	glClearColor((float)1 / ((float)256 / (float)AppVars._R), (float)1 / ((float)256 / (float)AppVars._G), (float)1 / ((float)256 / (float)AppVars._B), 0.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
 	SetData();
 
 	glBindBuffer(GL_ARRAY_BUFFER, m_vboID);
@@ -589,6 +592,9 @@ void CGLView::PrepareScene(HDC hdc)
 	// Dark blue background
 	glClearColor(0.0f, 0.0f, 0.3f, 0.0f);
 
+	// Set the background color
+	glClearColor((float)1 / ((float)256 / (float)AppVars._R), (float)1 / ((float)256 / (float)AppVars._G), (float)1 / ((float)256 / (float)AppVars._B), 0.0f);
+
 	// Enable depth test
 	glEnable(GL_DEPTH_TEST);
 
@@ -716,7 +722,7 @@ void CGLView::InitAPI()
 
 	char buffer[256] = { 0 };
 	sprintf(buffer, _T("Number of OpenGL Extensions found:  %i"), (int)n);
-	AfxMessageBox(buffer);
+//	AfxMessageBox(buffer);
 
 	FILE* pFile = fopen(_T("extensions.txt"), _T("w"));
 
@@ -752,7 +758,16 @@ void CGLView::InitAPI()
 		fclose(pFile);
 
 	sprintf(buffer, _T("Number of WGL Extensions found:  %i"), wgl_ext_count);
-	AfxMessageBox(buffer);
+//	AfxMessageBox(buffer);
+
+	// record vendor strings for later display... (this is the latest installed OpenGL driver info-- not v3.3 used by the App)
+	//---------------------------------------------
+	csGLVendor = glGetString(GL_VENDOR);
+	csGLRenderer = glGetString(GL_RENDERER);
+	csGLVersion = glGetString(GL_VERSION);
+	csGLExtensions = glGetString(GL_EXTENSIONS);
+	//---------------------------------------------
+
 
 	// Program
 	glCreateProgram = (PFNGLCREATEPROGRAMPROC)wglGetProcAddress("glCreateProgram");

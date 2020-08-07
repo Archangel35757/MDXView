@@ -265,12 +265,13 @@ typedef struct
 	bool	bForceWhite;
 	bool	bCleanScreenShots;
 	bool	bFullPathsInSequenceTreeitems;
-	bool	bCrackHighlight;
+	bool	bUVSeamsHighlight;
 	bool	bShowUnshadowableSurfaces;
 
 	int		iLOD;
 
-	byte	_R, _G, _B;	// CLS colour
+	byte	_R, _G, _B;	// CLS color
+	byte	_Rwire, _Gwire, _Bwire; //wire color
 
 	double	dFOV;
 	double	dAnimSpeed;

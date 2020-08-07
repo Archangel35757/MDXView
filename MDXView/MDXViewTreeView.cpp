@@ -189,7 +189,6 @@ TreeItemData_t	gTreeItemData;
 // returns NULL if CANCEL, else input string
 LPCSTR GetString(LPCSTR psPrompt, LPCSTR psDefault, bool bLowerCaseTheResult)
 {
-	return LPCSTR();	
 	static CString strReturn;
 
 	CGetString Input(psPrompt, &strReturn, psDefault);

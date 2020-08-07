@@ -82,13 +82,15 @@ IDR_MAINFRAME           BITMAP                  "res\\Toolbar.bmp"
 
 IDB_SPLASH              BITMAP                  "Splsh16.bmp"
 
+IDB_TOOLBARHI           BITMAP                  "res\\MDXViewToolbar.bmp"
+
 
 /////////////////////////////////////////////////////////////////////////////
 //
 // Toolbar
 //
 
-IDR_MAINFRAME TOOLBAR 16, 15
+IDR_MAINFRAME TOOLBAR 32, 32
 BEGIN
     BUTTON      ID_FILE_NEW
     BUTTON      ID_FILE_OPEN
@@ -99,6 +101,29 @@ BEGIN
     BUTTON      ID_EDIT_PASTE
     SEPARATOR
     BUTTON      ID_FILE_PRINT
+    SEPARATOR
+    BUTTON      ID_ANIMATION_REWIND
+    BUTTON      ID_ANIMATION_PREVFRAME
+    BUTTON      ID_ANIMATION_STOP
+    BUTTON      ID_ANIMATION_START
+    BUTTON      ID_ANIMATION_STARTFORCEWRAP
+    BUTTON      ID_ANIMATION_NEXTFRAME
+    BUTTON      ID_ANIMATION_ENDFRAME
+    BUTTON      ID_ANIMATION_FASTER
+    BUTTON      ID_ANIMATION_SLOWER
+    SEPARATOR
+    BUTTON      ID_FILE_RESETVIEWPARAMS
+    BUTTON      ID_FILE_REFRESHTEXTURES
+    BUTTON      ID_VIEW_FOVCYCLE
+    SEPARATOR
+    BUTTON      ID_VIEW_MATERIAL_MAP
+    SEPARATOR
+    BUTTON      ID_VIEW_WIREFRAME
+    BUTTON      ID_VIEW_WIRE_OVERLAY_SURF_HILITE
+    BUTTON      ID_VIEW_FORCE_WHITE
+    BUTTON      ID_VIEW_VERTEX_COLOR
+    BUTTON      ID_VIEW_UV_MAPPING
+    BUTTON      ID_VIEW_BONE_WEIGHTS
     BUTTON      ID_APP_ABOUT
 END
 
@@ -116,8 +141,14 @@ BEGIN
         MENUITEM "&Open...\tCtrl+O",            ID_FILE_OPEN
         MENUITEM "&Save\tCtrl+S",               ID_FILE_SAVE
         MENUITEM "Save &As...",                 ID_FILE_SAVE_AS
+        MENUITEM "Batch Convert",               ID_FILE_BATCHCONVERT
         MENUITEM SEPARATOR
-        MENUITEM "Recent File",                 ID_FILE_MRU_FILE1, GRAYED
+        MENUITEM "Reset/zero model view position", ID_FILE_RESETVIEWPARAMS
+        MENUITEM "Refresh (reload) all current textures\tAlt+R", ID_FILE_REFRESHTEXTURES
+        MENUITEM SEPARATOR
+        MENUITEM "&Print...\tCtrl+P",           ID_FILE_PRINT
+        MENUITEM SEPARATOR
+        MENUITEM "Recent File",                 ID_FILE_MRU_FILE1
         MENUITEM SEPARATOR
         MENUITEM "E&xit",                       ID_APP_EXIT
     END
@@ -128,11 +159,97 @@ BEGIN
         MENUITEM "Cu&t\tCtrl+X",                ID_EDIT_CUT
         MENUITEM "&Copy\tCtrl+C",               ID_EDIT_COPY
         MENUITEM "&Paste\tCtrl+V",              ID_EDIT_PASTE
+        MENUITEM SEPARATOR
+        MENUITEM "Set Background Color",        ID_EDIT_BKGRNDCOLOR
+        MENUITEM "Set Wireframe Color",         ID_EDIT_WIRECOLOR
+        MENUITEM SEPARATOR
+        MENUITEM "Set Floor position to <input value>", ID_EDIT_SETFLOOR_ABS
+        MENUITEM "Set Floor position to currently lowest point of primary model", ID_EDIT_SETFLOOR_CURRENT
+        MENUITEM SEPARATOR
+        MENUITEM "Set bone-weight threshold to <input value>", ID_EDIT_SET_BONE_WEIGHT_THRESHOLD
+        MENUITEM "Prompt for GLA overrides during GLM loading", ID_EDIT_ALLOWSKELETONOVERRIDES
+        MENUITEM SEPARATOR
+        MENUITEM "Always on top",               IDM_EDIT_TOPMOST
     END
     POPUP "&View"
     BEGIN
         MENUITEM "&Toolbar",                    ID_VIEW_TOOLBAR
         MENUITEM "&Status Bar",                 ID_VIEW_STATUS_BAR
+        MENUITEM SEPARATOR
+        MENUITEM "...as Wireframe\tCtrl+W",     ID_VIEW_WIREFRAME
+        MENUITEM "...using Alpha Blending\tCtrl+A", ID_VIEW_ALPHA
+        MENUITEM "...using Bi-Linear Filtering\tCtrl+F", ID_VIEW_BILINEAR
+        MENUITEM "...using Interpolation\tCtrl+N", ID_VIEW_INTERPOLATE
+        MENUITEM "...showing Origin axis-lines\tCtrl+O", ID_VIEW_ORIGIN
+        MENUITEM "...showing RGB lines for origins instead of axis-lines", ID_VIEW_ORIGINS_AS_RGB
+        MENUITEM "...using Bone Highlighting\tCtrl+B", ID_VIEW_BONE_HILITE
+        MENUITEM "...using Bone weight-threshold filtering\tCtrl+G", ID_VIEW_BONE_WEIGHT_FILTERING
+        MENUITEM "...using Wire-Overlay with Surface Highlighting\tCtrl+S", ID_VIEW_WIRE_OVERLAY_SURF_HILITE
+        MENUITEM "      ( Surface Highlighting also shows Bone Refs? )", ID_VIEW_SURFACEHILITEWITHBONEREFS
+        MENUITEM "...showing Bone Skin Weights (only when surface highlit)", ID_VIEW_BONE_WEIGHTS
+        MENUITEM "...showing Triangle Indexes (only when surface-highlit)\tCtrl+J", ID_VIEW_TRIANGLE_INDEXES
+        MENUITEM "...showing Vertex Indexes (only when surface-highlit)\tCtrl+I", ID_VIEW_VERTEX_INDEXES
+        MENUITEM "      ( Vertex Indexes also show Bone Weighting? )\tCtrl+E", ID_VIEW_VERTEX_BONE_WEIGHTING
+        MENUITEM SEPARATOR
+        MENUITEM "...showing Vertex Normals-Display\tCtrl+V", ID_VIEW_NORMALS
+        MENUITEM "...showing Bolt/Tag surfaces\tCtrl+T", ID_VIEW_TAG_SURFACES
+        MENUITEM "...showing Height Ruler\tCtrl+R", ID_VIEW_RULER
+        MENUITEM "...showing Bounding Box\tCtrl+U", ID_VIEW_BBOX
+        MENUITEM "...showing Floor\tCtrl+L",    ID_VIEW_FLOOR
+        MENUITEM "...using Forced-White Textures (for crack-finding)\tCtrl+H", ID_VIEW_FORCE_WHITE
+        MENUITEM "...using UV-Seams/Open-Edges Highlighting (experimental)\tCtrl+K", ID_VIEW_UVSEAMS_OPEN_EDGES
+        MENUITEM "...showing Un-Shadowable surfaces", ID_VIEW_UNSHADOWABLESURFACES
+        MENUITEM "...showing all polys as double-sided", ID_VIEW_DOUBLESIDEDPOLYS
+        MENUITEM "...using Vertex Color",       ID_VIEW_VERTEX_COLOR
+        MENUITEM "...using UV Checker Mapping", ID_VIEW_UV_MAPPING
+        MENUITEM SEPARATOR
+        MENUITEM "Screenshot to file\tShift+C", ID_VIEW_SCREENSHOT_FILE
+        MENUITEM "Screenshot to clipboard\tCtrl+C", ID_VIEW_SCREENSHOTTOCLIPBOARD
+        MENUITEM "Remove all on-screen highlights/text before taking screenshot", ID_VIEW_SCREENSHOT_CLEAN
+        MENUITEM SEPARATOR
+        MENUITEM "Cycle FOV ( 10 / 80 / 90 Degrees )\tCtrl+D", ID_VIEW_FOVCYCLE
+        MENUITEM SEPARATOR
+        POPUP "Level-of-Detail (LOD)"
+        BEGIN
+            MENUITEM "LOD 1\tF1",                   ID_VIEW_LOD0
+            MENUITEM "LOD 2\tF2",                   ID_VIEW_LOD1
+            MENUITEM "LOD 3\tF3",                   ID_VIEW_LOD2
+            MENUITEM "LOD 4\tF4",                   ID_VIEW_LOD3
+            MENUITEM "LOD 5\tF5",                   ID_VIEW_LOD4
+            MENUITEM "LOD 6\tF6",                   ID_VIEW_LOD5
+            MENUITEM "LOD 7\tF7",                   ID_VIEW_LOD6
+            MENUITEM "LOD 8\tF8",                   ID_VIEW_LOD7
+            MENUITEM "LOD 9\tF9",                   ID_VIEW_LOD8
+            MENUITEM "LOD 10\tF10",                 ID_VIEW_LOD9
+        END
+        MENUITEM SEPARATOR
+        POPUP "Picmip"
+        BEGIN
+            MENUITEM "Picmip 1\tCtrl+F1",           ID_VIEW_PICMIP0
+            MENUITEM "Picmip 2\tCtrl+F2",           ID_VIEW_PICMIP1
+            MENUITEM "Picmip 3\tCtrl+F3",           ID_VIEW_PICMIP2
+            MENUITEM "Picmip 4\tCtrl+F4",           ID_VIEW_PICMIP3
+            MENUITEM "Picmip 5\tCtrl+F5",           ID_VIEW_PICMIP4
+            MENUITEM "Picmip 6\tCtrl+F6",           ID_VIEW_PICMIP5
+            MENUITEM "Picmip 7\tCtrl+F7",           ID_VIEW_PICMIP6
+            MENUITEM "Picmip 8\tCtrl+F8",           ID_VIEW_PICMIP7
+        END
+        MENUITEM SEPARATOR
+        MENUITEM "OpenGL Driver Info",          ID_VIEW_GL_DRIVERINFO
+    END
+    POPUP "&Animation"
+    BEGIN
+        MENUITEM "... Start\tCtrl+Up Arrow",    ID_ANIMATION_START
+        MENUITEM "... Start (with forced-wrap)\tAlt+Up Arrow", ID_ANIMATION_STARTFORCEWRAP
+        MENUITEM "... Stop\tSpace",             ID_ANIMATION_STOP
+        MENUITEM "... Rewind\tCtrl+Dn Arrow",   ID_ANIMATION_REWIND
+        MENUITEM "... Go to End Frame\tEnd",    ID_ANIMATION_ENDFRAME
+        MENUITEM "... PrevFrame (turns off animation and lerping)\t<", ID_ANIMATION_PREVFRAME
+        MENUITEM "... NextFrame (turns off animation and lerping)\t>", ID_ANIMATION_NEXTFRAME
+        MENUITEM "... Faster\tCtrl+Rt Arrow",   ID_ANIMATION_FASTER
+        MENUITEM "... Slower\tCtrl+Lt Arrow",   ID_ANIMATION_SLOWER
+        MENUITEM SEPARATOR
+        MENUITEM "... Interpolation?\tCtrl+N",  ID_ANIMATION_LERPING
     END
     POPUP "&Help"
     BEGIN
@@ -348,6 +465,7 @@ BEGIN
     ID_FILE_CLOSE           "Close the active document\nClose"
     ID_FILE_SAVE            "Save the active document\nSave"
     ID_FILE_SAVE_AS         "Save the active document with a new name\nSave As"
+    ID_FILE_PRINT           "Print the active document\nPrint"
 END
 
 STRINGTABLE
@@ -423,6 +541,116 @@ STRINGTABLE
 BEGIN
     AFX_IDS_SCRESTORE       "Restore the window to normal size"
     AFX_IDS_SCTASKLIST      "Activate Task List"
+END
+
+STRINGTABLE
+BEGIN
+    ID_ANIMATION_REWIND     "Rewind\nRewind"
+END
+
+STRINGTABLE
+BEGIN
+    ID_ANIMATION_PREVFRAME  "Decrease current anim frame\nFrame decrement"
+    ID_ANIMATION_STOP       "Stop animation\nStop"
+    ID_ANIMATION_START      "Start animation\nPlay"
+    ID_ANIMATION_STARTFORCEWRAP 
+                            "Start animation with forced-wrap for non-wrapping sequences\nPlay ( with forced-wrap )"
+    ID_ANIMATION_NEXTFRAME  "Increment to next anim frame\nFrame advance"
+    ID_ANIMATION_ENDFRAME   "Go to End Frame\nGo to End Frame"
+    ID_ANIMATION_FASTER     "Speed up playback\nPlay faster"
+    ID_ANIMATION_SLOWER     "Slow down playback speed\nPlay slower"
+    ID_FILE_RESETVIEWPARAMS "Reset view position to default ( useful for when model is scrolled offscreen )\nReset viewpos"
+    ID_FILE_REFRESHTEXTURES "Refresh / reload all textures ( e.g. if you've just saved out a new graphic in another package and want to see it updated )\nRefresh textures"
+    ID_VIEW_FOVCYCLE        "Change FOV degrees\nCycle FOV"
+    ID_VIEW_MATERIAL_MAP    "Render all or specific material map\nRender all or specific material map"
+    ID_VIEW_WIREFRAME       "View wireframe\nView wireframe"
+    ID_VIEW_WIRE_OVERLAY_SURF_HILITE 
+                            "View wire-overlay with surface hi-light\nView wire-overlay with highlighting"
+    ID_VIEW_FORCE_WHITE     "View model using forced-white texture (i.e., helpful for finding cracks/gaps during animations)\nView forced-white"
+    ID_VIEW_VERTEX_COLOR    "View vertex color\nView vertex color"
+END
+
+STRINGTABLE
+BEGIN
+    ID_VIEW_UV_MAPPING      "View UV checker mapping\nView UV checker mapping"
+    ID_VIEW_BONE_WEIGHTS    "View vertex bone weights\nView vertex bone weights"
+    ID_VIEW_ALPHA           "Show certain textures as transparent"
+    ID_VIEW_INTERPOLATE     "Lerp between frames"
+    ID_VIEW_SCREENSHOT_FILE "Takes a screenshot and saves out"
+    ID_VIEW_SCREENSHOTTOCLIPBOARD "Takes a screenshot and sends to clipboard"
+    ID_VIEW_SCREENSHOT_CLEAN 
+                            "This gets rid of all on-screen higlights, text, etc so screenshots come out clean, with just a Raven (C) notice"
+    ID_VIEW_GL_DRIVERINFO   "View whatever the GL driver sends back when interrogated"
+    ID_VIEW_LOD0            "View models in highest LOD"
+    ID_VIEW_LOD1            "View models in lower LOD (if available)"
+    ID_VIEW_LOD2            "View models in lower LOD (if available)"
+    ID_VIEW_LOD3            "View models in lower LOD (if available)"
+    ID_VIEW_LOD4            "View models in lower LOD (if available)"
+    ID_VIEW_LOD5            "View models in lower LOD (if available)"
+END
+
+STRINGTABLE
+BEGIN
+    IDC_COMBO1              "Render all or specific material map\nRender all or specific material map"
+END
+
+STRINGTABLE
+BEGIN
+    ID_VIEW_LOD6            "View models in lower LOD (if available)"
+    ID_VIEW_LOD7            "View models in lower LOD (if available)"
+    ID_VIEW_LOD8            "View models in lower LOD (if available)"
+    ID_VIEW_LOD9            "View models in lowest LOD (if available)"
+    ID_VIEW_PICMIP0         "Re-upload textures using this picmip value"
+    ID_VIEW_PICMIP1         "Re-upload textures using this picmip value"
+    ID_VIEW_PICMIP2         "Re-upload textures using this picmip value"
+    ID_VIEW_PICMIP3         "Re-upload textures using this picmip value"
+    ID_VIEW_PICMIP4         "Re-upload textures using this picmip value"
+    ID_VIEW_PICMIP5         "Re-upload textures using this picmip value"
+    ID_VIEW_PICMIP6         "Re-upload textures using this picmip value"
+    ID_VIEW_PICMIP7         "Re-upload textures using this picmip value"
+    ID_EDIT_BKGRNDCOLOR     "Set background color"
+    ID_EDIT_WIRECOLOR       "Set the color for wireframe mode and wire-overlay"
+    ID_EDIT_SETFLOOR_ABS    "Sets the floor to an absolute position"
+    ID_EDIT_SETFLOOR_CURRENT 
+                            "Sets the floor to the lowest current point of the primary model"
+END
+
+STRINGTABLE
+BEGIN
+    ID_EDIT_SET_BONE_WEIGHT_THRESHOLD 
+                            "Input a value below which bone-weightings will be ignored"
+    ID_EDIT_ALLOWSKELETONOVERRIDES 
+                            "Allows override-use of different skeletons for Ghoul2 models"
+    IDM_EDIT_TOPMOST        "Toggle between always-on-top and normal windows modes"
+    ID_VIEW_BILINEAR        "Toggles texture smoothing using bi-linear filtering"
+    ID_VIEW_ORIGIN          "Draw axis/origin lines"
+    ID_VIEW_ORIGINS_AS_RGB  "Check this to view Red/Green/Blue axis lines, else will show +/- cardinal letters on axes"
+    ID_VIEW_BONE_HILITE     "Highlight bones in 3d view (if present in model) when selected in treeview"
+    ID_VIEW_BONE_WEIGHT_FILTERING 
+                            "Filters out bone weights below a given threshold"
+    ID_VIEW_SURFACEHILITEWITHBONEREFS 
+                            "Only applicable if surface highlighting is on"
+    ID_VIEW_TRIANGLE_INDEXES 
+                            "Shows triangle index numbers in the middle of each triangle"
+    ID_VIEW_VERTEX_INDEXES  "(Mainly a debugging aid) Show vertex indexes for selected mesh"
+    ID_VIEW_VERTEX_BONE_WEIGHTING 
+                            "Turning this on shows the number of bones each vert references (for optimization)"
+    ID_VIEW_NORMALS         "Displays vertex normal vectors"
+    ID_VIEW_TAG_SURFACES    "View the triangle surfaces used for bolting (which are normally hidden)"
+    ID_VIEW_RULER           "Helpful for measuring model sizes"
+END
+
+STRINGTABLE
+BEGIN
+    ID_VIEW_BBOX            "View bounding box. Takes more CPU time and ignores lerping"
+    ID_VIEW_FLOOR           "Shows a floor under the primary model"
+    ID_VIEW_OPEN_EDGES      "Speculative code to highlight open-edges in a surface"
+    ID_VIEW_UVSEAMS_OPEN_EDGES 
+                            "Speculative code to highlight UV-Seams/open-edges for a surface"
+    ID_VIEW_UNSHADOWABLESURFACES 
+                            "Show a marker on any surface that has too many ( > MAX_SHADER_VERTS/2) verts to display with in-game shadows"
+    ID_VIEW_DOUBLESIDEDPOLYS 
+                            "Show all polys as double-sided (except in wireframe)"
 END
 
 #endif    // English (United States) resources

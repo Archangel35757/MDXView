@@ -332,7 +332,7 @@ void AppVars_OnceOnlyInit(void)
 	AppVars.bBoneHighlight = true;
 	AppVars.bBoneWeightThreshholdingActive = false;
 	AppVars.fBoneWeightThreshholdPercent = 5.0f;	// 
-	AppVars.bSurfaceHighlight = true;
+	AppVars.bSurfaceHighlight = false; // true;
 	AppVars.bSurfaceHighlightShowsBoneWeighting = false;
 	AppVars.bTriIndexes = false;
 	AppVars.bVertIndexes = false;
@@ -343,7 +343,7 @@ void AppVars_OnceOnlyInit(void)
 	AppVars.bForceWhite = false;
 	AppVars.bCleanScreenShots = true;
 	AppVars.bFullPathsInSequenceTreeitems = false;
-	AppVars.bCrackHighlight = false;
+	AppVars.bUVSeamsHighlight = false;
 	AppVars.bShowUnshadowableSurfaces = false;
 	AppVars.bAllowGLAOverrides = false;
 	AppVars.bShowPolysAsDoubleSided = true;
@@ -371,6 +371,8 @@ void AppVars_OnceOnlyInit(void)
 	//	AppVars_ResetViewParams();
 
 	AppVars._R = AppVars._G = AppVars._B = 256 / 5;	// dark grey
+
+	AppVars._Rwire = AppVars._Gwire = AppVars._Bwire = 255; // white wire-color
 
 	AppVars.dAnimSpeed = 0.05;	// so 1/this = 20 = 20FPS
 								//	AppVars.dTimeStamp1			= getDoubleTime();

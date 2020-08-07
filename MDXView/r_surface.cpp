@@ -757,7 +757,7 @@ static void RB_IterateStagesGeneric( shaderCommands_t *input )
 					}
 				}
 
-				if (AppVars.bCrackHighlight && bSurfaceIsHighlighted)
+				if (AppVars.bUVSeamsHighlight && bSurfaceIsHighlighted)
 				{
 					extern ModelContainer_t* gpContainerBeingRendered;
 					if (gpContainerBeingRendered)	// arrrghhh!!!!
