@@ -55,7 +55,7 @@ BEGIN_MESSAGE_MAP(CMainFrame, CFrameWnd)
 	ON_COMMAND(ID_FILE_BATCHCONVERT, &CMainFrame::OnFileBatchConvert)
 	ON_COMMAND(ID_FILE_RESETVIEWPARAMS, &CMainFrame::OnFileResetViewParams)
 	ON_COMMAND(ID_FILE_REFRESHTEXTURES, &CMainFrame::OnFileRefreshTextures)
-	ON_COMMAND(ID_FILE_PRINT, &CMainFrame::OnFilePrint)
+	ON_COMMAND(ID_FILE_PRINT3D, &CMainFrame::OnFilePrint3D)
 
 	ON_COMMAND(ID_EDIT_CUT, &CMainFrame::OnEditCut)
 	ON_COMMAND(ID_EDIT_COPY, &CMainFrame::OnEditCopy)
@@ -454,12 +454,6 @@ void CMainFrame::OnFileOpen()
 }
 
 
-void CMainFrame::OnFilePrint()
-{
-	// TODO: Add your command handler code here
-}
-
-
 #define sJK3BASEDIR "c:\\ja\\base\\"
 void CMainFrame::OnFileBatchConvert()
 {
@@ -521,6 +515,14 @@ void CMainFrame::OnFileRefreshTextures()
 {
 	TextureList_Refresh();
 	m_mainSplitter.Invalidate(false);
+}
+
+
+void CMainFrame::OnFilePrint3D()
+{
+	AfxMessageBox(ID_FILE_PRINT3D);
+	// TODO: Add your command handler code here
+
 }
 
 

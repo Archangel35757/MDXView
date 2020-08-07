@@ -49,7 +49,7 @@ protected:
 	afx_msg void OnFileBatchConvert();
 	afx_msg void OnFileResetViewParams();
 	afx_msg void OnFileRefreshTextures();
-	afx_msg void OnFilePrint();
+	afx_msg void OnFilePrint3D();
 	afx_msg void OnEditCut();
 	afx_msg void OnEditCopy();
 	afx_msg void OnEditPaste();

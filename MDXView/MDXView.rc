@@ -100,7 +100,7 @@ BEGIN
     BUTTON      ID_EDIT_COPY
     BUTTON      ID_EDIT_PASTE
     SEPARATOR
-    BUTTON      ID_FILE_PRINT
+    BUTTON      ID_FILE_PRINT3D
     SEPARATOR
     BUTTON      ID_ANIMATION_REWIND
     BUTTON      ID_ANIMATION_PREVFRAME
@@ -146,7 +146,7 @@ BEGIN
         MENUITEM "Reset/zero model view position", ID_FILE_RESETVIEWPARAMS
         MENUITEM "Refresh (reload) all current textures\tAlt+R", ID_FILE_REFRESHTEXTURES
         MENUITEM SEPARATOR
-        MENUITEM "&Print...\tCtrl+P",           ID_FILE_PRINT
+        MENUITEM "Export to 3D Print...\tCtrl+P", ID_FILE_PRINT3D
         MENUITEM SEPARATOR
         MENUITEM "Recent File",                 ID_FILE_MRU_FILE1
         MENUITEM SEPARATOR
@@ -465,7 +465,20 @@ BEGIN
     ID_FILE_CLOSE           "Close the active document\nClose"
     ID_FILE_SAVE            "Save the active document\nSave"
     ID_FILE_SAVE_AS         "Save the active document with a new name\nSave As"
-    ID_FILE_PRINT           "Print the active document\nPrint"
+END
+
+STRINGTABLE
+BEGIN
+    ID_VIEW_BBOX            "View bounding box. Takes more CPU time and ignores lerping"
+    ID_VIEW_FLOOR           "Shows a floor under the primary model"
+    ID_VIEW_OPEN_EDGES      "Speculative code to highlight open-edges in a surface"
+    ID_VIEW_UVSEAMS_OPEN_EDGES 
+                            "Speculative code to highlight UV-Seams/open-edges for a surface"
+    ID_VIEW_UNSHADOWABLESURFACES 
+                            "Show a marker on any surface that has too many ( > MAX_SHADER_VERTS/2) verts to display with in-game shadows"
+    ID_VIEW_DOUBLESIDEDPOLYS 
+                            "Show all polys as double-sided (except in wireframe)"
+    ID_FILE_PRINT3D         "Export current scene for 3D Printing\nExport to 3D Print"
 END
 
 STRINGTABLE
@@ -638,19 +651,6 @@ BEGIN
     ID_VIEW_NORMALS         "Displays vertex normal vectors"
     ID_VIEW_TAG_SURFACES    "View the triangle surfaces used for bolting (which are normally hidden)"
     ID_VIEW_RULER           "Helpful for measuring model sizes"
-END
-
-STRINGTABLE
-BEGIN
-    ID_VIEW_BBOX            "View bounding box. Takes more CPU time and ignores lerping"
-    ID_VIEW_FLOOR           "Shows a floor under the primary model"
-    ID_VIEW_OPEN_EDGES      "Speculative code to highlight open-edges in a surface"
-    ID_VIEW_UVSEAMS_OPEN_EDGES 
-                            "Speculative code to highlight UV-Seams/open-edges for a surface"
-    ID_VIEW_UNSHADOWABLESURFACES 
-                            "Show a marker on any surface that has too many ( > MAX_SHADER_VERTS/2) verts to display with in-game shadows"
-    ID_VIEW_DOUBLESIDEDPOLYS 
-                            "Show all polys as double-sided (except in wireframe)"
 END
 
 #endif    // English (United States) resources
