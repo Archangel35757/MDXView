@@ -587,7 +587,7 @@ void CMainFrame::OnFileReadScript()
 }
 
 
-#define sSOF2BASEDIR "d:\\base\\"
+#define sSOF2BASEDIR "d:\\basesof2\\"
 void CMainFrame::OnFileViewSof2Npcs()
 {
 	if (!gamedir[0])
@@ -657,7 +657,7 @@ void CMainFrame::OnUpdateFileViewSof2Npcs(CCmdUI *pCmdUI)
 }
 
 
-#define sJK2BASEDIR "d:\\game\\base\\"
+#define sJK2BASEDIR "d:\\base\\"
 void CMainFrame::OnFileViewJk2Bots()
 {
 	if (!gamedir[0])

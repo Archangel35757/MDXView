@@ -467,9 +467,6 @@
     <ClCompile Include="script.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="sof2npcviewer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="matcomp.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -486,6 +483,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="image.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="sof2npcviewer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

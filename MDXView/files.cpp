@@ -235,7 +235,8 @@ void Sys_ListFilteredFiles( const char *basedir, char *subdirs, char *filter, ch
 }
 
 
-char **Sys_ListFiles( const char *directory, const char *extension, char *filter, int *numfiles, qboolean wantsubs ) {
+char **Sys_ListFiles( const char *directory, const char *extension, char *filter, int *numfiles, qboolean wantsubs ) 
+{
 	char		search[MAX_OSPATH];
 	int			nfiles;
 	char		**listCopy;
@@ -277,7 +278,7 @@ char **Sys_ListFiles( const char *directory, const char *extension, char *filter
 		flag = _A_SUBDIR;
 	}
 
-	//Com_sprintf( search, sizeof(search), "%s\\*%s", directory, extension );
+	Com_sprintf( search, sizeof(search), "%s\\*%s", directory, extension );
 
 	// search
 	nfiles = 0;
