@@ -10,6 +10,12 @@
 #include "GLView.h"
 
 
+enum eTimerHandles
+{
+	th_DO_NOT_USE = 0,	// system reserved for NULL timer
+	th_100FPS = 1,
+};
+
 
 class CMDXViewView : public CView
 {

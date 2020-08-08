@@ -143,8 +143,17 @@ BEGIN
         MENUITEM "Save &As...",                 ID_FILE_SAVE_AS
         MENUITEM "Batch Convert",               ID_FILE_BATCHCONVERT
         MENUITEM SEPARATOR
+        MENUITEM "Write ""<modelname>.ideal"" file", ID_FILE_WRITEIDEAL
+        MENUITEM "Read ""<modelname>.ideal"" file", ID_FILE_READIDEAL
+        MENUITEM SEPARATOR
         MENUITEM "Reset/zero model view position", ID_FILE_RESETVIEWPARAMS
         MENUITEM "Refresh (reload) all current textures\tAlt+R", ID_FILE_REFRESHTEXTURES
+        MENUITEM SEPARATOR
+        MENUITEM "Write script file",           ID_FILE_WRITESCRIPT
+        MENUITEM "Read script file",            ID_FILE_READSCRIPT
+        MENUITEM SEPARATOR
+        MENUITEM "View SOF2 NPCs file",         ID_FILE_VIEW_SOF2_NPCS
+        MENUITEM "View JK2/JKA Bots file",      ID_FILE_VIEW_JK2_BOTS
         MENUITEM SEPARATOR
         MENUITEM "Export to 3D Print...\tCtrl+P", ID_FILE_PRINT3D
         MENUITEM SEPARATOR
@@ -321,16 +330,16 @@ BEGIN
     LTEXT           "Prompt",IDC_GETSTRING_PROMPT,15,14,279,45
 END
 
-IDD_DIALOG_NPCS DIALOG 0, 0, 383, 340
-STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+IDD_DIALOG_NPCS DIALOGEX 0, 0, 383, 348
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION
 CAPTION "Character Viewer (SOF2 NPCs or JK2 bots)"
-FONT 8, "MS Sans Serif"
+FONT 8, "MS Sans Serif", 0, 0, 0x0
 BEGIN
     DEFPUSHBUTTON   "Close",IDOK,293,30,77,30
     LISTBOX         IDC_LIST_NPCS,19,30,263,269,LBS_SORT | LBS_USETABSTOPS | LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
     DEFPUSHBUTTON   "Refresh",IDREFRESH,293,64,77,30
     CTEXT           "( Double-click on an entry to load it )",IDC_STATIC,60,15,183,11
-    LTEXT           "Comment field",IDC_STATIC_COMMENT,20,305,347,28
+    LTEXT           "Comment field",IDC_STATIC_COMMENT,20,306,347,35
     DEFPUSHBUTTON   "Generate Gallery",IDGALLERY,293,233,77,66
     DEFPUSHBUTTON   "Quick Validate",IDVALIDATE,293,98,77,30
     PUSHBUTTON      "Send List To Notepad",IDC_BUTTON_GENERATE_LIST,293,213,77,17
@@ -405,7 +414,7 @@ BEGIN
         LEFTMARGIN, 7
         RIGHTMARGIN, 370
         TOPMARGIN, 7
-        BOTTOMMARGIN, 333
+        BOTTOMMARGIN, 341
     END
 END
 #endif    // APSTUDIO_INVOKED
@@ -479,6 +488,12 @@ BEGIN
     ID_VIEW_DOUBLESIDEDPOLYS 
                             "Show all polys as double-sided (except in wireframe)"
     ID_FILE_PRINT3D         "Export current scene for 3D Printing\nExport to 3D Print"
+    ID_FILE_WRITEIDEAL      "Saves out current viewpos, menu settings, etc for auto-positioning model and saving menu preferences"
+    ID_FILE_READIDEAL       "Reads previously-saved file for viewpos, menu settings, etc for loading model and menu preferences"
+    ID_FILE_WRITESCRIPT     "Writes out a script file so you can reload all current models in same way later"
+    ID_FILE_READSCRIPT      "Reads in a script file detailing which models are bolted to which etc."
+    ID_FILE_VIEW_SOF2_NPCS  "Generates a list of NPCs to view from SOF2's multiple-file data format"
+    ID_FILE_VIEW_JK2_BOTS   "Launches a dialog that handles viewing of entries in gamedata/base/botfiles/bots.txt"
 END
 
 STRINGTABLE

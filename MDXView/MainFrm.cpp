@@ -16,7 +16,7 @@
 #include "clipboard.h"
 #include "textures.h"
 #include "script.h"
-//#include "image.h"
+#include "image.h"
 
 #include "SOF2NPCViewer.h"
 #include "splash.h"
@@ -53,8 +53,16 @@ BEGIN_MESSAGE_MAP(CMainFrame, CFrameWnd)
 	ON_CBN_SELCHANGE(IDC_COMBO1, &CMainFrame::OnCbnSelchangeCombo1)
 	ON_COMMAND(ID_FILE_OPEN, &CMainFrame::OnFileOpen)
 	ON_COMMAND(ID_FILE_BATCHCONVERT, &CMainFrame::OnFileBatchConvert)
+	ON_COMMAND(ID_FILE_WRITEIDEAL, &CMainFrame::OnFileWriteIdeal)
+	ON_COMMAND(ID_FILE_READIDEAL, &CMainFrame::OnFileReadIdeal)
 	ON_COMMAND(ID_FILE_RESETVIEWPARAMS, &CMainFrame::OnFileResetViewParams)
 	ON_COMMAND(ID_FILE_REFRESHTEXTURES, &CMainFrame::OnFileRefreshTextures)
+	ON_COMMAND(ID_FILE_WRITESCRIPT, &CMainFrame::OnFileWriteScript)
+	ON_UPDATE_COMMAND_UI(ID_FILE_WRITESCRIPT, &CMainFrame::OnUpdateFileWriteScript)
+	ON_COMMAND(ID_FILE_READSCRIPT, &CMainFrame::OnFileReadScript)
+	ON_COMMAND(ID_FILE_VIEW_SOF2_NPCS, &CMainFrame::OnFileViewSof2Npcs)
+	ON_UPDATE_COMMAND_UI(ID_FILE_VIEW_SOF2_NPCS, &CMainFrame::OnUpdateFileViewSof2Npcs)
+	ON_COMMAND(ID_FILE_VIEW_JK2_BOTS, &CMainFrame::OnFileViewJk2Bots)
 	ON_COMMAND(ID_FILE_PRINT3D, &CMainFrame::OnFilePrint3D)
 
 	ON_COMMAND(ID_EDIT_CUT, &CMainFrame::OnEditCut)
@@ -504,6 +512,21 @@ void CMainFrame::OnFileBatchConvert()
 }
 
 
+void CMainFrame::OnFileWriteIdeal()
+{
+	if (GetYesNo(va("Write \"<modelname>.ideal\" file\n\nAre you sure?")))
+	{
+		AppVars_WriteIdeal();
+	}
+}
+
+
+void CMainFrame::OnFileReadIdeal()
+{
+	AppVars_ReadIdeal();
+}
+
+
 void CMainFrame::OnFileResetViewParams()
 {
 	AppVars_ResetViewParams();
@@ -515,6 +538,186 @@ void CMainFrame::OnFileRefreshTextures()
 {
 	TextureList_Refresh();
 	m_mainSplitter.Invalidate(false);
+}
+
+
+extern void Filename_AddToMRU(LPCSTR psFilename);
+void CMainFrame::OnFileWriteScript()
+{
+	LPCSTR psFullPathedFilename = InputSaveFileName(va("%s%s", Filename_WithoutExt(Model_GetFullPrimaryFilename()), Script_GetExtension()),	// LPCSTR psInitialSaveName, 
+		"Write Script",			// LPCSTR psCaption, 
+		Filename_PathOnly(Model_GetFullPrimaryFilename()),	//LPCSTR psInitialPath,
+		Script_GetFilter(),		// LPCSTR psFilter
+		Script_GetExtension()	// LPCSTR psExtension
+	);
+	if (psFullPathedFilename)
+	{
+		CWaitCursor wait;
+
+		if (Script_Write(psFullPathedFilename))
+		{
+			Filename_AddToMRU(psFullPathedFilename);
+		}
+	}
+}
+
+
+void CMainFrame::OnUpdateFileWriteScript(CCmdUI *pCmdUI)
+{
+	pCmdUI->Enable(Model_Loaded());
+}
+
+
+void CMainFrame::OnFileReadScript()
+{
+	LPCSTR psFullPathedFilename = InputLoadFileName("",				// LPCSTR psInitialLoadName, 
+		"Read Script",	// LPCSTR psCaption,
+		Filename_PathOnly(Model_GetFullPrimaryFilename()),	//	"S:\\baseq3\\models\\test\\bonehier",	// LPCSTR psInitialDir, 
+		Script_GetFilter()			// LPCSTR psFilter
+	);
+	if (psFullPathedFilename)
+	{
+		CWaitCursor wait;
+
+		if (Script_Read(psFullPathedFilename))
+		{
+			Filename_AddToMRU(psFullPathedFilename);
+		}
+	}
+}
+
+
+#define sSOF2BASEDIR "d:\\base\\"
+void CMainFrame::OnFileViewSof2Npcs()
+{
+	if (!gamedir[0])
+	{
+		LPCSTR psBasePathToCopy = sSOF2BASEDIR;
+		if (!GetYesNo("Warning: base path not known yet, shall I assume ' " sSOF2BASEDIR " ' ?"))
+		{
+			psBasePathToCopy = GetString("Enter suitable base path\n\n( format example: \"" sSOF2BASEDIR "\" )");
+			if (!psBasePathToCopy)
+				return;
+		}
+
+		strcpy(gamedir, psBasePathToCopy);
+	}
+
+	CString strScript;
+	CSOF2NPCViewer Viewer(true, &strScript, gamedir);
+
+	Model_StopAnim();	// or the screen update stops the GDI stuff from showing up
+
+	if (Viewer.DoModal() == IDOK)
+	{
+		if (Gallery_Active())
+		{
+			// pick this up in the timer loop now...
+			//
+			//			CString strCaption;
+			//			while (GalleryRead_ExtractEntry(strCaption, strScript))
+			//			{
+			//				OutputDebugString(va("\"%s\" (script len %d)\n",(LPCSTR)strCaption,strScript.GetLength()));
+			//			}
+			extern CString strGalleryErrors;
+			extern CString strGalleryWarnings;
+			extern CString strGalleryInfo;
+
+			strGalleryErrors = strGalleryWarnings = strGalleryInfo = "";
+			Model_StopAnim();
+			gbTextInhibit = AppVars.bCleanScreenShots;	//true;
+			return;
+		}
+		else
+		{
+			// normal double-click on a single template list entry...
+			//
+			if (!strScript.IsEmpty())
+			{
+				strScript += "\n\n\n";
+				//SendStringToNotepad(strScript,"temp.txt");
+
+				string strOutputFileName(va("%s\\%s", scGetTempPath(), "temp.mvs"));
+
+				int iReturn = SaveFile(strOutputFileName.c_str(), (LPCSTR)strScript, strScript.GetLength());
+				if (iReturn != -1)
+				{
+					extern bool Document_ModelLoadPrimary(LPCSTR psFilename);
+					Document_ModelLoadPrimary(strOutputFileName.c_str());
+				}
+			}
+		}
+	}
+}
+
+
+void CMainFrame::OnUpdateFileViewSof2Npcs(CCmdUI *pCmdUI)
+{
+	// TODO: Add your command update UI handler code here
+}
+
+
+#define sJK2BASEDIR "d:\\game\\base\\"
+void CMainFrame::OnFileViewJk2Bots()
+{
+	if (!gamedir[0])
+	{
+		LPCSTR psBasePathToCopy = sJK2BASEDIR;
+		if (!GetYesNo("Warning: base path not known yet, shall I assume ' " sJK2BASEDIR " ' ?"))
+		{
+			psBasePathToCopy = GetString("Enter suitable base path\n\n( format example: \"" sJK2BASEDIR "\" )");
+			if (!psBasePathToCopy)
+				return;
+		}
+
+		strcpy(gamedir, psBasePathToCopy);
+	}
+
+	CString strScript;
+	CSOF2NPCViewer Viewer(false, &strScript, gamedir);
+
+	Model_StopAnim();	// or the screen update stops the GDI stuff from showing up
+
+	if (Viewer.DoModal() == IDOK)
+	{
+		if (Gallery_Active())
+		{
+			// pick this up in the timer loop now...
+			//
+			//			CString strCaption;
+			//			while (GalleryRead_ExtractEntry(strCaption, strScript))
+			//			{
+			//				OutputDebugString(va("\"%s\" (script len %d)\n",(LPCSTR)strCaption,strScript.GetLength()));
+			//			}
+			extern CString strGalleryErrors;
+			extern CString strGalleryWarnings;
+			extern CString strGalleryInfo;
+
+			strGalleryErrors = strGalleryWarnings = strGalleryInfo = "";
+			Model_StopAnim();
+			gbTextInhibit = AppVars.bCleanScreenShots;	//true;
+			return;
+		}
+		else
+		{
+			// normal double-click on a single template list entry...
+			//
+			if (!strScript.IsEmpty())
+			{
+				strScript += "\n\n\n";
+				//SendStringToNotepad(strScript,"temp.txt");
+
+				string strOutputFileName(va("%s\\%s", scGetTempPath(), "temp.mvs"));
+
+				int iReturn = SaveFile(strOutputFileName.c_str(), (LPCSTR)strScript, strScript.GetLength());
+				if (iReturn != -1)
+				{
+					extern bool Document_ModelLoadPrimary(LPCSTR psFilename);
+					Document_ModelLoadPrimary(strOutputFileName.c_str());
+				}
+			}
+		}
+	}
 }
 
 

@@ -59,9 +59,8 @@ CMDXViewApp theApp;
 
 
 // CMDXViewApp initialization
-
+bool bSafeToAddToMRU = false;
 bool gbMainFrameInitialised = false;
-
 BOOL CMDXViewApp::InitInstance()
 {
 	// InitCommonControlsEx() is required on Windows XP if an application
@@ -138,6 +137,8 @@ BOOL CMDXViewApp::InitInstance()
 	m_pMainWnd->ShowWindow(SW_SHOW);
 	m_pMainWnd->UpdateWindow();
 
+	bSafeToAddToMRU = true;
+
 	gbMainFrameInitialised = true;
 
 	// call DragAcceptFiles only if there's a suffix
@@ -150,6 +151,16 @@ BOOL CMDXViewApp::InitInstance()
 
 	return TRUE;
 }
+
+
+void Filename_AddToMRU(LPCSTR psFilename)
+{
+	if (bSafeToAddToMRU)
+	{
+		theApp.AddToRecentFileList(psFilename);
+	}
+}
+
 
 // GL not running at this point, it gets started when the window is created. This is for stuff before that.
 //

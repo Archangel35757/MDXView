@@ -4,6 +4,7 @@
 
 #include "stdafx.h"
 #include "includes.h"
+#include <string>
 #include <mmsystem.h>  // for timeGettime()
 
 // SHARED_HANDLERS can be defined in an ATL project implementing preview, thumbnail
@@ -13,9 +14,15 @@
 #endif
 
 #include "MDXViewDoc.h"
-#include "MDXViewView.h"
+#include "MDXViewTreeView.h"
+#include "text.h"
 #include "drag.h"
-#include <string>
+#include "wintalk.h"
+#include "textures.h"
+#include "sof2npcviewer.h"	// for gallery stuff
+#include "clipboard.h"		// for clipboard
+
+#include "MDXViewView.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -206,11 +213,215 @@ void CMDXViewView::OnSizing(UINT fwSide, LPRECT pRect)
 }
 
 
+int Sys_Milliseconds(void)
+{
+	static bool bInitialised = false;
+	static int sys_timeBase;
+
+	int sys_curtime;
+
+	if (!bInitialised)
+	{
+		sys_timeBase = timeGetTime();
+		bInitialised = true;
+	}
+	sys_curtime = timeGetTime() - sys_timeBase;
+
+	return sys_curtime;
+}
+
+float GetFloatTime(void)
+{
+	float fTime = (float)Sys_Milliseconds() / 1000.0f;	// reduce to game-type seconds
+
+	return fTime;
+}
+
+
+// should be called roughly at 100 times per second... (which is enough for our needs when lerping is factored in)
+//
+int giGalleryItemsRemaining = 0;	// declared here so StatusMessage can reference it (which is pretty tacky.... again).
+CString strGalleryErrors;
+CString strGalleryWarnings;
+CString strGalleryInfo;
+
+void Gallery_AddError(LPCSTR psText)
+{
+	strGalleryErrors += psText;
+}
+void Gallery_AddInfo(LPCSTR psText)
+{
+	strGalleryInfo += psText;
+}
+void Gallery_AddWarning(LPCSTR psText)
+{
+	strGalleryWarnings += psText;
+}
+
+
 void CMDXViewView::OnTimer(UINT nIDEvent)
 {
-	// TODO: Add your message handler code here and/or call default
+	if (nIDEvent != th_100FPS)
+	{
+		CView::OnTimer(nIDEvent);
+		return;
+	}
 
-	CView::OnTimer(nIDEvent);
+
+	// otherwise, it's one of our timer events, so...
+
+
+	{ // new bit, poll the remote control stuff 10 times per second (it's also done in OnIdle(), but that's not always fast enough when animating)
+		static	float fTime = 0.0f;
+		float fTimeNow = GetFloatTime();
+
+#define UPDATE_FRAMES_PER_SECOND 10.0f
+
+		if (fTimeNow - fTime > 1.0f / UPDATE_FRAMES_PER_SECOND)
+		{
+			fTime = fTimeNow;
+			//			OutputDebugString(va("Time = %f seconds\n",GetFloatTime()));
+
+			if (WinTalk_HandleMessages())
+			{
+				// app exit requested
+				AppVars.bAnimate = qfalse;	// groan... stop the animation so the app doesn't spend all it's time
+											//				in the render loop. This allows the App::OnIdle() version
+											//				of the Wintalk_HandleMessages() handler to get a look in,
+											//				and therefore spot that an exit is being requested.
+			}
+		}
+	}
+
+	//	if (!DraggingMouse()) 
+	{
+		if (ModelList_Animation())
+		{
+			// one or more models have updated frames (or lerping)...
+			//
+			Invalidate(false);
+		}
+	}
+
+
+	if (Gallery_Active())
+	{
+		extern bool gbInRenderer;
+		if (!gbInRenderer)
+		{
+			static bool bAlreadyHere = false;
+			if (!bAlreadyHere)	// jic.
+			{
+				bAlreadyHere = true;
+
+				extern int giRenderCount;
+				static CString strCaption;
+				static CString strScript;
+
+				static bool bSnapshotTakingPlace = false;
+				if (!bSnapshotTakingPlace)
+				{
+					int iRemainingPlusOne = GalleryRead_ExtractEntry(strCaption, strScript);
+					if (iRemainingPlusOne)	// because 0 would be fail/empty
+					{
+						giGalleryItemsRemaining = iRemainingPlusOne - 1;
+						StatusMessage(va("( Gallery: %d remaining )", giGalleryItemsRemaining));
+						OutputDebugString(va("\"%s\" (script len %d)\n", (LPCSTR)strCaption, strScript.GetLength()));
+
+						strScript += "\n";
+
+						string strOutputFileName(va("%s\\%s", scGetTempPath(), "temp.mvs"));
+
+						int iReturn = SaveFile(strOutputFileName.c_str(), (LPCSTR)strScript, strScript.GetLength());
+						if (iReturn != -1)
+						{
+							extern bool Document_ModelLoadPrimary(LPCSTR psFilename);
+							if (Document_ModelLoadPrimary(strOutputFileName.c_str()))
+							{
+								if (Model_Loaded())
+								{
+									ModelHandle_t hModel = AppVars.Container.hModel;
+
+									Model_Sequence_Lock(hModel, Gallery_GetSeqToLock(), true, false);
+								}
+
+								giRenderCount = 0;
+								bSnapshotTakingPlace = true;
+							}
+						}
+					}
+					else
+					{
+						// all done...
+						//
+						gbTextInhibit = false;
+						Gallery_Done();
+						StatusMessage(NULL);
+						//
+						// report...
+						//
+						CString strReport;
+
+						if (!strGalleryErrors.IsEmpty())
+						{
+							strReport += "====================== Errors: ===================\n\n";
+							strReport += strGalleryErrors;
+							strReport += "\n\n";
+						}
+
+						if (!strGalleryWarnings.IsEmpty())
+						{
+							strReport += "====================== Warnings: ===================\n\n";
+							strReport += strGalleryWarnings;
+							strReport += "\n\n";
+						}
+
+						if (!strGalleryInfo.IsEmpty())
+						{
+							strReport += "====================== Info: ===================\n\n";
+							strReport += strGalleryInfo;
+							strReport += "\n\n";
+						}
+
+						if (!strReport.IsEmpty())
+						{
+							strReport.Insert(0, "The following messages appeared during gallery-snapshots....\n\n");
+						}
+						else
+						{
+							strReport = va("All gallery-snapshots done\n\nOutput dir was: \"%s\\n", Gallery_GetOutputDir());
+						}
+
+						SendStringToNotepad(strReport, "gallery_report.txt");
+					}
+				}
+				else
+				{
+					if (giRenderCount == 2)	// ... so it's rendered to back buffer for snapshot, and front for user
+					{
+						//
+						// generate a filename...
+						//				
+						char sOutputFileName[MAX_PATH];
+						CString strBaseName(strCaption);
+						while (strBaseName.Replace("\t", " "));
+						while (strBaseName.Replace("  ", " "));
+						sprintf(&sOutputFileName[0], "%s\\%s.bmp", Gallery_GetOutputDir(), (LPCTSTR)strBaseName);
+						ScreenShot(sOutputFileName,/*strCaption*/strBaseName);
+						BMP_Free();
+
+						bSnapshotTakingPlace = false;	// trigger next snapshot
+					}
+					else
+					{
+						Invalidate(false);	// cause another screen update until render count satisfied
+					}
+				}
+
+				bAlreadyHere = false;
+			}
+		}
+	}
 }
 
 

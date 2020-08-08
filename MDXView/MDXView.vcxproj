@@ -221,6 +221,7 @@
     <ClInclude Include="GLProgram.h" />
     <ClInclude Include="GLShader.h" />
     <ClInclude Include="GLView.h" />
+    <ClInclude Include="image.h" />
     <ClInclude Include="includes.h" />
     <ClInclude Include="jpeg6\jconfig.h" />
     <ClInclude Include="jpeg6\jdct.h" />
@@ -303,6 +304,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
       </PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="image.cpp" />
     <ClCompile Include="jpeg6\jcomapi.c">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
       </PrecompiledHeader>

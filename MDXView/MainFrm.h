@@ -47,8 +47,16 @@ protected:
 	afx_msg void OnCbnSelchangeCombo1();
 	afx_msg void OnFileOpen();
 	afx_msg void OnFileBatchConvert();
+	afx_msg void OnFileWriteIdeal();
+	afx_msg void OnFileReadIdeal();
 	afx_msg void OnFileResetViewParams();
 	afx_msg void OnFileRefreshTextures();
+	afx_msg void OnFileWriteScript();
+	afx_msg void OnUpdateFileWriteScript(CCmdUI *pCmdUI);
+	afx_msg void OnFileReadScript();
+	afx_msg void OnFileViewSof2Npcs();
+	afx_msg void OnUpdateFileViewSof2Npcs(CCmdUI *pCmdUI);
+	afx_msg void OnFileViewJk2Bots();
 	afx_msg void OnFilePrint3D();
 	afx_msg void OnEditCut();
 	afx_msg void OnEditCopy();
@@ -180,6 +188,7 @@ private:
 	void OnUpdateViewLod(CCmdUI *pCmdUI, int lod);
 
 public:
+
 
 };
 
