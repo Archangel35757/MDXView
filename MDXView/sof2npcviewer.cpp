@@ -23,6 +23,7 @@
 static char THIS_FILE[] = __FILE__;
 #endif
 
+bool gbUserWantstoChangeGameDir = false;
 bool gbDoingGallery = false;
 CString gstrGalleryOutputDir;
 CString gstrGallerySequenceToLock;
@@ -102,7 +103,7 @@ BOOL CSOF2NPCViewer::OnInitDialog()
 	{
 		// JK2...
 		//
-		BOT_ScanFiles(false);
+		BOT_ScanFiles(true); //was false- changed to true to prevent dialog opening with wrong gamedir
 		BOT_FillList();
 
 		GetDlgItem(IDVALIDATE)->EnableWindow(false);
@@ -738,7 +739,21 @@ static bool NPC_ParseNPCFiles(void)
 	}
 	else
 	{
-		WarningBox(va("WARNING: no NPC files found in '%s'\n",sNPC_DIR ));
+		//WarningBox(va("WARNING: no NPC files found in '%s'\n",sNPC_DIR ));
+		char buffer[1024];
+		sprintf(buffer, "No SoF2 NPC files found in '%s'\nWould you like to change the SoF2 game directory?", sNPC_DIR);
+		if (MessageBoxA(NULL, buffer, "Warning", MB_YESNO | MB_ICONWARNING) == IDYES)
+		{
+			gbUserWantstoChangeGameDir = true;
+
+			//Give user browse-for-folder dialog to change game directory
+			CFolderPickerDialog dlgFolder;
+			if (dlgFolder.DoModal() == IDOK)
+			{
+				strcpy(gamedir, dlgFolder.GetFolderPath());
+				strcat(gamedir, "\\");
+			}
+		}
 	}
 
 	return !!TheNPCFiles.size();
@@ -934,7 +949,20 @@ void CSOF2NPCViewer::BOT_ScanFiles(bool bForceRefresh)
 	}
 	else
 	{
-		ErrorBox(va("Failed to open file \"%s\"!",(LPCSTR)strFileName));
+		//ErrorBox(va("Failed to open file \"%s\"!",(LPCSTR)strFileName));
+
+		char buffer[1024];
+		sprintf(buffer, "Jedi Knight Bot file \"%s\" not found.\nWould you like to change the Jedi Knight game directory?", (LPCSTR)strFileName);
+		if ( ::MessageBoxA(NULL, buffer, "Warning", MB_YESNO | MB_ICONWARNING) == IDYES )
+		{
+			//Give user browse-for-folder dialog to change game directory
+			CFolderPickerDialog dlgFolder;
+			if (dlgFolder.DoModal() == IDOK)
+			{
+				strcpy(gamedir, dlgFolder.GetFolderPath());
+				strcat(gamedir, "\\");
+			}
+		}
 	}
 }
 
@@ -1031,6 +1059,17 @@ void CSOF2NPCViewer::NPC_ScanFiles(bool bForceRefresh)
 					}				
 				}
 	*/
+			}
+			else if (gbUserWantstoChangeGameDir)
+			{
+				//user has changed gamedir... let's try again.
+				if (NPC_ParseNPCFiles())
+				{
+					bUserWantsToCancel = false;
+				}
+
+				//reset
+				gbUserWantstoChangeGameDir = false;
 			}
 		}
 	}	
