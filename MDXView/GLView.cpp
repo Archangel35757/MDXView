@@ -373,6 +373,9 @@ bool CGLView::SetupGLContext(bool iSetPixelFormat)
 
 	OnceOnly_GLVarsInit();
 
+	g_hDC = m_hDC;
+	g_hRC = m_hGLRC;
+
 	return true;
 }
 

@@ -16,6 +16,9 @@
 
 using namespace glm;
 
+extern HDC g_hDC;
+extern HGLRC g_hRC;
+
 extern CString csGLVendor;
 extern CString csGLRenderer;
 extern CString csGLVersion;

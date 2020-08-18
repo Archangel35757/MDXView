@@ -67,8 +67,8 @@ int g_iAssertCounter = 0;	// just used for debug-outs
 
 							// Global handle to main client window GL rendering context, used for other DC/RC pairs to share lists with.
 							//
-HGLRC	g_hRC = NULL;
 HDC		g_hDC = NULL;
+HGLRC	g_hRC = NULL;
 
 CString csGLVendor;
 CString csGLRenderer;

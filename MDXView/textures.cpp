@@ -1003,6 +1003,8 @@ static TextureHandle_t Texture_Load_Actual( LPCSTR psLocalTexturePath)
 	Texture.sExt [sizeof(Texture.sExt)-1] = '\0';
 	Texture.bFTValid = GetFileTime(va("%s%s",Texture.sName,Texture.sExt), Texture.ft);
 
+	VERIFY(wglMakeCurrent(g_hDC, g_hRC));
+
 	glGenTextures( 1, &Texture.gluiDesiredBind );	// in case we fail, so we can still do a refresh without having a zero bind
 
 	if (Texture.pPixels)	// file loaded ok?

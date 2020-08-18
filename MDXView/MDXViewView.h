@@ -4,8 +4,6 @@
 
 #pragma once
 
-#include "trackball.h"
-
 // Include the OpenGL headers
 #include "GLView.h"
 
@@ -77,8 +75,6 @@ private:
 
 public:
 	virtual void OnInitialUpdate();
-
-
 	virtual BOOL Create(LPCTSTR lpszClassName, LPCTSTR lpszWindowName, DWORD dwStyle, const RECT& rect, CWnd* pParentWnd, UINT nID, CCreateContext* pContext = NULL);
 };
 

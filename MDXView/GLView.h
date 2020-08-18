@@ -25,7 +25,7 @@
 
 #include "ogl.h"
 #include <TCHAR.H>  // for unicode support
-#include "Trackball.h"
+#include "trackball.h"
 
 class CGLProgram;
 class CGLShader;
