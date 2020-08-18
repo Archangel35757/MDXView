@@ -6,6 +6,7 @@
 #include "GLShader.h"
 #include "GLProgram.h"
 #include "includes.h"
+#include "Textures.h"
 #include <iostream>
 #include <string>
 
@@ -110,6 +111,8 @@ CGLView::CGLView()
 
 	m_iViewWidth	= 100;
 	m_iViewHeight	= 100;
+
+	m_TimerHandle_Update100FPS = 0;
 
 	nRange = 100;
 	m_bAntiAlias = true;
@@ -367,6 +370,8 @@ bool CGLView::SetupGLContext(bool iSetPixelFormat)
 		AfxMessageBox(_T("OpenGL 3.x RC was not created!"));
 		return false;
 	}
+
+	OnceOnly_GLVarsInit();
 
 	return true;
 }

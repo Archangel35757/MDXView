@@ -30,7 +30,7 @@
 class CGLProgram;
 class CGLShader;
 
-// This class is exported from the GLView.dll
+//Class CGLView handles all OpenGL operations
 class CGLView 
 {
 public:
@@ -41,7 +41,7 @@ public:
 
 	bool SetupGLContext(bool iSetPixelFormat);
 	void Resize(unsigned short iWidth, unsigned short iHeight);
-	void PrepareScene(HDC hdc);			// Scene preparation stuff
+	void PrepareScene(HDC hdc);		// Scene preparation stuff
 	void RenderScene(void);
 	void Refresh(void);
 	void DestroyScene();			// Cleanup
@@ -50,8 +50,9 @@ public:
 	HDC  m_hDC;
 	HGLRC m_hGLRC;
 
-	int m_iViewWidth;
-	int m_iViewHeight;
+	int		m_iViewWidth;
+	int		m_iViewHeight;
+	UINT	m_TimerHandle_Update100FPS;
 
 protected:
 	void SetData(void);

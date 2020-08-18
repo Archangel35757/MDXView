@@ -26,6 +26,7 @@ protected: // create from serialization only
 // Attributes
 public:
 	CMDXViewDoc* GetDocument() const;
+	UINT	m_TimerHandle_Update100FPS;
 
 // Operations
 public:
@@ -78,6 +79,7 @@ public:
 	virtual void OnInitialUpdate();
 
 
+	virtual BOOL Create(LPCTSTR lpszClassName, LPCTSTR lpszWindowName, DWORD dwStyle, const RECT& rect, CWnd* pParentWnd, UINT nID, CCreateContext* pContext = NULL);
 };
 
 #ifndef _DEBUG  // debug version in MDXViewView.cpp

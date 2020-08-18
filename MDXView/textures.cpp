@@ -13,6 +13,7 @@
 #include "textures.h"
 
 //#include "gl_bits.h"
+#include "ogl.h"
 
 static LPCSTR BackSlash(LPCSTR psFilename)
 {
@@ -544,7 +545,6 @@ static void Upload32( unsigned *data,
 		scaled_width >>= 1;
 	if ( r_roundImagesDown->integer && scaled_height > height )
 		scaled_height >>= 1;
-
 	if ( scaled_width != width || scaled_height != height ) {
 		resampledBuffer = (unsigned int *) ri.Hunk_AllocateTempMemory( scaled_width * scaled_height * 4 );
 		ResampleTexture (data, width, height, resampledBuffer, scaled_width, scaled_height);
@@ -836,6 +836,7 @@ int TextureList_GetMip(void)
 {
 	return r_picmip->integer;
 }
+
 void TextureList_ReMip(int iMIPLevel)
 {
 	CWaitCursor wait;

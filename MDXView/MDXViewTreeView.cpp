@@ -38,17 +38,119 @@ CMDXViewTreeView::~CMDXViewTreeView()
 }
 
 BEGIN_MESSAGE_MAP(CMDXViewTreeView, CTreeView)
+	//{{AFX_MSG_MAP(CMDXViewTreeView)
 //	ON_WM_ERASEBKGND()
 	ON_WM_SIZE()
 	ON_WM_SIZING()
 	ON_WM_RBUTTONDOWN()
-	ON_COMMAND(IDM_TREE_MODEL_EXPANDALL, &CMDXViewTreeView::OnTreeModelExpandall)
-	ON_COMMAND(IDM_TREE_MODEL_COLLAPSEALL, &CMDXViewTreeView::OnTreeModelCollapseall)
+	ON_COMMAND(IDM_TREE_MODEL_EXPANDALL, &CMDXViewTreeView::OnTreeModelExpandAll)
+	ON_COMMAND(IDM_TREE_MODEL_COLLAPSEALL, &CMDXViewTreeView::OnTreeModelCollapseAll)
 	ON_COMMAND(IDM_TREE_MODEL_INFO, &CMDXViewTreeView::OnTreeModelInfo)
-	ON_COMMAND(IDM_TREE_MODEL_UNBOLTME, &CMDXViewTreeView::OnTreeModelUnboltme)
-	ON_COMMAND(IDM_TREE_MODEL_FINDANY, &CMDXViewTreeView::OnTreeModelFindany)
+	ON_COMMAND(IDM_TREE_MODEL_UNBOLTME, &CMDXViewTreeView::OnTreeModelUnboltMe)
+	ON_UPDATE_COMMAND_UI(IDM_TREE_MODEL_UNBOLTME, &CMDXViewTreeView::OnUpdateTreeModelUnboltMe)
+	ON_COMMAND(IDM_TREE_MODEL_FINDANY, &CMDXViewTreeView::OnTreeModelFindAny)
 	ON_WM_LBUTTONDBLCLK()
-END_MESSAGE_MAP()
+	ON_COMMAND(IDR_TREE_BONES_EXPANDALL, &CMDXViewTreeView::OnTreeBonesExpandAll)
+	ON_COMMAND(ID_BONES_FIND, &CMDXViewTreeView::OnBonesFind)
+	ON_COMMAND(ID_BONES_CLEARSECONDARYANIM, &CMDXViewTreeView::OnBonesClearSecondaryAnim)
+	ON_UPDATE_COMMAND_UI(ID_BONES_CLEARSECONDARYANIM, &CMDXViewTreeView::OnUpdateBonesClearSecondaryAnim)
+	ON_COMMAND(ID_ETHNIC_EXPANDALL, &CMDXViewTreeView::OnEthnicExpandAll)
+	ON_COMMAND(ID_ETHNIC_APPLY_SKIN, &CMDXViewTreeView::OnEthnicApplySkin)
+	ON_COMMAND(ID_ETHNIC_APPLY_SKIN_SURFACEPREFS, &CMDXViewTreeView::OnEthnicApplySkinSurfacePrefs)
+	ON_UPDATE_COMMAND_UI(ID_ETHNIC_APPLY_SKIN_SURFACEPREFS, &CMDXViewTreeView::OnUpdateEthnicApplySkinSurfacePrefs)
+	ON_COMMAND(ID_ETHNIC_APPLY_SKIN_SURFACEDEFAULTS, &CMDXViewTreeView::OnEthnicApplySkinSurfaceDefaults)
+	ON_UPDATE_COMMAND_UI(ID_GLMBONE_TITLE, &CMDXViewTreeView::OnUpdateGlmBoneTitle)
+	ON_COMMAND(ID_GLMBONE_INFO, &CMDXViewTreeView::OnGlmBoneInfo)
+	ON_COMMAND(ID_GLMBONE_BOLTMODEL_REPLACE, &CMDXViewTreeView::OnGlmBoneBoltModelReplace)
+	ON_COMMAND(ID_GLMBONE_BOLTMODEL_ADD, &CMDXViewTreeView::OnGlmBoneBoltModelAdd)
+	ON_COMMAND(ID_GLMBONE_DELETEALLBOLTEDMODELS, &CMDXViewTreeView::OnGlmBoneDeleteAllBoltedModels)
+	ON_UPDATE_COMMAND_UI(ID_GLMBONE_DELETEALLBOLTEDMODELS, &CMDXViewTreeView::OnUpdateGlmBoneDeleteAllBoltedModels)
+	ON_COMMAND(ID_GLMBONE_SECONDARY_ANIMSTART, &CMDXViewTreeView::OnGlmBoneSecondaryAnimStart)
+	ON_UPDATE_COMMAND_UI(ID_GLMBONE_SECONDARY_ANIMSTART, &CMDXViewTreeView::OnUpdateGlmBoneSecondaryAnimStart)
+	ON_UPDATE_COMMAND_UI(ID_GLMSURFACE_TITLE, &CMDXViewTreeView::OnUpdateGlmSurfaceTitle)
+	ON_COMMAND(ID_GLMSURFACE_INFO, &CMDXViewTreeView::OnGlmSurfaceInfo)
+	ON_COMMAND(ID_GLMSURFACE_ON, &CMDXViewTreeView::OnGlmSurfaceOn)
+	ON_UPDATE_COMMAND_UI(ID_GLMSURFACE_ON, &CMDXViewTreeView::OnUpdateGlmSurfaceOn)
+	ON_COMMAND(ID_GLMSURFACE_OFF, &CMDXViewTreeView::OnGlmSurfaceOff)
+	ON_UPDATE_COMMAND_UI(ID_GLMSURFACE_OFF, &CMDXViewTreeView::OnUpdateGlmSurfaceOff)
+	ON_COMMAND(ID_GLMSURFACE_NODESCENDANTS, &CMDXViewTreeView::OnGlmSurfaceNoDescendants)
+	ON_UPDATE_COMMAND_UI(ID_GLMSURFACE_NODESCENDANTS, &CMDXViewTreeView::OnUpdateGlmSurfaceNoDescendants)
+	ON_COMMAND(ID_GLMSURFACE_SETASROOT, &CMDXViewTreeView::OnGlmSurfaceSetAsRoot)
+	ON_UPDATE_COMMAND_UI(ID_GLMSURFACE_SETASROOT, &CMDXViewTreeView::OnUpdateGlmSurfaceSetAsRoot)
+	ON_COMMAND(ID_GLMSURFACE_CLEARROOT, &CMDXViewTreeView::OnGlmSurfaceClearRoot)
+	ON_UPDATE_COMMAND_UI(ID_GLMSURFACE_CLEARROOT, &CMDXViewTreeView::OnUpdateGlmSurfaceClearRoot)
+	ON_COMMAND(ID_GLMSURFACE_BOLTMODEL_REPLACE, &CMDXViewTreeView::OnGlmSurfaceBoltModelReplace)
+	ON_UPDATE_COMMAND_UI(ID_GLMSURFACE_BOLTMODEL_REPLACE, &CMDXViewTreeView::OnUpdateGlmSurfaceBoltModelReplace)
+	ON_COMMAND(ID_GLMSURFACE_BOLTMODEL_ADD, &CMDXViewTreeView::OnGlmSurfaceBoltModelAdd)
+	ON_UPDATE_COMMAND_UI(ID_GLMSURFACE_BOLTMODEL_ADD, &CMDXViewTreeView::OnUpdateGlmSurfaceBoltModelAdd)
+	ON_COMMAND(ID_GLMSURFACE_DELETEALLBOLTEDMODELS, &CMDXViewTreeView::OnGlmSurfaceDeleteAllBoltedModels)
+	ON_UPDATE_COMMAND_UI(ID_GLMSURFACE_DELETEALLBOLTEDMODELS, &CMDXViewTreeView::OnUpdateGlmSurfaceDeleteAllBoltedModels)
+	ON_UPDATE_COMMAND_UI(ID_GLMTAGSURFACE_TITLE, &CMDXViewTreeView::OnUpdateGlmTagSurfaceTitle)
+	ON_COMMAND(ID_GLMTAGSURFACE_INFO, &CMDXViewTreeView::OnGlmTagSurfaceInfo)
+	ON_COMMAND(ID_GLMTAGSURFACE_BOLTMODEL_REPLACE, &CMDXViewTreeView::OnGlmTagSurfaceBoltModelReplace)
+	ON_COMMAND(ID_GLMTAGSURFACE_BOLTMODEL_ADD, &CMDXViewTreeView::OnGlmTagSurfaceBoltModelAdd)
+	ON_COMMAND(ID_GLMTAGSURFACE_DELETEALLBOLTEDMODELS, &CMDXViewTreeView::OnGlmTagSurfaceDeleteAllBoltedModels)
+	ON_UPDATE_COMMAND_UI(ID_GLMTAGSURFACE_DELETEALLBOLTEDMODELS, &CMDXViewTreeView::OnUpdateGlmTagSurfaceDeleteAllBoltedModels)
+	ON_COMMAND(ID_G2SKIN_EXPANDALL, &CMDXViewTreeView::OnG2SkinExpandAll)
+	ON_COMMAND(ID_G2SKIN_VALIDATE, &CMDXViewTreeView::OnG2SkinValidate)
+	ON_COMMAND(ID_G2SKINS_EXPANDALL, &CMDXViewTreeView::OnG2SkinsExpandAll)
+	ON_COMMAND(ID_G2SKINS_VALIDATE, &CMDXViewTreeView::OnG2SkinsValidate)
+	ON_COMMAND(ID_OLDSKIN_VALIDATE, &CMDXViewTreeView::OnOldSkinValidate)
+	ON_COMMAND(ID_OLDSKIN_APPLY, &CMDXViewTreeView::OnOldSkinApply)
+	ON_COMMAND(ID_OLDSKINS_VALIDATE, &CMDXViewTreeView::OnOldSkinsValidate)
+	ON_COMMAND(ID_SHADERVARIANT_APPLY, &CMDXViewTreeView::OnShaderVariantApply)
+	ON_UPDATE_COMMAND_UI(ID_SEQ_TITLE, &CMDXViewTreeView::OnUpdateSeqTitle)
+	ON_COMMAND(ID_SEQ_LOCK, &CMDXViewTreeView::OnSeqLock)
+	ON_UPDATE_COMMAND_UI(ID_SEQ_LOCK, &CMDXViewTreeView::OnUpdateSeqLock)
+	ON_COMMAND(ID_SEQ_UNLOCK, &CMDXViewTreeView::OnSeqUnlock)
+	ON_UPDATE_COMMAND_UI(ID_SEQ_UNLOCK, &CMDXViewTreeView::OnUpdateSeqUnlock)
+	ON_COMMAND(ID_SEQ_MULTILOCK, &CMDXViewTreeView::OnSeqMultiLock)
+	ON_UPDATE_COMMAND_UI(ID_SEQ_MULTILOCK, &CMDXViewTreeView::OnUpdateSeqMultiLock)
+	ON_COMMAND(ID_SEQ_MULTILOCK_DELETE, &CMDXViewTreeView::OnSeqMultiLockDelete)
+	ON_UPDATE_COMMAND_UI(ID_SEQ_MULTILOCK_DELETE, &CMDXViewTreeView::OnUpdateSeqMultiLockDelete)
+	ON_COMMAND(ID_SEQ_LOCK_SECONDARY, &CMDXViewTreeView::OnSeqLockSecondary)
+	ON_UPDATE_COMMAND_UI(ID_SEQ_LOCK_SECONDARY, &CMDXViewTreeView::OnUpdateSeqLockSecondary)
+	ON_COMMAND(ID_SEQ_UNLOCK_SECONDARY, &CMDXViewTreeView::OnSeqUnlockSecondary)
+	ON_UPDATE_COMMAND_UI(ID_SEQ_UNLOCK_SECONDARY, &CMDXViewTreeView::OnUpdateSeqUnlockSecondary)
+	ON_COMMAND(ID_SEQ_MULTILOCK_SECONDARY, &CMDXViewTreeView::OnSeqMultiLockSecondary)
+	ON_UPDATE_COMMAND_UI(ID_SEQ_MULTILOCK_SECONDARY, &CMDXViewTreeView::OnUpdateSeqMultiLockSecondary)
+	ON_COMMAND(ID_SEQ_MULTILOCK_SECONDARY_DELETE, &CMDXViewTreeView::OnSeqMultiLockSecondaryDelete)
+	ON_UPDATE_COMMAND_UI(ID_SEQ_MULTILOCK_SECONDARY_DELETE, &CMDXViewTreeView::OnUpdateSeqMultiLockSecondaryDelete)
+	ON_COMMAND(ID_SEQS_VIEWFULLPATH, &CMDXViewTreeView::OnSeqsViewFullPath)
+	ON_COMMAND(ID_SEQS_SORTALPHABETICALLY, &CMDXViewTreeView::OnSeqsSortAlphabetically)
+	ON_UPDATE_COMMAND_UI(ID_SEQS_SORTALPHABETICALLY, &CMDXViewTreeView::OnUpdateSeqsSortAlphabetically)
+	ON_COMMAND(ID_SEQS_UNLOCKALL, &CMDXViewTreeView::OnSeqsUnlockAll)
+	ON_UPDATE_COMMAND_UI(ID_SEQS_UNLOCKALL, &CMDXViewTreeView::OnUpdateSeqsUnlockAll)
+	ON_COMMAND(ID_SEQS_UNLOCK_PRIMARY, &CMDXViewTreeView::OnSeqsUnlockPrimary)
+	ON_UPDATE_COMMAND_UI(ID_SEQS_UNLOCK_PRIMARY, &CMDXViewTreeView::OnUpdateSeqsUnlockPrimary)
+	ON_COMMAND(ID_SEQS_UNLOCK_SECONDARY, &CMDXViewTreeView::OnSeqsUnlockSecondary)
+	ON_UPDATE_COMMAND_UI(ID_SEQS_UNLOCK_SECONDARY, &CMDXViewTreeView::OnUpdateSeqsUnlockSecondary)
+	ON_COMMAND(ID_MULTISEQS_UNLOCK_PRIMARY, &CMDXViewTreeView::OnMultiSeqsUnlockPrimary)
+	ON_UPDATE_COMMAND_UI(ID_MULTISEQS_UNLOCK_PRIMARY, &CMDXViewTreeView::OnUpdateMultiSeqsUnlockPrimary)
+	ON_COMMAND(ID_SEQS_DELETELAST_PRIMARY, &CMDXViewTreeView::OnSeqsDeleteLastPrimary)
+	ON_UPDATE_COMMAND_UI(ID_SEQS_DELETELAST_PRIMARY, &CMDXViewTreeView::OnUpdateSeqsDeleteLastPrimary)
+	ON_COMMAND(ID_SEQS_DELETEALL_PRIMARY, &CMDXViewTreeView::OnSeqsDeleteAllPrimary)
+	ON_UPDATE_COMMAND_UI(ID_SEQS_DELETEALL_PRIMARY, &CMDXViewTreeView::OnUpdateSeqsDeleteAllPrimary)
+	ON_COMMAND(ID_MULTISEQS_UNLOCK_SECONDARY, &CMDXViewTreeView::OnMultiSeqsUnlockSecondary)
+	ON_UPDATE_COMMAND_UI(ID_MULTISEQS_UNLOCK_SECONDARY, &CMDXViewTreeView::OnUpdateMultiSeqsUnlockSecondary)
+	ON_COMMAND(ID_SEQS_DELETELAST_SECONDARY, &CMDXViewTreeView::OnSeqsDeleteLastSecondary)
+	ON_UPDATE_COMMAND_UI(ID_SEQS_DELETELAST_SECONDARY, &CMDXViewTreeView::OnUpdateSeqsDeleteLastSecondary)
+	ON_COMMAND(ID_SEQS_DELETEALL_SECONDARY, &CMDXViewTreeView::OnSeqsDeleteAllSecondary)
+	ON_UPDATE_COMMAND_UI(ID_SEQS_DELETEALL_SECONDARY, &CMDXViewTreeView::OnUpdateSeqsDeleteAllSecondary)
+	ON_COMMAND(ID_TREE_SURFACES_EXPANDALL, &CMDXViewTreeView::OnTreeSurfacesExpandAll)
+	ON_COMMAND(ID_TREE_SURFACES_FIND, &CMDXViewTreeView::OnTreeSurfacesFind)
+	ON_COMMAND(ID_TREE_SURFACES_FIND_NEXT, &CMDXViewTreeView::OnTreeSurfacesFindNext)
+	ON_COMMAND(ID_TREE_SURFACES_FIND_PREV, &CMDXViewTreeView::OnTreeSurfacesFindPrev)
+	ON_COMMAND(ID_TREE_SURFACES_ALLDEFAULTOFF_OFF, &CMDXViewTreeView::OnTreeSurfacesAllDefaultoffOff)
+	ON_UPDATE_COMMAND_UI(ID_TREE_SURFACES_ALLDEFAULTOFF_OFF, &CMDXViewTreeView::OnUpdateTreeSurfacesAllDefaultoffOff)
+	ON_COMMAND(ID_TREE_SURFACES_ALLDEFAULTOFF_ON, &CMDXViewTreeView::OnTreeSurfacesAllDefaultoffOn)
+	ON_UPDATE_COMMAND_UI(ID_TREE_SURFACES_ALLDEFAULTOFF_ON, &CMDXViewTreeView::OnUpdateTreeSurfacesAllDefaultoffOn)
+	ON_COMMAND(ID_TREE_SURFACES_ALLDEFAULTOFF_DEFAULT, &CMDXViewTreeView::OnTreeSurfacesAllDefaultoffDefault)
+	ON_COMMAND(ID_TREE_SURFACES_CLEAR_ROOT, &CMDXViewTreeView::OnTreeSurfacesClearRoot)
+	ON_UPDATE_COMMAND_UI(ID_TREE_SURFACES_CLEAR_ROOT, &CMDXViewTreeView::OnUpdateTreeSurfacesClearRoot)
+	//}}AFX_MSG_MAP
+		ON_COMMAND(ID_TREE_TAGSURFACES_EXPANDALL, &CMDXViewTreeView::OnTreeTagSurfacesExpandAll)
+		END_MESSAGE_MAP()
 
 
 // CMDXViewTreeView diagnostics
@@ -185,7 +287,6 @@ HTREEITEM		ghTreeItem_RButtonMenu = NULL;	// rather tacky, but I blame MS's API 
 TreeItemData_t	gTreeItemData;
 
 
-
 // returns NULL if CANCEL, else input string
 LPCSTR GetString(LPCSTR psPrompt, LPCSTR psDefault, bool bLowerCaseTheResult)
 {
@@ -286,6 +387,71 @@ void CMDXViewTreeView::SearchTreeItem(HTREEITEM hTreeItem)
 				ghTreeItemFound = hTreeItem;
 		}
 	}
+}
+
+
+void CMDXViewTreeView::ReEvalSequenceText(HTREEITEM hTreeItem)
+{
+	TreeItemData_t	TreeItemData;
+	TreeItemData.uiData = gMDXViewTreeViewHandle->GetTreeCtrl().GetItemData(hTreeItem);
+
+	if (TreeItemData.iItemType == TREEITEMTYPE_SEQUENCE)
+	{
+		LPCSTR psNewText = Model_Sequence_GetTreeName(TreeItemData.iModelHandle, TreeItemData.iItemNumber);
+
+		gMDXViewTreeViewHandle->GetTreeCtrl().SetItemText(hTreeItem, psNewText);
+	}
+}
+
+
+// 'bDefaultAll' overrides 'bOnOff' and means set-to-default-state...
+//
+void CMDXViewTreeView::SetTreeItemSurfaceState(HTREEITEM hTreeItem, bool bOnOff, bool bDefaultAll)
+{
+	TreeItemData_t	TreeItemData;
+	TreeItemData.uiData = gMDXViewTreeViewHandle->GetTreeCtrl().GetItemData(hTreeItem);
+
+	if (TreeItemData.iItemType == TREEITEMTYPE_GLM_SURFACE ||
+		TreeItemData.iItemType == TREEITEMTYPE_GLM_TAGSURFACE
+		)
+	{
+		LPCSTR psSurfaceName = GLMModel_GetSurfaceName(TreeItemData.iModelHandle, TreeItemData.iItemNumber);
+
+		bool bSurfaceNameIncludesOFF = !stricmp("_off", &psSurfaceName[strlen(psSurfaceName) - 4]);
+
+		if (bDefaultAll || bSurfaceNameIncludesOFF)
+		{
+			if (bDefaultAll)
+				bOnOff = !bSurfaceNameIncludesOFF;
+
+			if (bOnOff)
+			{
+				Model_GLMSurface_On(TreeItemData.iModelHandle, TreeItemData.iItemNumber);
+			}
+			else
+			{
+				Model_GLMSurface_Off(TreeItemData.iModelHandle, TreeItemData.iItemNumber);
+			}
+		}
+	}
+}
+
+
+void CMDXViewTreeView::EnableTreeItemDefaultOFFSurface(HTREEITEM hTreeItem)
+{
+	SetTreeItemSurfaceState(hTreeItem, true, false);
+}
+
+
+void CMDXViewTreeView::DisableTreeItemDefaultOFFSurface(HTREEITEM hTreeItem)
+{
+	SetTreeItemSurfaceState(hTreeItem, false, false);
+}
+
+
+void CMDXViewTreeView::DefaultTreeItemDefaultOFFSurface(HTREEITEM hTreeItem)
+{
+	SetTreeItemSurfaceState(hTreeItem, false, true);
 }
 
 
@@ -441,39 +607,45 @@ void CMDXViewTreeView::OnRButtonDown(UINT nFlags, CPoint point)
 }
 
 
-void CMDXViewTreeView::OnTreeModelExpandall()
+void CMDXViewTreeView::OnTreeModelExpandAll()
 {
-	// TODO: Add your command handler code here
-	//	R_ApplyToTreeItem( ::ExpandTreeItem, GetTreeCtrl().GetRootItem(), true );
-	//	GetTreeCtrl().SelectSetFirstVisible(GetRootItem());
+//	R_ApplyToTreeItem( ::ExpandTreeItem, GetTreeCtrl().GetRootItem(), true );
+//	GetTreeCtrl().SelectSetFirstVisible(GetRootItem());
 	R_ApplyToTreeItem(ExpandTreeItem, ghTreeItem_RButtonMenu);
 	GetTreeCtrl().SelectSetFirstVisible(ghTreeItem_RButtonMenu);
 }
 
 
-void CMDXViewTreeView::OnTreeModelCollapseall()
+void CMDXViewTreeView::OnTreeModelCollapseAll()
 {
-	// TODO: Add your command handler code here
-	//	R_ApplyToTreeItem( ::CollapseTreeItem, GetTreeCtrl().GetRootItem(), true );
+//	R_ApplyToTreeItem( ::CollapseTreeItem, GetTreeCtrl().GetRootItem(), true );
 	R_ApplyToTreeItem(CollapseTreeItem, ghTreeItem_RButtonMenu, true);
 }
 
 
 void CMDXViewTreeView::OnTreeModelInfo()
 {
-	// TODO: Add your command handler code here
+	InfoBox(Model_Info(gTreeItemData.iModelHandle));
 }
 
 
-void CMDXViewTreeView::OnTreeModelUnboltme()
+void CMDXViewTreeView::OnTreeModelUnboltMe()
 {
-	// TODO: Add your command handler code here
+	if (Model_DeleteBoltOn(gTreeItemData.iModelHandle))
+	{
+		Invalidate(false);
+	}
 }
 
 
-void CMDXViewTreeView::OnTreeModelFindany()
+void CMDXViewTreeView::OnUpdateTreeModelUnboltMe(CCmdUI *pCmdUI)
 {
-	// TODO: Add your command handler code here
+	pCmdUI->Enable(Model_HasParent(gTreeItemData.iModelHandle));
+}
+
+
+void CMDXViewTreeView::OnTreeModelFindAny()
+{
 	LPCSTR psSearch = GetString("Enter TreeItemText to search for...\n\n( Case insensitive, partial strings ok )");
 
 	if (psSearch)
@@ -550,4 +722,876 @@ void CMDXViewTreeView::OnLButtonDblClk(UINT nFlags, CPoint point)
 	}
 
 	CTreeView::OnLButtonDblClk(nFlags, point);
+}
+
+void CMDXViewTreeView::OnTreeBonesExpandAll()
+{
+	R_ApplyToTreeItem(ExpandTreeItem, ghTreeItem_RButtonMenu);
+	GetTreeCtrl().SelectSetFirstVisible(ghTreeItem_RButtonMenu);
+}
+
+
+void CMDXViewTreeView::OnBonesFind()
+{
+	LPCSTR psSearch = GetString("Enter Bone name to search for...\n\n( Case insensitive, partial strings ok )");
+
+	if (psSearch)
+	{
+		strTreeItemTextToFind = psSearch;
+		ghTreeItemFound = NULL;
+		ghTreeItemHeader = ghTreeItem_RButtonMenu;
+		ghTreeCurrentFind = NULL;
+
+		R_ApplyToTreeItem(SearchTreeItem, ghTreeItemHeader);
+
+		if (ghTreeItemFound)
+		{
+			GetTreeCtrl().SelectSetFirstVisible(ghTreeItemFound);
+			GetTreeCtrl().SelectItem(ghTreeItemFound);
+		}
+	}
+}
+
+
+void CMDXViewTreeView::OnBonesClearSecondaryAnim()
+{
+	Model_SetSecondaryAnimStart(gTreeItemData.iModelHandle, -1);
+}
+
+
+void CMDXViewTreeView::OnUpdateBonesClearSecondaryAnim(CCmdUI *pCmdUI)
+{
+	pCmdUI->Enable((Model_GetSecondaryAnimStart(gTreeItemData.iModelHandle) != -1));
+}
+
+
+void CMDXViewTreeView::OnEthnicExpandAll()
+{
+	R_ApplyToTreeItem(ExpandTreeItem, ghTreeItem_RButtonMenu);
+	GetTreeCtrl().SelectSetFirstVisible(ghTreeItem_RButtonMenu);
+}
+
+
+void CMDXViewTreeView::OnEthnicApplySkin()
+{
+	HTREEITEM hTreeItemParent = GetTreeCtrl().GetParentItem(ghTreeItem_RButtonMenu);
+	CString strParentSkin = GetTreeCtrl().GetItemText(hTreeItemParent);
+	CString strThisEthnic = GetTreeCtrl().GetItemText(ghTreeItem_RButtonMenu);
+
+	Model_ApplyEthnicSkin(gTreeItemData.iModelHandle, strParentSkin, strThisEthnic, false, false);
+}
+
+void CMDXViewTreeView::OnEthnicApplySkinSurfacePrefs()
+{
+	HTREEITEM hTreeItemParent = GetTreeCtrl().GetParentItem(ghTreeItem_RButtonMenu);
+	CString strParentSkin = GetTreeCtrl().GetItemText(hTreeItemParent);
+	CString strThisEthnic = GetTreeCtrl().GetItemText(ghTreeItem_RButtonMenu);
+
+	Model_ApplyEthnicSkin(gTreeItemData.iModelHandle, strParentSkin, strThisEthnic, true, true);
+}
+
+
+void CMDXViewTreeView::OnUpdateEthnicApplySkinSurfacePrefs(CCmdUI *pCmdUI)
+{
+	HTREEITEM hTreeItemParent = GetTreeCtrl().GetParentItem(ghTreeItem_RButtonMenu);
+	CString strParentSkin = GetTreeCtrl().GetItemText(hTreeItemParent);
+
+	pCmdUI->Enable(Model_SkinHasSurfacePrefs(gTreeItemData.iModelHandle, strParentSkin));
+}
+
+
+void CMDXViewTreeView::OnEthnicApplySkinSurfaceDefaults()
+{
+	HTREEITEM hTreeItemParent = GetTreeCtrl().GetParentItem(ghTreeItem_RButtonMenu);
+	CString strParentSkin = GetTreeCtrl().GetItemText(hTreeItemParent);
+	CString strThisEthnic = GetTreeCtrl().GetItemText(ghTreeItem_RButtonMenu);
+
+	Model_ApplyEthnicSkin(gTreeItemData.iModelHandle, strParentSkin, strThisEthnic, false, true);
+}
+
+
+void CMDXViewTreeView::OnUpdateGlmBoneTitle(CCmdUI *pCmdUI)
+{
+	pCmdUI->SetText(va("Bone:  %s", Model_GetBoneName(gTreeItemData.iModelHandle, gTreeItemData.iItemNumber)));
+}
+
+
+void CMDXViewTreeView::OnGlmBoneInfo()
+{
+	InfoBox(Model_GLMBoneInfo(gTreeItemData.iModelHandle, gTreeItemData.iItemNumber));
+}
+
+
+void CMDXViewTreeView::OnGlmBoneBoltModelReplace()
+{
+//	OutputDebugString("on command\n");
+	LPCSTR psCaption = va("Bolt model to bone bolt-point '%s'", Model_GetBoltName(gTreeItemData.iModelHandle, gTreeItemData.iItemNumber, true));	// bBoltIsBone
+
+	LPCSTR psFullPathedFilename = InputLoadFileName("",				// LPCSTR psInitialLoadName, 
+		psCaption,		// LPCSTR psCaption,
+		Filename_PathOnly(Model_GetFullPrimaryFilename()),	//	"S:\\baseq3\\models\\test\\bonehier",	// LPCSTR psInitialDir,
+		Model_GetSupportedTypesFilter()			// LPCSTR psFilter
+	);
+
+	if (psFullPathedFilename)
+	{
+		Model_LoadBoltOn(psFullPathedFilename, gTreeItemData.iModelHandle, gTreeItemData.iItemNumber, true, true);	// bBoltIsBone, bBoltReplacesAllExisting
+	}
+}
+
+
+void CMDXViewTreeView::OnGlmBoneBoltModelAdd()
+{
+//	OutputDebugString("on command\n");
+	LPCSTR psCaption = va("Bolt additional model to bone bolt-point '%s'", Model_GetBoltName(gTreeItemData.iModelHandle, gTreeItemData.iItemNumber, true));	// bBoltIsBone
+
+	LPCSTR psFullPathedFilename = InputLoadFileName("",				// LPCSTR psInitialLoadName, 
+		psCaption,		// LPCSTR psCaption,
+		Filename_PathOnly(Model_GetFullPrimaryFilename()),	//	"S:\\baseq3\\models\\test\\bonehier",	// LPCSTR psInitialDir,
+		Model_GetSupportedTypesFilter()			// LPCSTR psFilter
+	);
+
+	if (psFullPathedFilename)
+	{
+		Model_LoadBoltOn(psFullPathedFilename, gTreeItemData.iModelHandle, gTreeItemData.iItemNumber, true, false);	// bBoltIsBone, bBoltReplacesAllExisting
+	}
+}
+
+
+void CMDXViewTreeView::OnGlmBoneDeleteAllBoltedModels()
+{
+	if (Model_DeleteBoltOn(gTreeItemData.iModelHandle, gTreeItemData.iItemNumber, true, -1))
+	{
+		Invalidate(false);	// or some changed items on the tree don't redraw until you click on them
+	}
+}
+
+
+void CMDXViewTreeView::OnUpdateGlmBoneDeleteAllBoltedModels(CCmdUI *pCmdUI)
+{
+	pCmdUI->Enable(Model_CountItemsBoltedHere(gTreeItemData.iModelHandle, gTreeItemData.iItemNumber, true));	// bBoltIsBone
+}
+
+
+void CMDXViewTreeView::OnGlmBoneSecondaryAnimStart()
+{
+	//	InfoBox("Ignore this for now, Under construction");
+
+	Model_SetSecondaryAnimStart(gTreeItemData.iModelHandle, gTreeItemData.iItemNumber);
+}
+
+
+void CMDXViewTreeView::OnUpdateGlmBoneSecondaryAnimStart(CCmdUI *pCmdUI)
+{
+	pCmdUI->Enable( gTreeItemData.iItemNumber != 0	// it's probably bad to be able to set first bone as secondary anim start?
+		&&
+		!(Model_GetSecondaryAnimStart(gTreeItemData.iModelHandle) == gTreeItemData.iItemNumber)
+	);
+}
+
+
+void CMDXViewTreeView::OnUpdateGlmSurfaceTitle(CCmdUI *pCmdUI)
+{
+	pCmdUI->SetText(va("Surface:  %s", Model_GetSurfaceName(gTreeItemData.iModelHandle, gTreeItemData.iItemNumber)));
+}
+
+
+void CMDXViewTreeView::OnGlmSurfaceInfo()
+{
+	if (AppVars.bVertIndexes)
+	{
+		string	strInfo = Model_GLMSurfaceInfo(gTreeItemData.iModelHandle, gTreeItemData.iItemNumber, false);
+		strInfo += "\nSince you have display-vert-indexes on, do you want to see all vert data as well?\n";
+		if (GetYesNo(strInfo.c_str()))
+		{
+			CWaitCursor wait;
+			LPCSTR psInfoString = Model_GLMSurfaceVertInfo(gTreeItemData.iModelHandle, gTreeItemData.iItemNumber);
+
+			SendStringToNotepad(psInfoString, va("%s_%s_vertinfo.txt", Filename_WithoutPath(Filename_WithoutExt(Model_GetFilename(gTreeItemData.iModelHandle))), String_RemoveOccurences(Model_GetSurfaceName(gTreeItemData.iModelHandle, gTreeItemData.iItemNumber), "*")));
+		}
+	}
+	else
+	{
+		InfoBox(Model_GLMSurfaceInfo(gTreeItemData.iModelHandle, gTreeItemData.iItemNumber, false));	// bShortVersionForTag
+	}
+}
+
+
+void CMDXViewTreeView::OnGlmSurfaceOn()
+{
+	Model_GLMSurface_On(gTreeItemData.iModelHandle, gTreeItemData.iItemNumber);
+}
+
+
+void CMDXViewTreeView::OnUpdateGlmSurfaceOn(CCmdUI *pCmdUI)
+{
+	SurfaceOnOff_t eOnOff = Model_GLMSurface_GetStatus(gTreeItemData.iModelHandle, gTreeItemData.iItemNumber);
+	pCmdUI->Enable(!(eOnOff == SURF_ON || eOnOff == SURF_INHERENTLYOFF));
+}
+
+
+void CMDXViewTreeView::OnGlmSurfaceOff()
+{
+	Model_GLMSurface_Off(gTreeItemData.iModelHandle, gTreeItemData.iItemNumber);
+}
+
+
+void CMDXViewTreeView::OnUpdateGlmSurfaceOff(CCmdUI *pCmdUI)
+{
+	SurfaceOnOff_t eOnOff = Model_GLMSurface_GetStatus(gTreeItemData.iModelHandle, gTreeItemData.iItemNumber);
+	pCmdUI->Enable(!(eOnOff == SURF_OFF || eOnOff == SURF_INHERENTLYOFF));
+}
+
+
+void CMDXViewTreeView::OnGlmSurfaceNoDescendants()
+{
+	Model_GLMSurface_NoDescendants(gTreeItemData.iModelHandle, gTreeItemData.iItemNumber);
+}
+
+
+void CMDXViewTreeView::OnUpdateGlmSurfaceNoDescendants(CCmdUI *pCmdUI)
+{
+	SurfaceOnOff_t eOnOff = Model_GLMSurface_GetStatus(gTreeItemData.iModelHandle, gTreeItemData.iItemNumber);
+	pCmdUI->Enable(!(eOnOff == SURF_NO_DESCENDANTS || eOnOff == SURF_INHERENTLYOFF));
+}
+
+
+void CMDXViewTreeView::OnGlmSurfaceSetAsRoot()
+{
+	Model_SetG2SurfaceRootOverride(gTreeItemData.iModelHandle, gTreeItemData.iItemNumber);
+}
+
+
+void CMDXViewTreeView::OnUpdateGlmSurfaceSetAsRoot(CCmdUI *pCmdUI)
+{
+	pCmdUI->Enable(Model_GetG2SurfaceRootOverride(gTreeItemData.iModelHandle) != gTreeItemData.iItemNumber);
+}
+
+
+void CMDXViewTreeView::OnGlmSurfaceClearRoot()
+{
+	Model_SetG2SurfaceRootOverride(gTreeItemData.iModelHandle, -1);
+}
+
+
+void CMDXViewTreeView::OnUpdateGlmSurfaceClearRoot(CCmdUI *pCmdUI)
+{
+	pCmdUI->Enable(Model_GetG2SurfaceRootOverride(gTreeItemData.iModelHandle) == gTreeItemData.iItemNumber);
+}
+
+
+// this option is only available for tag surfaces, even though it's for the standard surface popup
+//
+void CMDXViewTreeView::OnGlmSurfaceBoltModelReplace()
+{
+	LPCSTR psCaption = va("Bolt model to surface-tag '%s'", Model_GetBoltName(gTreeItemData.iModelHandle, gTreeItemData.iItemNumber, false));	// bBoltIsBone
+
+	LPCSTR psFullPathedFilename = InputLoadFileName("",				// LPCSTR psInitialLoadName, 
+		psCaption,		// LPCSTR psCaption,
+		Filename_PathOnly(Model_GetFullPrimaryFilename()),	//	"S:\\baseq3\\models\\test\\bonehier",	// LPCSTR psInitialDir,
+		Model_GetSupportedTypesFilter()			// LPCSTR psFilter
+	);
+
+	if (psFullPathedFilename)
+	{
+		Model_LoadBoltOn(psFullPathedFilename, gTreeItemData.iModelHandle, gTreeItemData.iItemNumber, false, true);	// bBoltIsBone, bBoltReplacesAllExisting
+	}
+}
+
+// only enable this menu option if this surface is a tag...
+//
+void CMDXViewTreeView::OnUpdateGlmSurfaceBoltModelReplace(CCmdUI *pCmdUI)
+{
+	pCmdUI->Enable(Model_SurfaceIsTag(gTreeItemData.iModelHandle, gTreeItemData.iItemNumber));
+}
+
+
+void CMDXViewTreeView::OnGlmSurfaceBoltModelAdd()
+{
+	LPCSTR psCaption = va("Bolt additional model to surface-tag '%s'", Model_GetBoltName(gTreeItemData.iModelHandle, gTreeItemData.iItemNumber, false));	// bBoltIsBone
+
+	LPCSTR psFullPathedFilename = InputLoadFileName("",				// LPCSTR psInitialLoadName, 
+		psCaption,		// LPCSTR psCaption,
+		Filename_PathOnly(Model_GetFullPrimaryFilename()),	//	"S:\\baseq3\\models\\test\\bonehier",	// LPCSTR psInitialDir,
+		Model_GetSupportedTypesFilter()			// LPCSTR psFilter
+	);
+
+	if (psFullPathedFilename)
+	{
+		Model_LoadBoltOn(psFullPathedFilename, gTreeItemData.iModelHandle, gTreeItemData.iItemNumber, false, false);	// bBoltIsBone, bBoltReplacesAllExisting
+	}
+}
+
+
+void CMDXViewTreeView::OnUpdateGlmSurfaceBoltModelAdd(CCmdUI *pCmdUI)
+{
+	pCmdUI->Enable(Model_SurfaceIsTag(gTreeItemData.iModelHandle, gTreeItemData.iItemNumber));
+}
+
+
+// this option is only available for tag surfaces, even though it's for the standard surrface popup
+//
+void CMDXViewTreeView::OnGlmSurfaceDeleteAllBoltedModels()
+{
+	if (Model_DeleteBoltOn(gTreeItemData.iModelHandle, gTreeItemData.iItemNumber, false, -1))	// bBoltIsBone
+	{
+		Invalidate(false);	// or some changed items on the tree don't redraw until you click on them
+	}
+}
+
+
+// only enable this menu option if this surface is a tag, and has something bolted to it...
+//
+void CMDXViewTreeView::OnUpdateGlmSurfaceDeleteAllBoltedModels(CCmdUI *pCmdUI)
+{
+	pCmdUI->Enable( Model_SurfaceIsTag(gTreeItemData.iModelHandle, gTreeItemData.iItemNumber)
+		&&
+		Model_CountItemsBoltedHere(gTreeItemData.iModelHandle, gTreeItemData.iItemNumber, false)
+	);
+}
+
+
+void CMDXViewTreeView::OnUpdateGlmTagSurfaceTitle(CCmdUI *pCmdUI)
+{
+	pCmdUI->SetText(va("Tag Surface:  %s", Model_GetSurfaceName(gTreeItemData.iModelHandle, gTreeItemData.iItemNumber)));
+}
+
+
+void CMDXViewTreeView::OnGlmTagSurfaceInfo()
+{
+	InfoBox(Model_GLMSurfaceInfo(gTreeItemData.iModelHandle, gTreeItemData.iItemNumber, true));	// bShortVersionForTag
+}
+
+
+void CMDXViewTreeView::OnGlmTagSurfaceBoltModelReplace()
+{
+//	OutputDebugString("on command\n");
+	LPCSTR psCaption = va("Bolt model to surface-tag '%s'", Model_GetBoltName(gTreeItemData.iModelHandle, gTreeItemData.iItemNumber, false));	// bBoltIsBone
+
+	LPCSTR psFullPathedFilename = InputLoadFileName("",				// LPCSTR psInitialLoadName, 
+		psCaption,		// LPCSTR psCaption,
+		Filename_PathOnly(Model_GetFullPrimaryFilename()),	//	"S:\\baseq3\\models\\test\\bonehier",	// LPCSTR psInitialDir,
+		Model_GetSupportedTypesFilter()			// LPCSTR psFilter
+	);
+
+	if (psFullPathedFilename)
+	{
+		Model_LoadBoltOn(psFullPathedFilename, gTreeItemData.iModelHandle, gTreeItemData.iItemNumber, false, true);	// bBoltIsBone, bBoltReplacesAllExisting
+	}
+}
+
+
+void CMDXViewTreeView::OnGlmTagSurfaceBoltModelAdd()
+{
+//	OutputDebugString("on command\n");
+	LPCSTR psCaption = va("Bolt additional model to surface-tag '%s'", Model_GetBoltName(gTreeItemData.iModelHandle, gTreeItemData.iItemNumber, false));	// bBoltIsBone
+
+	LPCSTR psFullPathedFilename = InputLoadFileName("",				// LPCSTR psInitialLoadName, 
+		psCaption,		// LPCSTR psCaption,
+		Filename_PathOnly(Model_GetFullPrimaryFilename()),	//	"S:\\baseq3\\models\\test\\bonehier",	// LPCSTR psInitialDir,
+		Model_GetSupportedTypesFilter()			// LPCSTR psFilter
+	);
+
+	if (psFullPathedFilename)
+	{
+		Model_LoadBoltOn(psFullPathedFilename, gTreeItemData.iModelHandle, gTreeItemData.iItemNumber, false, false);	// bBoltIsBone, bBoltReplacesAllExisting
+	}
+}
+
+
+void CMDXViewTreeView::OnGlmTagSurfaceDeleteAllBoltedModels()
+{
+	if (Model_DeleteBoltOn(gTreeItemData.iModelHandle, gTreeItemData.iItemNumber, false, -1))
+	{
+		Invalidate(false);	// or some changed items on the tree don't redraw until you click on them
+	}
+}
+
+
+void CMDXViewTreeView::OnUpdateGlmTagSurfaceDeleteAllBoltedModels(CCmdUI *pCmdUI)
+{
+	pCmdUI->Enable(Model_CountItemsBoltedHere(gTreeItemData.iModelHandle, gTreeItemData.iItemNumber, false));	// bBoltIsBone
+}
+
+void CMDXViewTreeView::OnG2SkinExpandAll()
+{
+	R_ApplyToTreeItem(ExpandTreeItem, ghTreeItem_RButtonMenu);
+	GetTreeCtrl().SelectSetFirstVisible(ghTreeItem_RButtonMenu);
+}
+
+
+void CMDXViewTreeView::OnG2SkinValidate()
+{
+	Model_ValidateSkin(gTreeItemData.iModelHandle, gTreeItemData.iItemNumber);
+}
+
+void CMDXViewTreeView::OnG2SkinsExpandAll()
+{
+	R_ApplyToTreeItem(ExpandTreeItem, ghTreeItem_RButtonMenu);
+	GetTreeCtrl().SelectSetFirstVisible(ghTreeItem_RButtonMenu);
+}
+
+
+void CMDXViewTreeView::OnG2SkinsValidate()
+{
+	Model_ValidateSkin(gTreeItemData.iModelHandle, -1);
+}
+
+
+void CMDXViewTreeView::OnOldSkinValidate()
+{
+	Model_ValidateSkin(gTreeItemData.iModelHandle, gTreeItemData.iItemNumber);
+}
+
+
+void CMDXViewTreeView::OnOldSkinApply()
+{
+	CString strSkin(GetTreeCtrl().GetItemText(ghTreeItem_RButtonMenu));
+	Model_ApplyOldSkin(gTreeItemData.iModelHandle, strSkin);
+}
+
+
+void CMDXViewTreeView::OnOldSkinsValidate()
+{
+	Model_ValidateSkin(gTreeItemData.iModelHandle, -1);
+}
+
+
+void CMDXViewTreeView::OnShaderVariantApply()
+{
+	HTREEITEM hTreeItemMaterial = GetTreeCtrl().GetParentItem(ghTreeItem_RButtonMenu);
+	HTREEITEM hTreeItemEthnic = GetTreeCtrl().GetParentItem(hTreeItemMaterial);
+	HTREEITEM hTreeItemSkin = GetTreeCtrl().GetParentItem(hTreeItemEthnic);
+
+	CString strMaterial(GetTreeCtrl().GetItemText(hTreeItemMaterial));
+	CString strEthnic(GetTreeCtrl().GetItemText(hTreeItemEthnic));
+	CString strSkin(GetTreeCtrl().GetItemText(hTreeItemSkin));
+
+	int iVariant = gTreeItemData.iItemNumber;
+
+	Model_ApplySkinShaderVariant(gTreeItemData.iModelHandle, strSkin, strEthnic, strMaterial, iVariant);
+}
+
+
+void CMDXViewTreeView::OnUpdateSeqTitle(CCmdUI *pCmdUI)
+{
+	pCmdUI->SetText(va("Sequence:  %s", Model_Sequence_GetName(gTreeItemData.iModelHandle, gTreeItemData.iItemNumber)));
+}
+
+
+void CMDXViewTreeView::OnSeqLock()
+{
+	Model_Sequence_Lock(gTreeItemData.iModelHandle, gTreeItemData.iItemNumber, true);
+}
+
+
+void CMDXViewTreeView::OnUpdateSeqLock(CCmdUI *pCmdUI)
+{
+	pCmdUI->Enable( !Model_Sequence_IsLocked(gTreeItemData.iModelHandle, gTreeItemData.iItemNumber, true)
+		&&
+		!Model_MultiSeq_IsActive(gTreeItemData.iModelHandle, true)
+	);
+}
+
+
+void CMDXViewTreeView::OnSeqUnlock()
+{
+	Model_Sequence_UnLock(gTreeItemData.iModelHandle, true);
+}
+
+
+void CMDXViewTreeView::OnUpdateSeqUnlock(CCmdUI *pCmdUI)
+{
+	pCmdUI->Enable( Model_Sequence_IsLocked(gTreeItemData.iModelHandle, gTreeItemData.iItemNumber, true)
+		&&
+		!Model_MultiSeq_IsActive(gTreeItemData.iModelHandle, true)
+	);
+}
+
+
+void CMDXViewTreeView::OnSeqMultiLock()
+{
+	Model_MultiSeq_Add(gTreeItemData.iModelHandle, gTreeItemData.iItemNumber, true);
+}
+
+
+void CMDXViewTreeView::OnUpdateSeqMultiLock(CCmdUI *pCmdUI)
+{
+	bool bActive = Model_MultiSeq_IsActive(gTreeItemData.iModelHandle, true);
+	int iNumSeqEntries = Model_MultiSeq_GetNumEntries(gTreeItemData.iModelHandle, true);
+
+	if (bActive || iNumSeqEntries)
+	{
+		pCmdUI->SetText("Add to Multi-Lock sequences");
+	}
+	else
+	{
+		pCmdUI->SetText("Start Multi-Locking with this sequence");
+	}
+
+	pCmdUI->Enable( (bActive || !iNumSeqEntries)
+		&&
+		!Model_MultiSeq_AlreadyContains(gTreeItemData.iModelHandle, gTreeItemData.iItemNumber, true)
+	);
+}
+
+
+void CMDXViewTreeView::OnSeqMultiLockDelete()
+{
+	Model_MultiSeq_Delete(gTreeItemData.iModelHandle, gTreeItemData.iItemNumber, true);
+}
+
+
+void CMDXViewTreeView::OnUpdateSeqMultiLockDelete(CCmdUI *pCmdUI)
+{
+	pCmdUI->Enable( Model_MultiSeq_IsActive(gTreeItemData.iModelHandle, true)
+		&&
+		Model_MultiSeq_AlreadyContains(gTreeItemData.iModelHandle, gTreeItemData.iItemNumber, true)
+	);
+}
+
+
+void CMDXViewTreeView::OnSeqLockSecondary()
+{
+	Model_Sequence_Lock(gTreeItemData.iModelHandle, gTreeItemData.iItemNumber, false);
+}
+
+
+void CMDXViewTreeView::OnUpdateSeqLockSecondary(CCmdUI *pCmdUI)
+{
+	pCmdUI->Enable( Model_SecondaryAnimLockingActive(gTreeItemData.iModelHandle)
+		&&
+		!Model_Sequence_IsLocked(gTreeItemData.iModelHandle, gTreeItemData.iItemNumber, false)
+		&&
+		!Model_MultiSeq_IsActive(gTreeItemData.iModelHandle, false)
+	);
+}
+
+
+void CMDXViewTreeView::OnSeqUnlockSecondary()
+{
+	Model_Sequence_UnLock(gTreeItemData.iModelHandle, false);
+}
+
+
+void CMDXViewTreeView::OnUpdateSeqUnlockSecondary(CCmdUI *pCmdUI)
+{
+	pCmdUI->Enable( Model_SecondaryAnimLockingActive(gTreeItemData.iModelHandle)
+		&&
+		Model_Sequence_IsLocked(gTreeItemData.iModelHandle, gTreeItemData.iItemNumber, false)
+		&&
+		!Model_MultiSeq_IsActive(gTreeItemData.iModelHandle, false)
+	);
+}
+
+
+void CMDXViewTreeView::OnSeqMultiLockSecondary()
+{
+	Model_MultiSeq_Add(gTreeItemData.iModelHandle, gTreeItemData.iItemNumber, false);
+}
+
+
+void CMDXViewTreeView::OnUpdateSeqMultiLockSecondary(CCmdUI *pCmdUI)
+{
+	bool bActive = Model_MultiSeq_IsActive(gTreeItemData.iModelHandle, false);
+	int iNumSeqEntries = Model_MultiSeq_GetNumEntries(gTreeItemData.iModelHandle, false);
+
+	if (bActive || iNumSeqEntries)
+	{
+		pCmdUI->SetText("Add to Secondary Multi-Lock sequences");
+	}
+	else
+	{
+		pCmdUI->SetText("Start Secondary Multi-Locking with this sequence");
+	}
+	pCmdUI->Enable( Model_SecondaryAnimLockingActive(gTreeItemData.iModelHandle)
+		&&
+		(bActive || !iNumSeqEntries)
+		&&
+		!Model_MultiSeq_AlreadyContains(gTreeItemData.iModelHandle, gTreeItemData.iItemNumber, false)
+	);
+}
+
+
+void CMDXViewTreeView::OnSeqMultiLockSecondaryDelete()
+{
+	Model_MultiSeq_Delete(gTreeItemData.iModelHandle, gTreeItemData.iItemNumber, false);
+}
+
+
+void CMDXViewTreeView::OnUpdateSeqMultiLockSecondaryDelete(CCmdUI *pCmdUI)
+{
+	pCmdUI->Enable( Model_MultiSeq_IsActive(gTreeItemData.iModelHandle, false)
+		&&
+		Model_MultiSeq_AlreadyContains(gTreeItemData.iModelHandle, gTreeItemData.iItemNumber, false)
+	);
+}
+
+
+void CMDXViewTreeView::OnSeqsViewFullPath()
+{
+	AppVars.bFullPathsInSequenceTreeitems = !AppVars.bFullPathsInSequenceTreeitems;
+
+	R_ApplyToTreeItem(ReEvalSequenceText, GetTreeCtrl().GetRootItem()/* ghTreeItem_RButtonMenu */);
+}
+
+
+void CMDXViewTreeView::OnSeqsSortAlphabetically()
+{
+	AppVars.bSortSequencesByAlpha = !AppVars.bSortSequencesByAlpha;
+
+	ModelTree_InsertSequences(gTreeItemData.iModelHandle, ghTreeItem_RButtonMenu);
+}
+
+
+void CMDXViewTreeView::OnUpdateSeqsSortAlphabetically(CCmdUI *pCmdUI)
+{
+	pCmdUI->SetCheck(AppVars.bSortSequencesByAlpha);
+}
+
+
+void CMDXViewTreeView::OnSeqsUnlockAll()
+{
+	Model_Sequence_UnLock(gTreeItemData.iModelHandle, true);
+	Model_Sequence_UnLock(gTreeItemData.iModelHandle, false);
+	Model_MultiSeq_SetActive(gTreeItemData.iModelHandle, true, false);
+	Model_MultiSeq_SetActive(gTreeItemData.iModelHandle, false, false);
+}
+
+
+void CMDXViewTreeView::OnUpdateSeqsUnlockAll(CCmdUI *pCmdUI)
+{
+	pCmdUI->Enable( !Model_Sequence_IsLocked(gTreeItemData.iModelHandle, -1, true)
+		||
+		(
+			Model_SecondaryAnimLockingActive(gTreeItemData.iModelHandle)
+			&&
+			!Model_Sequence_IsLocked(gTreeItemData.iModelHandle, -1, false)
+		)
+		||
+		Model_MultiSeq_IsActive(gTreeItemData.iModelHandle, true)
+		||
+		Model_MultiSeq_IsActive(gTreeItemData.iModelHandle, false)
+	);
+}
+
+
+void CMDXViewTreeView::OnSeqsUnlockPrimary()
+{
+	Model_Sequence_UnLock(gTreeItemData.iModelHandle, true);
+}
+
+
+void CMDXViewTreeView::OnUpdateSeqsUnlockPrimary(CCmdUI *pCmdUI)
+{
+	pCmdUI->Enable( !Model_Sequence_IsLocked(gTreeItemData.iModelHandle, -1, true)
+		&&
+		!Model_MultiSeq_IsActive(gTreeItemData.iModelHandle, true)
+	);
+}
+
+
+void CMDXViewTreeView::OnSeqsUnlockSecondary()
+{
+	Model_Sequence_UnLock(gTreeItemData.iModelHandle, false);
+}
+
+
+void CMDXViewTreeView::OnUpdateSeqsUnlockSecondary(CCmdUI *pCmdUI)
+{
+	pCmdUI->Enable( Model_SecondaryAnimLockingActive(gTreeItemData.iModelHandle)
+		&&
+		!Model_Sequence_IsLocked(gTreeItemData.iModelHandle, -1, false)
+		&&
+		!Model_MultiSeq_IsActive(gTreeItemData.iModelHandle, false)
+	);
+}
+
+
+void CMDXViewTreeView::OnMultiSeqsUnlockPrimary()
+{
+	Model_MultiSeq_SetActive(gTreeItemData.iModelHandle, true, !Model_MultiSeq_IsActive(gTreeItemData.iModelHandle, true));
+}
+
+
+void CMDXViewTreeView::OnUpdateMultiSeqsUnlockPrimary(CCmdUI *pCmdUI)
+{
+	pCmdUI->SetCheck(Model_MultiSeq_IsActive(gTreeItemData.iModelHandle, true));
+}
+
+
+void CMDXViewTreeView::OnSeqsDeleteLastPrimary()
+{
+	Model_MultiSeq_DeleteLast(gTreeItemData.iModelHandle, true);
+}
+
+
+void CMDXViewTreeView::OnUpdateSeqsDeleteLastPrimary(CCmdUI *pCmdUI)
+{
+	pCmdUI->Enable( Model_MultiSeq_IsActive(gTreeItemData.iModelHandle, true)
+		&&
+		Model_MultiSeq_GetNumEntries(gTreeItemData.iModelHandle, true)
+	);
+}
+
+
+void CMDXViewTreeView::OnSeqsDeleteAllPrimary()
+{
+	Model_MultiSeq_Clear(gTreeItemData.iModelHandle, true);
+}
+
+
+void CMDXViewTreeView::OnUpdateSeqsDeleteAllPrimary(CCmdUI *pCmdUI)
+{
+	pCmdUI->Enable( Model_MultiSeq_IsActive(gTreeItemData.iModelHandle, true)
+		&&
+		Model_MultiSeq_GetNumEntries(gTreeItemData.iModelHandle, true)
+	);
+}
+
+
+void CMDXViewTreeView::OnMultiSeqsUnlockSecondary()
+{
+	Model_MultiSeq_SetActive(gTreeItemData.iModelHandle, false, !Model_MultiSeq_IsActive(gTreeItemData.iModelHandle, false));
+}
+
+
+void CMDXViewTreeView::OnUpdateMultiSeqsUnlockSecondary(CCmdUI *pCmdUI)
+{
+	pCmdUI->SetCheck(Model_MultiSeq_IsActive(gTreeItemData.iModelHandle, false));
+	pCmdUI->Enable(Model_SecondaryAnimLockingActive(gTreeItemData.iModelHandle));
+}
+
+
+void CMDXViewTreeView::OnSeqsDeleteLastSecondary()
+{
+	Model_MultiSeq_DeleteLast(gTreeItemData.iModelHandle, false);
+}
+
+
+void CMDXViewTreeView::OnUpdateSeqsDeleteLastSecondary(CCmdUI *pCmdUI)
+{
+	pCmdUI->Enable( Model_MultiSeq_IsActive(gTreeItemData.iModelHandle, false)
+		&&
+		Model_MultiSeq_GetNumEntries(gTreeItemData.iModelHandle, false)
+	);
+}
+
+
+void CMDXViewTreeView::OnSeqsDeleteAllSecondary()
+{
+	Model_MultiSeq_Clear(gTreeItemData.iModelHandle, false);
+}
+
+
+void CMDXViewTreeView::OnUpdateSeqsDeleteAllSecondary(CCmdUI *pCmdUI)
+{
+	pCmdUI->Enable( Model_MultiSeq_IsActive(gTreeItemData.iModelHandle, false)
+		&&
+		Model_MultiSeq_GetNumEntries(gTreeItemData.iModelHandle, false)
+	);
+}
+
+
+void CMDXViewTreeView::OnTreeSurfacesExpandAll()
+{
+	R_ApplyToTreeItem(ExpandTreeItem, ghTreeItem_RButtonMenu);
+	GetTreeCtrl().SelectSetFirstVisible(ghTreeItem_RButtonMenu);
+}
+
+
+void CMDXViewTreeView::OnTreeSurfacesFind()
+{
+	LPCSTR psSearch = GetString("Enter Surface name to search for...\n\n( Case insensitive, partial strings ok )");
+
+	if (psSearch)
+	{
+		strTreeItemTextToFind = psSearch;
+		ghTreeItemFound = NULL;
+		ghTreeItemHeader = ghTreeItem_RButtonMenu;
+		ghTreeCurrentFind = NULL;
+
+		R_ApplyToTreeItem(SearchTreeItem, ghTreeItemHeader);
+
+		if (ghTreeItemFound)
+		{
+			GetTreeCtrl().SelectSetFirstVisible(ghTreeItemFound);
+			GetTreeCtrl().SelectItem(ghTreeItemFound);
+		}
+	}
+}
+
+
+void CMDXViewTreeView::OnTreeSurfacesFindNext()
+{
+	// TODO: Add your command handler code here
+}
+
+
+void CMDXViewTreeView::OnTreeSurfacesFindPrev()
+{
+	// TODO: Add your command handler code here
+}
+
+
+void CMDXViewTreeView::OnTreeSurfacesAllDefaultoffOff()
+{
+	CWaitCursor wait;	// this function takes a while, because it loop-calls a function that normally only
+						//	gets called occasionally, and re-evaluates the tree text
+
+	R_ApplyToTreeItem(DisableTreeItemDefaultOFFSurface, ghTreeItem_RButtonMenu);
+	Invalidate(false);
+}
+
+
+void CMDXViewTreeView::OnUpdateTreeSurfacesAllDefaultoffOff(CCmdUI *pCmdUI)
+{
+	// TODO: Add your command update UI handler code here
+	// not sure if this is worth filling in, maybe later
+}
+
+
+void CMDXViewTreeView::OnTreeSurfacesAllDefaultoffOn()
+{
+	CWaitCursor wait;	// this function takes a while, because it loop-calls a function that normally only
+						//	gets called occasionally, and re-evaluates the tree text
+
+	R_ApplyToTreeItem(EnableTreeItemDefaultOFFSurface, ghTreeItem_RButtonMenu);
+	Invalidate(false);
+}
+
+
+void CMDXViewTreeView::OnUpdateTreeSurfacesAllDefaultoffOn(CCmdUI *pCmdUI)
+{
+	// TODO: Add your command update UI handler code here
+	// not sure if this is worth filling in, maybe later
+}
+
+
+void CMDXViewTreeView::OnTreeSurfacesAllDefaultoffDefault()
+{
+	CWaitCursor wait;	// this function takes a while, because it loop-calls a function that normally only
+						//	gets called occasionally, and re-evaluates the tree text
+
+	R_ApplyToTreeItem(DefaultTreeItemDefaultOFFSurface, ghTreeItem_RButtonMenu);
+	Invalidate(false);
+}
+
+
+void CMDXViewTreeView::OnTreeSurfacesClearRoot()
+{
+	Model_SetG2SurfaceRootOverride(gTreeItemData.iModelHandle, -1);
+}
+
+
+void CMDXViewTreeView::OnUpdateTreeSurfacesClearRoot(CCmdUI *pCmdUI)
+{
+	pCmdUI->Enable(Model_GetG2SurfaceRootOverride(gTreeItemData.iModelHandle) != -1);
+}
+
+
+void CMDXViewTreeView::OnTreeTagSurfacesExpandAll()
+{
+	R_ApplyToTreeItem(ExpandTreeItem, ghTreeItem_RButtonMenu);
+	GetTreeCtrl().SelectSetFirstVisible(ghTreeItem_RButtonMenu);
 }

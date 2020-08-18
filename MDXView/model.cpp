@@ -2275,7 +2275,7 @@ static void ModelDraw_BoundingBox( ModelContainer_t *pContainer, bool bDrawingFo
 			VectorSet(v3Corners[6],v3Maxs[0],v3Maxs[1],v3Mins[2]);
 			VectorSet(v3Corners[7],v3Mins[0],v3Maxs[1],v3Mins[2]);
 
-			glColor3f(0.8,0.8,0.8);//1,1,1);
+			glColor3f(0.8f,0.8f,0.8f);//1,1,1);
 	/*				glBegin(GL_LINE_LOOP);
 			{
 				glVertex3fv(v3Corners[0]);

@@ -6,7 +6,7 @@
 #include "stdafx.h"
 #include "includes.h"
 #include "R_Common.h"
-//#include "textures.h"
+#include "textures.h"
 //
 #include "R_Model.h"
 
@@ -665,14 +665,14 @@ ModelHandle_t RE_RegisterModel( const char *name ) {
 		ident = LL(*(unsigned *)buf);	// shouldn't really LL this if a fake GLA, but ModView is Intel-endian, so NP.
 		if ( ident == MD4_IDENT ) 
 		{
-			//loaded = R_LoadMD4( mod, buf, name );
+			loaded = R_LoadMD4( mod, buf, name );
 			lod = MD3_MAX_LODS;
 		}
 		else if ( ident == MDXA_IDENT )
 		{
 			if (!bIsFakeGLA)
 			{
-				//loaded = R_LoadMDXA( mod, buf, name );
+				loaded = R_LoadMDXA( mod, buf, name );
 			}
 			else
 			{
@@ -684,7 +684,7 @@ ModelHandle_t RE_RegisterModel( const char *name ) {
 		}
 		else if ( ident == MDXM_IDENT ) 
 		{
-		   //loaded = R_LoadMDXM( mod, buf, name );
+		   loaded = R_LoadMDXM( mod, buf, name );
 		// else try load the file as an md3
 
 		}
@@ -692,11 +692,11 @@ ModelHandle_t RE_RegisterModel( const char *name ) {
 		{
 			if ( ident != MD3_IDENT ) 
 			{
-				ri.Printf (PRINT_WARNING,"RE_RegisterModel: unknown fileid for %s\n", name);
+				ri.Printf (PRINT_WARNING,"RE_RegisterModel: unknown file-id for %s\n", name);
 				goto fail;
 			}
 
-			//loaded = R_LoadMD3( mod, lod, buf, name );
+			loaded = R_LoadMD3( mod, lod, buf, name );
 		}
 		
 		if (!bIsFakeGLA)
@@ -753,7 +753,6 @@ fail:
 R_LoadMD3
 =================
 */
-/*
 static qboolean R_LoadMD3 (model_t *mod, int lod, void *buffer, const char *mod_name ) {
 	int					i, j;
 	md3Header_t			*pinmodel;
@@ -899,15 +898,13 @@ static qboolean R_LoadMD3 (model_t *mod, int lod, void *buffer, const char *mod_
     
 	return qtrue;
 }
-*/
+
 
 /*
 =================
 R_LoadMD4
 =================
 */
-
-/*
 static qboolean R_LoadMD4( model_t *mod, void *buffer, const char *mod_name ) {
 	int					i, j, k;
 	md4Header_t			*pinmodel, *md4;
@@ -1034,8 +1031,6 @@ static qboolean R_LoadMD4( model_t *mod, void *buffer, const char *mod_name ) {
 
 	return qtrue;
 }
-*/
-
 
 
 //=============================================================================
@@ -1230,8 +1225,6 @@ qboolean trap_G2_Set_Bone_Anim(int a, void *b, void *c, int d, int e, int f, flo
 {
 	return G2_Set_Bone_Anim((qhandle_t) a, (boneInfo_t *) b, (char *) c, d, e, f, g);
 }
-
-
 
 //////////////// eof ///////////////
 

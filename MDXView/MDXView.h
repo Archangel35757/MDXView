@@ -24,11 +24,13 @@ public:
 // Overrides
 public:
 	virtual BOOL InitInstance();
+	virtual BOOL OnIdle(LONG lCount);
 	virtual int ExitInstance();
 
 // Implementation
 	afx_msg void OnAppAbout();
 	DECLARE_MESSAGE_MAP()
+
 };
 
 extern CMDXViewApp theApp;

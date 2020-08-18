@@ -283,7 +283,7 @@ IDR_TREEPOPUP_BONES MENU
 BEGIN
     POPUP "Bones"
     BEGIN
-        MENUITEM "( Bones pop-up )",            ID_BONES_POPUP
+        MENUITEM "( Bones pop-up )",            ID_BONES_POPUP, GRAYED
         MENUITEM SEPARATOR
         MENUITEM "Expand all bones",            IDR_TREE_BONES_EXPANDALL
         MENUITEM "Find bone named... <xxx>",    ID_BONES_FIND
@@ -296,7 +296,7 @@ IDR_TREEPOPUP_ETHNIC MENU
 BEGIN
     POPUP "Ethnicity"
     BEGIN
-        MENUITEM "( Ethnic variant pop-up )",   ID_ETHNIC_POPUP
+        MENUITEM "( Ethnic variant pop-up )",   ID_ETHNIC_POPUP, GRAYED
         MENUITEM SEPARATOR
         MENUITEM "Expand all",                  ID_ETHNIC_EXPANDALL
         MENUITEM "Apply this skin",             ID_ETHNIC_APPLY_SKIN
@@ -309,13 +309,13 @@ IDR_TREEPOPUP_GLMBONE MENU
 BEGIN
     POPUP "GLM Bone"
     BEGIN
-        MENUITEM "( title )",                   ID_GLMBONE_TITLE
+        MENUITEM "( title )",                   ID_GLMBONE_TITLE, GRAYED
         MENUITEM SEPARATOR
         MENUITEM "Info",                        ID_GLMBONE_INFO
         MENUITEM "Bolt model to this bone ( deleting any others already there )", ID_GLMBONE_BOLTMODEL_REPLACE
         MENUITEM "Bolt model to this bone ( adding to any already there )", ID_GLMBONE_BOLTMODEL_ADD
         MENUITEM "Delete all models bolted to this bone", ID_GLMBONE_DELETEALLBOLTEDMODELS
-        MENUITEM "Set as secondary Anim Start", ID_GLMBONE_LOWERANIMSTART
+        MENUITEM "Set as secondary Anim Start", ID_GLMBONE_SECONDARY_ANIMSTART
     END
 END
 
@@ -323,7 +323,7 @@ IDR_TREEPOPUP_G2SKIN MENU
 BEGIN
     POPUP "G2Skin"
     BEGIN
-        MENUITEM "( G2Skin pop-up )",           ID_G2SKIN_POPUP
+        MENUITEM "( G2Skin pop-up )",           ID_G2SKIN_POPUP, GRAYED
         MENUITEM "Expand all",                  ID_G2SKIN_EXPANDALL
         MENUITEM "Validate this skin",          ID_G2SKIN_VALIDATE
     END
@@ -333,7 +333,7 @@ IDR_TREEPOPUP_G2SKINS MENU
 BEGIN
     POPUP "G2Skins"
     BEGIN
-        MENUITEM "( G2Skins pop-up )",          ID_G2SKINS_POPUP
+        MENUITEM "( G2Skins pop-up )",          ID_G2SKINS_POPUP, GRAYED
         MENUITEM "Expand all",                  ID_G2SKINS_EXPANDALL
         MENUITEM "Validate all skins",          ID_G2SKINS_VALIDATE
     END
@@ -343,7 +343,7 @@ IDR_TREEPOPUP_GLMSURFACE MENU
 BEGIN
     POPUP "GLM Surface"
     BEGIN
-        MENUITEM "( title )",                   ID_GLMSURFACE_TITLE
+        MENUITEM "( title )",                   ID_GLMSURFACE_TITLE, GRAYED
         MENUITEM SEPARATOR
         MENUITEM "Info",                        ID_GLMSURFACE_INFO
         MENUITEM "Set status: ON",              ID_GLMSURFACE_ON
@@ -363,7 +363,7 @@ IDR_TREEPOPUP_GLMTAGSURFACE MENU
 BEGIN
     POPUP "GLM Tag Surface"
     BEGIN
-        MENUITEM "( title )",                   ID_GLMTAGSURFACE_TITLE
+        MENUITEM "( title )",                   ID_GLMTAGSURFACE_TITLE, GRAYED
         MENUITEM SEPARATOR
         MENUITEM "Info",                        ID_GLMTAGSURFACE_INFO
         MENUITEM "Bolt model to this tag surface ( deleting any others already here )", ID_GLMTAGSURFACE_BOLTMODEL_REPLACE
@@ -376,7 +376,7 @@ IDR_TREEPOPUP_OLDSKIN MENU
 BEGIN
     POPUP "OldSkin"
     BEGIN
-        MENUITEM "( old-type skin pop-up )",    ID_OLDSKIN_POPUP
+        MENUITEM "( old-type skin pop-up )",    ID_OLDSKIN_POPUP, GRAYED
         MENUITEM SEPARATOR
         MENUITEM "Validate this skin",          ID_OLDSKIN_VALIDATE
         MENUITEM "Apply this skin",             ID_OLDSKIN_APPLY
@@ -387,7 +387,7 @@ IDR_TREEPOPUP_OLDSKINS MENU
 BEGIN
     POPUP "OldSkins"
     BEGIN
-        MENUITEM "( old-type skin pop-up )",    ID_OLDSKINS_POPUP
+        MENUITEM "( old-type skin pop-up )",    ID_OLDSKINS_POPUP, GRAYED
         MENUITEM SEPARATOR
         MENUITEM "Validate all skins",          ID_OLDSKINS_VALIDATE
     END
@@ -439,7 +439,7 @@ IDR_TREEPOPUP_SHADERVARIANT MENU
 BEGIN
     POPUP "Shader Variant"
     BEGIN
-        MENUITEM "( Shader Variant pop-up )",   32923
+        MENUITEM "( Shader Variant pop-up )",   ID_SHADERVARIANT_POPUP, GRAYED
         MENUITEM SEPARATOR
         MENUITEM "Apply this shader",           ID_SHADERVARIANT_APPLY
     END
@@ -449,17 +449,18 @@ IDR_TREEPOPUP_SURFACES MENU
 BEGIN
     POPUP "Surfaces"
     BEGIN
-        MENUITEM "Surfaces pop-up",             ID_TREE_SURFACES_POPUP
+        MENUITEM "Surfaces pop-up",             ID_TREE_SURFACES_POPUP, GRAYED
         MENUITEM SEPARATOR
         MENUITEM "Expand all surfaces",         ID_TREE_SURFACES_EXPANDALL
         MENUITEM "Find Surface named <xxx>",    ID_TREE_SURFACES_FIND
-        MENUITEM "      ( Find next surface... )", 32931
+        MENUITEM "      ( Find next surface... )", ID_TREE_SURFACES_FIND_NEXT
         MENUITEM "      ( Find previous surface... )", ID_TREE_SURFACES_FIND_PREV
         MENUITEM SEPARATOR
         MENUITEM "Disable all hidden (""..._off"") surfaces", ID_TREE_SURFACES_ALLDEFAULTOFF_OFF
         MENUITEM "Enable all hidden (""..._off"") surfaces", ID_TREE_SURFACES_ALLDEFAULTOFF_ON
+        MENUITEM "Default all surfaces to original on/off state", ID_TREE_SURFACES_ALLDEFAULTOFF_DEFAULT
         MENUITEM SEPARATOR
-        MENUITEM "Clear overridden root surface", ID_TREE_SURFACES_CLEAROOT
+        MENUITEM "Clear overridden root surface", ID_TREE_SURFACES_CLEAR_ROOT
     END
 END
 
@@ -467,7 +468,7 @@ IDR_TREEPOPUP_TAGSURFACES MENU
 BEGIN
     POPUP "Tag Surfaces"
     BEGIN
-        MENUITEM "Tag Surfaces pop-up",         ID_TREE_TAGSURFACES_POPUP
+        MENUITEM "Tag Surfaces pop-up",         ID_TREE_TAGSURFACES_POPUP, GRAYED
         MENUITEM SEPARATOR
         MENUITEM "Expand all tag surfaces",     ID_TREE_TAGSURFACES_EXPANDALL
     END
@@ -889,7 +890,7 @@ END
 STRINGTABLE
 BEGIN
     ID_GLMBONE_DELETEALLBOLTEDMODELS "Removes all model's bolted here"
-    ID_GLMBONE_LOWERANIMSTART 
+    ID_GLMBONE_SECONDARY_ANIMSTART 
                             "Set this bone as being the (non-inclusive) stop point of the primary animation"
     ID_GLMSURFACE_INFO      "General info on this surface"
     ID_GLMSURFACE_ON        "Set this surface to be ON, along with any child surfaces"
@@ -954,7 +955,11 @@ BEGIN
     ID_TREE_SURFACES_POPUP  "( Header only, not selectable )"
     ID_TREE_SURFACES_EXPANDALL "Expand all surface tree-items"
     ID_TREE_SURFACES_FIND   "Search from this point down for items matching <input-string>"
-	ID_TREE_SURFACES_FIND_NEXT 
+END
+
+STRINGTABLE
+BEGIN
+    ID_TREE_SURFACES_FIND_NEXT 
                             "Find the next surface (using input-string) from this point downward "
     ID_TREE_SURFACES_FIND_PREV 
                             "Find next surface (using input-string) from this point upward"
@@ -962,13 +967,11 @@ BEGIN
                             "Switches off all surfaces ending in ""_off"" (which normally default to not being drawn)"
     ID_TREE_SURFACES_ALLDEFAULTOFF_ON 
                             "Switches on all surfaces ending in ""_off"" (which normally default to not being drawn)"
-    ID_TREE_SURFACES_CLEAROOT 
+    ID_TREE_SURFACES_ALLDEFAULTOFF_DEFAULT 
+                            "Restores all of a model's surfaces to what they would be when first loaded"
+    ID_TREE_SURFACES_CLEAR_ROOT 
                             "Removes any root override so model renders from surface 0 again"
-END
-
-STRINGTABLE
-BEGIN
-	ID_TREE_TAGSURFACES_POPUP	"( Header only, not selectable )"
+    ID_TREE_TAGSURFACES_POPUP "( Header only, not selectable )"
     ID_TREE_TAGSURFACES_EXPANDALL "Expands all tag surfaces tree-items"
 END
 

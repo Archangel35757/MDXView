@@ -11,9 +11,12 @@
 
 #include "MDXViewDoc.h"
 #include "MDXViewView.h"
+#include "CommArea.h"
+#include "wintalk.h"
 #include "textures.h"
 #include "Splash.h"
 
+bool gbStartMinimized = false;
 
 void App_Init(void);
 
@@ -133,6 +136,12 @@ BOOL CMDXViewApp::InitInstance()
 	if (!ProcessShellCommand(cmdInfo))
 		return FALSE;
 
+	if (gbStartMinimized)
+	{
+		extern void SetDocumentName(LPCSTR psDocName);
+		SetDocumentName("Untitled");
+	}
+
 	// The one and only window has been initialized, so show and update it
 	m_pMainWnd->ShowWindow(SW_SHOW);
 	m_pMainWnd->UpdateWindow();
@@ -162,19 +171,32 @@ void Filename_AddToMRU(LPCSTR psFilename)
 }
 
 
+// a place I can just stuff any remaining non-windows shutdown code...
+//
+void App_FinalExit(void)
+{
+	Model_Delete();
+	FakeCvars_Shutdown();
+	CommArea_ShutDown();
+}
+
 // GL not running at this point, it gets started when the window is created. This is for stuff before that.
 //
 void App_Init(void)
 {
 	App_OnceOnly();
-	//FakeCvars_OnceOnlyInit();
-	//CommArea_ServerInitOnceOnly();
+	FakeCvars_OnceOnlyInit();
+	CommArea_ServerInitOnceOnly();
 }
 
 int CMDXViewApp::ExitInstance()
 {
 	//TODO: handle additional resources you may have added
 	AfxOleTerm(FALSE);
+
+	bSafeToAddToMRU = false;
+
+	App_FinalExit();
 
 	return CWinApp::ExitInstance();
 }
@@ -224,9 +246,6 @@ void CMDXViewApp::OnAppAbout()
 // CMDXViewApp message handlers
 
 
-
-
-
 BOOL CMDXViewApp::PreTranslateMessage(MSG* pMsg)
 {
 	// CG: The following lines were added by the Splash Screen component.
@@ -234,4 +253,21 @@ BOOL CMDXViewApp::PreTranslateMessage(MSG* pMsg)
 		return TRUE;
 
 	return CWinApp::PreTranslateMessage(pMsg);
+}
+
+
+BOOL CMDXViewApp::OnIdle(LONG lCount)
+{
+	// this works, but doesn't get called fast/often enough to be useful at the moment. Maybe one day...
+
+	//	static int i=0;
+	//	i++;
+	//	OutputDebugString(va("%d\n",i));
+
+	if (WinTalk_HandleMessages())
+	{
+		OnAppExit();
+	}
+
+	return CWinApp::OnIdle(lCount);
 }

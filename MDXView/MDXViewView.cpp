@@ -100,15 +100,23 @@ void CMDXViewView::OnInitialUpdate()
 		m_pGLView->SetWindow(GetSafeHwnd());
 		m_pGLView->SetupGLContext(true);
 
+		m_TimerHandle_Update100FPS = SetTimer(	th_100FPS,	// UINT nIDEvent, 
+												10,			// UINT nElapse, (in milliseconds)
+												NULL		// void (CALLBACK EXPORT* lpfnTimer)(HWND, UINT, UINT, DWORD) 
+		);
+
+		if (!m_TimerHandle_Update100FPS)
+		{
+			ErrorBox("Warning: no Timer available for CMDXViewView update!");
+		}
+
 		CRect rect;
 		GetClientRect(&rect);
 		m_pGLView->m_iViewWidth = rect.Width();
 		m_pGLView->m_iViewHeight = rect.Height();
 		m_pGLView->Resize(rect.Width(), rect.Height());
 
-		//CDC* pDC = GetDC();
 		m_pGLView->PrepareScene(m_pGLView->m_hDC);
-		//ReleaseDC(pDC);
 	}
 }
 
@@ -151,6 +159,15 @@ CMDXViewDoc* CMDXViewView::GetDocument() const // non-debug version is inline
 
 
 // CMDXViewView message handlers
+
+BOOL CMDXViewView::Create(LPCTSTR lpszClassName, LPCTSTR lpszWindowName, DWORD dwStyle, const RECT& rect, CWnd* pParentWnd, UINT nID, CCreateContext* pContext)
+{
+	g_iScreenWidth = 0;
+	g_iScreenHeight = 0;
+	m_TimerHandle_Update100FPS = 0;
+
+	return CView::Create(lpszClassName, lpszWindowName, dwStyle, rect, pParentWnd, nID, pContext);
+}
 
 
 int CMDXViewView::OnCreate(LPCREATESTRUCT lpCreateStruct)

@@ -3,6 +3,8 @@
 //
 
 #include "stdafx.h"
+#include "includes.h"
+#include "script.h"
 // SHARED_HANDLERS can be defined in an ATL project implementing preview, thumbnail
 // and search filter handlers and allows sharing of document code with that project.
 #ifndef SHARED_HANDLERS
@@ -29,8 +31,7 @@ END_MESSAGE_MAP()
 CMDXViewDoc* g_pDocument = NULL;
 CMDXViewDoc::CMDXViewDoc()
 {
-	// TODO: add one-time construction code here
-
+	g_pDocument = this;
 }
 
 CMDXViewDoc::~CMDXViewDoc()
@@ -39,6 +40,8 @@ CMDXViewDoc::~CMDXViewDoc()
 
 BOOL CMDXViewDoc::OnNewDocument()
 {
+	Model_Delete();
+
 	if (!CDocument::OnNewDocument())
 		return FALSE;
 
@@ -134,7 +137,33 @@ void CMDXViewDoc::Dump(CDumpContext& dc) const
 #endif //_DEBUG
 
 
+/////////////////////////////////////////////////////////////////////////////////////////
 // CMDXViewDoc commands
+
+CString strLastRealDocName;
+CMDXViewDoc* gpLastOpenedMDXViewDoc = NULL;
+
+void SetDocumentName(LPCSTR psDocName)
+{
+	if (gpLastOpenedMDXViewDoc)
+	{
+		// make absolutely fucking sure this bastard does as it's told...
+		//
+		gpLastOpenedMDXViewDoc->SetPathName(psDocName, false);
+		gpLastOpenedMDXViewDoc->SetTitle(psDocName);
+	}
+}
+
+LPCSTR LengthenFilenameW95W98(LPCSTR psFilename)
+{
+	// need to do this for Xmen models when running from a batch file under W95/98...
+	//
+	static char sDest[1024];
+	sDest[0] = '\0';
+	DWORD dwCount = GetLongPathName(psFilename, sDest, sizeof(sDest));
+
+	return sDest;
+}
 
 
 // allows main doc code to be called by wintalk command
@@ -142,4 +171,66 @@ void CMDXViewDoc::Dump(CDumpContext& dc) const
 bool Document_ModelLoadPrimary(LPCSTR psFilename)
 {
 	return !!(!g_pDocument ? NULL : g_pDocument->OnOpenDocument(psFilename));
+}
+
+BOOL CMDXViewDoc::OnOpenDocument(LPCTSTR lpszPathName)
+{
+	string str = LengthenFilenameW95W98(lpszPathName);
+	if (str.empty())	// if it was empty, then arg didn't eval to a filename (eg "#startminimized"), so return original
+	{
+		str = lpszPathName;
+	}
+	lpszPathName = str.c_str();
+
+	if (strstr(lpszPathName, "#startminimized"))
+	{
+		extern bool gbStartMinimized;
+		gbStartMinimized = true;
+
+		OnNewDocument();
+
+		// None of this shit works, because whatever you set the current document to MS overrides it with a derived name,
+		//	and since the CWinApp class can't even ask what it's own fucking document pointer is without doing a hundred
+		//	lines of shit deep within MFC then I'm going to fuck the whole lot off by storing a pointer which I can then
+		//	use later in the CWinApp class to override the doc name. 
+		//
+		// All this fucking bollocks was because MS insists on doing their own switch-comparing so I can't pass in 'real'
+		//	switches, I have to use this '#' crap. Stupid fucking incompetent MS dickheads. Like how hard would it be to
+		//	pass command line switches to the app instead of just filenames?
+		//
+		strLastRealDocName = "Untitled";
+		SetPathName(strLastRealDocName, false);	// I shouldn't have to do this, but MFC doesn't do it for some reason
+		SetTitle(strLastRealDocName);
+		gpLastOpenedMDXViewDoc = this;
+		return true;
+	}
+
+	//	if (!CDocument::OnOpenDocument(lpszPathName))
+	//		return FALSE;
+
+	// check for script file first...
+	//
+	if (lpszPathName && !stricmp(&lpszPathName[strlen(lpszPathName) - 4], ".mvs"))
+	{
+		Script_Read(lpszPathName);			// this will recurse back into this function
+		SetPathName(lpszPathName, true);	// add script file to MRU
+		SetPathName(strLastRealDocName);	// DOESN'T WORK!: set doc/app name to last real model load, not the script name
+		return true;
+	}
+
+	if (lpszPathName && Model_LoadPrimary(lpszPathName))
+	{
+		strLastRealDocName = lpszPathName;
+		strLastRealDocName.Replace("/", "\\");
+		SetPathName(strLastRealDocName, true);
+		return true;
+	}
+	// model existed, but had some sort of error...
+	//
+
+	OnNewDocument();
+
+	strLastRealDocName = "Untitled";
+	SetPathName(strLastRealDocName, false);	// I shouldn't have to do this, but MFC doesn't do it for some reason
+	return false;
 }
