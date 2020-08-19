@@ -907,6 +907,8 @@ void TextureList_Refresh(void)
 {
 	CWaitCursor wait;
 
+	VERIFY(wglMakeCurrent(g_hDC, g_hRC));
+
 	for (TextureList_t::iterator it = TheTextures.begin(); it != TheTextures.end(); ++it)
 	{
 		Texture_t *pTexture = &((*it).second);
