@@ -3,8 +3,8 @@
 #include <windows.h> // required by OpenGL and must be included before gl.h
 #include <GL/gl.h>
 #include <GL/glu.h>
-#include "glext.h"
-#include "wglext.h"
+#include <glext.h>
+#include <wglext.h>
 
 #pragma comment(lib,"opengl32.lib")
 
