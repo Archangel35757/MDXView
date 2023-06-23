@@ -17,7 +17,7 @@ using std::endl;
 
 #define degreesToRadians(x) x*(3.141592f/180.0f)
 
-
+#ifdef CUBE
 //*********************************************************************
 // Our vertices. Tree consecutive floats give a 3D vertex; Three consecutive vertices give a triangle.
 // A cube has 6 faces with 2 triangles each, so this makes 6*2=12 triangles, and 12*3 vertices
@@ -100,6 +100,7 @@ static const GLfloat g_uv_buffer_data[] = {
 	0.667979f, 1.0f - 0.335851f
 };
 //*********************************************************************
+#endif
 
 // This is the constructor of a class that has been exported.
 // see GLView.h for the class definition
@@ -249,6 +250,7 @@ void CGLView::RenderScene(void)
 
 	SetData();
 
+#ifdef CUBE
 	glBindBuffer(GL_ARRAY_BUFFER, m_vboID);
 
 	//---------------------------------------------------------------------
@@ -287,6 +289,7 @@ void CGLView::RenderScene(void)
 	// unbind VBOs
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+#endif
 
 	//--------------------------------
 	glFlush();
@@ -698,15 +701,18 @@ void CGLView::SetData()
 	// Our ModelViewProjection : multiplication of our 3 matrices
 	glm::mat4 MVP = Projection * View * Model; // Remember, matrix multiplication is the other way around
 
+#ifdef CUBE
 	GLuint Texture = loadBMP_custom("uvtemplate.bmp");
 
 	// Set our "myTextureSampler" sampler to user Texture Unit 0
 	glUniform1i(Texture, 0);
+#endif
 
 	// Send our transformation to the currently bound shader, 
 	// in the "MVP" uniform
 	glUniformMatrix4fv(MatrixID, 1, GL_FALSE, &MVP[0][0]);
 
+#ifdef CUBE
 	// create VBO
 	glGenBuffers(1, &m_vboID);    // for vertex buffer
 	glBindBuffer(GL_ARRAY_BUFFER, m_vboID);
@@ -716,7 +722,7 @@ void CGLView::SetData()
 	glGenBuffers(1, &m_uvBuffer);
 	glBindBuffer(GL_ARRAY_BUFFER, m_uvBuffer);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(g_uv_buffer_data), g_uv_buffer_data, GL_STATIC_DRAW);
-
+#endif
 }
 
 
