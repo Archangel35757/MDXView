@@ -123,6 +123,10 @@
       <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
+    <PostBuildEvent>
+      <Command>
+      </Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -549,8 +553,26 @@
   <ItemGroup>
     <None Include="ClassDiagram.cd" />
     <None Include="MDXView.reg" />
-    <None Include="minimal.frag" />
-    <None Include="minimal.vert" />
+    <CustomBuild Include="minimal.frag">
+      <FileType>Document</FileType>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+      </ExcludedFromBuild>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">copy $(ProjectDir)minimal.frag $(OutDir)</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ProjectDir)minimal.frag</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">copying minimal.frag...</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">copy $(ProjectDir)minimal.frag $(OutDir)</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">copying minimal.frag...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(ProjectDir)minimal.frag</Outputs>
+    </CustomBuild>
+    <CustomBuild Include="minimal.vert">
+      <FileType>Document</FileType>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">copy $(ProjectDir)minimal.vert $(OutDir)</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ProjectDir)minimal.vert</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">copying minimal.vert...</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">copy $(ProjectDir)minimal.vert $(OutDir)</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">copying minimal.vert...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(ProjectDir)minimal.vert</Outputs>
+    </CustomBuild>
     <None Include="res\MDXView.rc2" />
   </ItemGroup>
   <ItemGroup>
