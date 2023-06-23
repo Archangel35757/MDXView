@@ -134,6 +134,17 @@ void CMDXViewView::OnDraw(CDC* pDC)
 	{
 		m_pGLView->RenderScene();
 	}
+
+	if (m_pGLView->m_hGLRC && m_pGLView->m_hDC)
+	{
+		if (wglMakeCurrent(m_pGLView->m_hDC, m_pGLView->m_hGLRC))
+		{
+			ModelList_Render(m_pGLView->m_iViewWidth, m_pGLView->m_iViewHeight);
+
+			SwapBuffers(pDC->GetSafeHdc());
+			//VERIFY(wglMakeCurrent(m_hDC,NULL));
+		}
+	}
 }
 
 
