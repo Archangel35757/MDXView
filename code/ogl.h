@@ -3,16 +3,16 @@
 #include <windows.h> // required by OpenGL and must be included before gl.h
 #include <GL/gl.h>
 #include <GL/glu.h>
-#include <glext.h>
-#include <wglext.h>
+#include "../include/wgl/glext.h"
+#include "../include/wgl/wglext.h"
 
 #pragma comment(lib,"opengl32.lib")
 
 // Include GLM
 #define GLM_FORCE_RADIANS
-#include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
-#include <glm/gtc/type_ptr.hpp>
+#include "../include/glm/glm/glm.hpp"
+#include "../include/glm/glm/gtc/matrix_transform.hpp"
+#include "../include/glm/glm/gtc/type_ptr.hpp"
 
 using namespace glm;
 

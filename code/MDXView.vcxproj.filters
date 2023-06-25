@@ -16,9 +16,6 @@
     <Filter Include="JPEG Source">
       <UniqueIdentifier>{2e3f33e5-013f-44b8-8ed3-e8c5b69374f2}</UniqueIdentifier>
     </Filter>
-    <Filter Include="JPEG Header">
-      <UniqueIdentifier>{0e8e195f-f644-453f-a6a6-2001b71a86c2}</UniqueIdentifier>
-    </Filter>
     <Filter Include="PNG">
       <UniqueIdentifier>{09499a92-82c7-4037-b947-c4d08c7c63a4}</UniqueIdentifier>
     </Filter>
@@ -27,9 +24,15 @@
     </Filter>
     <Filter Include="GLSL Shader Files">
       <UniqueIdentifier>{36d588cc-eda3-4e46-91b2-cd7f64c76ad0}</UniqueIdentifier>
+      <Extensions>vert;frag;geom</Extensions>
     </Filter>
     <Filter Include="GLView">
       <UniqueIdentifier>{eade95af-0f79-4b9e-a3d7-7adbcf2f8fcc}</UniqueIdentifier>
+      <Extensions>
+      </Extensions>
+    </Filter>
+    <Filter Include="JPEG Headers">
+      <UniqueIdentifier>{0e8e195f-f644-453f-a6a6-2001b71a86c2}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -138,72 +141,6 @@
     <ClInclude Include="r_common.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="jpeg6\jconfig.h">
-      <Filter>JPEG Header</Filter>
-    </ClInclude>
-    <ClInclude Include="jpeg6\jdct.h">
-      <Filter>JPEG Header</Filter>
-    </ClInclude>
-    <ClInclude Include="jpeg6\jdhuff.h">
-      <Filter>JPEG Header</Filter>
-    </ClInclude>
-    <ClInclude Include="jpeg6\jerror.h">
-      <Filter>JPEG Header</Filter>
-    </ClInclude>
-    <ClInclude Include="jpeg6\jinclude.h">
-      <Filter>JPEG Header</Filter>
-    </ClInclude>
-    <ClInclude Include="jpeg6\jmemsys.h">
-      <Filter>JPEG Header</Filter>
-    </ClInclude>
-    <ClInclude Include="jpeg6\jmorecfg.h">
-      <Filter>JPEG Header</Filter>
-    </ClInclude>
-    <ClInclude Include="jpeg6\jpegint.h">
-      <Filter>JPEG Header</Filter>
-    </ClInclude>
-    <ClInclude Include="jpeg6\jpeglib.h">
-      <Filter>JPEG Header</Filter>
-    </ClInclude>
-    <ClInclude Include="jpeg6\jversion.h">
-      <Filter>JPEG Header</Filter>
-    </ClInclude>
-    <ClInclude Include="png\png.h">
-      <Filter>PNG</Filter>
-    </ClInclude>
-    <ClInclude Include="zlib\deflate.h">
-      <Filter>ZLIB</Filter>
-    </ClInclude>
-    <ClInclude Include="zlib\infblock.h">
-      <Filter>ZLIB</Filter>
-    </ClInclude>
-    <ClInclude Include="zlib\infcodes.h">
-      <Filter>ZLIB</Filter>
-    </ClInclude>
-    <ClInclude Include="zlib\inffast.h">
-      <Filter>ZLIB</Filter>
-    </ClInclude>
-    <ClInclude Include="zlib\inffixed.h">
-      <Filter>ZLIB</Filter>
-    </ClInclude>
-    <ClInclude Include="zlib\inftrees.h">
-      <Filter>ZLIB</Filter>
-    </ClInclude>
-    <ClInclude Include="zlib\infutil.h">
-      <Filter>ZLIB</Filter>
-    </ClInclude>
-    <ClInclude Include="zlib\trees.h">
-      <Filter>ZLIB</Filter>
-    </ClInclude>
-    <ClInclude Include="zlib\zconf.h">
-      <Filter>ZLIB</Filter>
-    </ClInclude>
-    <ClInclude Include="zlib\zlib.h">
-      <Filter>ZLIB</Filter>
-    </ClInclude>
-    <ClInclude Include="zlib\zutil.h">
-      <Filter>ZLIB</Filter>
-    </ClInclude>
     <ClInclude Include="GLView.h">
       <Filter>GLView</Filter>
     </ClInclude>
@@ -261,6 +198,72 @@
     <ClInclude Include="image.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\include\jpeg6\jconfig.h">
+      <Filter>JPEG Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\jpeg6\jdct.h">
+      <Filter>JPEG Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\jpeg6\jdhuff.h">
+      <Filter>JPEG Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\jpeg6\jerror.h">
+      <Filter>JPEG Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\jpeg6\jinclude.h">
+      <Filter>JPEG Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\jpeg6\jmemsys.h">
+      <Filter>JPEG Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\jpeg6\jmorecfg.h">
+      <Filter>JPEG Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\jpeg6\jpegint.h">
+      <Filter>JPEG Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\jpeg6\jpeglib.h">
+      <Filter>JPEG Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\jpeg6\jversion.h">
+      <Filter>JPEG Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\png\png.h">
+      <Filter>PNG</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\zlib\deflate.h">
+      <Filter>ZLIB</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\zlib\infblock.h">
+      <Filter>ZLIB</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\zlib\infcodes.h">
+      <Filter>ZLIB</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\zlib\inffast.h">
+      <Filter>ZLIB</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\zlib\inffixed.h">
+      <Filter>ZLIB</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\zlib\inftrees.h">
+      <Filter>ZLIB</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\zlib\infutil.h">
+      <Filter>ZLIB</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\zlib\trees.h">
+      <Filter>ZLIB</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\zlib\zconf.h">
+      <Filter>ZLIB</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\zlib\zlib.h">
+      <Filter>ZLIB</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\zlib\zutil.h">
+      <Filter>ZLIB</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MDXView.cpp">
@@ -301,102 +304,6 @@
     </ClCompile>
     <ClCompile Include="r_image.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="jpeg6\jcomapi.c">
-      <Filter>JPEG Source</Filter>
-    </ClCompile>
-    <ClCompile Include="jpeg6\jdapimin.c">
-      <Filter>JPEG Source</Filter>
-    </ClCompile>
-    <ClCompile Include="jpeg6\jdapistd.c">
-      <Filter>JPEG Source</Filter>
-    </ClCompile>
-    <ClCompile Include="jpeg6\jdatasrc.c">
-      <Filter>JPEG Source</Filter>
-    </ClCompile>
-    <ClCompile Include="jpeg6\jdcoefct.c">
-      <Filter>JPEG Source</Filter>
-    </ClCompile>
-    <ClCompile Include="jpeg6\jdcolor.c">
-      <Filter>JPEG Source</Filter>
-    </ClCompile>
-    <ClCompile Include="jpeg6\jddctmgr.c">
-      <Filter>JPEG Source</Filter>
-    </ClCompile>
-    <ClCompile Include="jpeg6\jdhuff.c">
-      <Filter>JPEG Source</Filter>
-    </ClCompile>
-    <ClCompile Include="jpeg6\jdinput.c">
-      <Filter>JPEG Source</Filter>
-    </ClCompile>
-    <ClCompile Include="jpeg6\jdmainct.c">
-      <Filter>JPEG Source</Filter>
-    </ClCompile>
-    <ClCompile Include="jpeg6\jdmarker.c">
-      <Filter>JPEG Source</Filter>
-    </ClCompile>
-    <ClCompile Include="jpeg6\jdmaster.c">
-      <Filter>JPEG Source</Filter>
-    </ClCompile>
-    <ClCompile Include="jpeg6\jdpostct.c">
-      <Filter>JPEG Source</Filter>
-    </ClCompile>
-    <ClCompile Include="jpeg6\jdsample.c">
-      <Filter>JPEG Source</Filter>
-    </ClCompile>
-    <ClCompile Include="jpeg6\jdtrans.c">
-      <Filter>JPEG Source</Filter>
-    </ClCompile>
-    <ClCompile Include="jpeg6\jerror.c">
-      <Filter>JPEG Source</Filter>
-    </ClCompile>
-    <ClCompile Include="jpeg6\jidctflt.c">
-      <Filter>JPEG Source</Filter>
-    </ClCompile>
-    <ClCompile Include="jpeg6\jmemmgr.c">
-      <Filter>JPEG Source</Filter>
-    </ClCompile>
-    <ClCompile Include="jpeg6\jmemnobs.c">
-      <Filter>JPEG Source</Filter>
-    </ClCompile>
-    <ClCompile Include="jpeg6\jutils.c">
-      <Filter>JPEG Source</Filter>
-    </ClCompile>
-    <ClCompile Include="png\png.cpp">
-      <Filter>PNG</Filter>
-    </ClCompile>
-    <ClCompile Include="zlib\adler32.c">
-      <Filter>ZLIB</Filter>
-    </ClCompile>
-    <ClCompile Include="zlib\crc32.cpp">
-      <Filter>ZLIB</Filter>
-    </ClCompile>
-    <ClCompile Include="zlib\deflate.c">
-      <Filter>ZLIB</Filter>
-    </ClCompile>
-    <ClCompile Include="zlib\infblock.c">
-      <Filter>ZLIB</Filter>
-    </ClCompile>
-    <ClCompile Include="zlib\infcodes.c">
-      <Filter>ZLIB</Filter>
-    </ClCompile>
-    <ClCompile Include="zlib\inffast.c">
-      <Filter>ZLIB</Filter>
-    </ClCompile>
-    <ClCompile Include="zlib\inflate.c">
-      <Filter>ZLIB</Filter>
-    </ClCompile>
-    <ClCompile Include="zlib\inftrees.c">
-      <Filter>ZLIB</Filter>
-    </ClCompile>
-    <ClCompile Include="zlib\infutil.c">
-      <Filter>ZLIB</Filter>
-    </ClCompile>
-    <ClCompile Include="zlib\trees.c">
-      <Filter>ZLIB</Filter>
-    </ClCompile>
-    <ClCompile Include="zlib\zutil.c">
-      <Filter>ZLIB</Filter>
     </ClCompile>
     <ClCompile Include="GLView.cpp">
       <Filter>GLView</Filter>
@@ -488,17 +395,114 @@
     <ClCompile Include="sof2npcviewer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\include\png\png.cpp">
+      <Filter>PNG</Filter>
+    </ClCompile>
+    <ClCompile Include="..\include\zlib\adler32.c">
+      <Filter>ZLIB</Filter>
+    </ClCompile>
+    <ClCompile Include="..\include\zlib\crc32.cpp">
+      <Filter>ZLIB</Filter>
+    </ClCompile>
+    <ClCompile Include="..\include\zlib\deflate.c">
+      <Filter>ZLIB</Filter>
+    </ClCompile>
+    <ClCompile Include="..\include\zlib\infblock.c">
+      <Filter>ZLIB</Filter>
+    </ClCompile>
+    <ClCompile Include="..\include\zlib\infcodes.c">
+      <Filter>ZLIB</Filter>
+    </ClCompile>
+    <ClCompile Include="..\include\zlib\inffast.c">
+      <Filter>ZLIB</Filter>
+    </ClCompile>
+    <ClCompile Include="..\include\zlib\inflate.c">
+      <Filter>ZLIB</Filter>
+    </ClCompile>
+    <ClCompile Include="..\include\zlib\inftrees.c">
+      <Filter>ZLIB</Filter>
+    </ClCompile>
+    <ClCompile Include="..\include\zlib\infutil.c">
+      <Filter>ZLIB</Filter>
+    </ClCompile>
+    <ClCompile Include="..\include\zlib\trees.c">
+      <Filter>ZLIB</Filter>
+    </ClCompile>
+    <ClCompile Include="..\include\zlib\zutil.c">
+      <Filter>ZLIB</Filter>
+    </ClCompile>
+    <ClCompile Include="..\include\jpeg6\jcomapi.c">
+      <Filter>JPEG Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\include\jpeg6\jdapimin.c">
+      <Filter>JPEG Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\include\jpeg6\jdapistd.c">
+      <Filter>JPEG Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\include\jpeg6\jdatasrc.c">
+      <Filter>JPEG Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\include\jpeg6\jdcoefct.c">
+      <Filter>JPEG Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\include\jpeg6\jdcolor.c">
+      <Filter>JPEG Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\include\jpeg6\jddctmgr.c">
+      <Filter>JPEG Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\include\jpeg6\jdhuff.c">
+      <Filter>JPEG Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\include\jpeg6\jdinput.c">
+      <Filter>JPEG Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\include\jpeg6\jdmainct.c">
+      <Filter>JPEG Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\include\jpeg6\jdmarker.c">
+      <Filter>JPEG Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\include\jpeg6\jdmaster.c">
+      <Filter>JPEG Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\include\jpeg6\jdpostct.c">
+      <Filter>JPEG Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\include\jpeg6\jdsample.c">
+      <Filter>JPEG Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\include\jpeg6\jdtrans.c">
+      <Filter>JPEG Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\include\jpeg6\jerror.c">
+      <Filter>JPEG Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\include\jpeg6\jidctflt.c">
+      <Filter>JPEG Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\include\jpeg6\jmemmgr.c">
+      <Filter>JPEG Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\include\jpeg6\jmemnobs.c">
+      <Filter>JPEG Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\include\jpeg6\jutils.c">
+      <Filter>JPEG Source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="MDXView.reg" />
     <None Include="res\MDXView.rc2">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="ClassDiagram.cd" />
-    <None Include="minimal.frag">
+    <None Include="MDXView.reg">
+      <Filter>Source Files</Filter>
+    </None>
+    <None Include="glsl\minimal.frag">
       <Filter>GLSL Shader Files</Filter>
     </None>
-    <None Include="minimal.vert">
+    <None Include="glsl\minimal.vert">
       <Filter>GLSL Shader Files</Filter>
     </None>
   </ItemGroup>

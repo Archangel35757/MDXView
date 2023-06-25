@@ -96,7 +96,7 @@
       <CompileAs>Default</CompileAs>
       <BasicRuntimeChecks>Default</BasicRuntimeChecks>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
-      <AdditionalIncludeDirectories>$(SolutionDir)\Includes\glm;$(SolutionDir)\Includes\wgl;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <ExceptionHandling>Async</ExceptionHandling>
@@ -124,8 +124,9 @@
       <AdditionalIncludeDirectories>$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <PostBuildEvent>
-      <Command>
-      </Command>
+      <Command>copy $(ProjectDir)glsl\minimal.frag $(OutDir)
+copy $(ProjectDir)glsl\minimal.vert $(OutDir)</Command>
+      <Message>copying glsl files to the output directory...</Message>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -181,6 +182,11 @@
       <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
+    <PostBuildEvent>
+      <Command>copy $(ProjectDir)glsl\minimal.frag $(OutDir)
+copy $(ProjectDir)glsl\minimal.vert $(OutDir)</Command>
+      <Message>copying glsl files to the output directory...</Message>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -227,16 +233,16 @@
     <ClInclude Include="GLView.h" />
     <ClInclude Include="image.h" />
     <ClInclude Include="includes.h" />
-    <ClInclude Include="jpeg6\jconfig.h" />
-    <ClInclude Include="jpeg6\jdct.h" />
-    <ClInclude Include="jpeg6\jdhuff.h" />
-    <ClInclude Include="jpeg6\jerror.h" />
-    <ClInclude Include="jpeg6\jinclude.h" />
-    <ClInclude Include="jpeg6\jmemsys.h" />
-    <ClInclude Include="jpeg6\jmorecfg.h" />
-    <ClInclude Include="jpeg6\jpegint.h" />
-    <ClInclude Include="jpeg6\jpeglib.h" />
-    <ClInclude Include="jpeg6\jversion.h" />
+    <ClInclude Include="..\include\jpeg6\jconfig.h" />
+    <ClInclude Include="..\include\jpeg6\jdct.h" />
+    <ClInclude Include="..\include\jpeg6\jdhuff.h" />
+    <ClInclude Include="..\include\jpeg6\jerror.h" />
+    <ClInclude Include="..\include\jpeg6\jinclude.h" />
+    <ClInclude Include="..\include\jpeg6\jmemsys.h" />
+    <ClInclude Include="..\include\jpeg6\jmorecfg.h" />
+    <ClInclude Include="..\include\jpeg6\jpegint.h" />
+    <ClInclude Include="..\include\jpeg6\jpeglib.h" />
+    <ClInclude Include="..\include\jpeg6\jversion.h" />
     <ClInclude Include="jpeg_interface.h" />
     <ClInclude Include="MainFrm.h" />
     <ClInclude Include="matcomp.h" />
@@ -252,7 +258,7 @@
     <ClInclude Include="ogl.h" />
     <ClInclude Include="oldskins.h" />
     <ClInclude Include="parser.h" />
-    <ClInclude Include="png\png.h" />
+    <ClInclude Include="..\include\png\png.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="r_common.h" />
     <ClInclude Include="r_glm.h" />
@@ -275,17 +281,17 @@
     <ClInclude Include="textures.h" />
     <ClInclude Include="trackball.h" />
     <ClInclude Include="wintalk.h" />
-    <ClInclude Include="zlib\deflate.h" />
-    <ClInclude Include="zlib\infblock.h" />
-    <ClInclude Include="zlib\infcodes.h" />
-    <ClInclude Include="zlib\inffast.h" />
-    <ClInclude Include="zlib\inffixed.h" />
-    <ClInclude Include="zlib\inftrees.h" />
-    <ClInclude Include="zlib\infutil.h" />
-    <ClInclude Include="zlib\trees.h" />
-    <ClInclude Include="zlib\zconf.h" />
-    <ClInclude Include="zlib\zlib.h" />
-    <ClInclude Include="zlib\zutil.h" />
+    <ClInclude Include="..\include\zlib\deflate.h" />
+    <ClInclude Include="..\include\zlib\infblock.h" />
+    <ClInclude Include="..\include\zlib\infcodes.h" />
+    <ClInclude Include="..\include\zlib\inffast.h" />
+    <ClInclude Include="..\include\zlib\inffixed.h" />
+    <ClInclude Include="..\include\zlib\inftrees.h" />
+    <ClInclude Include="..\include\zlib\infutil.h" />
+    <ClInclude Include="..\include\zlib\trees.h" />
+    <ClInclude Include="..\include\zlib\zconf.h" />
+    <ClInclude Include="..\include\zlib\zlib.h" />
+    <ClInclude Include="..\include\zlib\zutil.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="anims.cpp" />
@@ -309,7 +315,7 @@
       </PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="image.cpp" />
-    <ClCompile Include="jpeg6\jcomapi.c">
+    <ClCompile Include="..\include\jpeg6\jcomapi.c">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
       </PrecompiledHeader>
       <InlineFunctionExpansion Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">OnlyExplicitInline</InlineFunctionExpansion>
@@ -320,115 +326,115 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
       </PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="jpeg6\jdapimin.c">
+    <ClCompile Include="..\include\jpeg6\jdapimin.c">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
       </PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
       </PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="jpeg6\jdapistd.c">
+    <ClCompile Include="..\include\jpeg6\jdapistd.c">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
       </PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
       </PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="jpeg6\jdatasrc.c">
+    <ClCompile Include="..\include\jpeg6\jdatasrc.c">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
       </PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
       </PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="jpeg6\jdcoefct.c">
+    <ClCompile Include="..\include\jpeg6\jdcoefct.c">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
       </PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
       </PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="jpeg6\jdcolor.c">
+    <ClCompile Include="..\include\jpeg6\jdcolor.c">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
       </PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
       </PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="jpeg6\jddctmgr.c">
+    <ClCompile Include="..\include\jpeg6\jddctmgr.c">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
       </PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
       </PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="jpeg6\jdhuff.c">
+    <ClCompile Include="..\include\jpeg6\jdhuff.c">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
       </PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
       </PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="jpeg6\jdinput.c">
+    <ClCompile Include="..\include\jpeg6\jdinput.c">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
       </PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
       </PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="jpeg6\jdmainct.c">
+    <ClCompile Include="..\include\jpeg6\jdmainct.c">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
       </PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
       </PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="jpeg6\jdmarker.c">
+    <ClCompile Include="..\include\jpeg6\jdmarker.c">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
       </PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
       </PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="jpeg6\jdmaster.c">
+    <ClCompile Include="..\include\jpeg6\jdmaster.c">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
       </PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
       </PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="jpeg6\jdpostct.c">
+    <ClCompile Include="..\include\jpeg6\jdpostct.c">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
       </PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
       </PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="jpeg6\jdsample.c">
+    <ClCompile Include="..\include\jpeg6\jdsample.c">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
       </PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
       </PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="jpeg6\jdtrans.c">
+    <ClCompile Include="..\include\jpeg6\jdtrans.c">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
       </PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
       </PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="jpeg6\jerror.c">
+    <ClCompile Include="..\include\jpeg6\jerror.c">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
       </PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
       </PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="jpeg6\jidctflt.c">
+    <ClCompile Include="..\include\jpeg6\jidctflt.c">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
       </PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
       </PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="jpeg6\jmemmgr.c">
+    <ClCompile Include="..\include\jpeg6\jmemmgr.c">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
       </PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
       </PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="jpeg6\jmemnobs.c">
+    <ClCompile Include="..\include\jpeg6\jmemnobs.c">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
       </PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
       </PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="jpeg6\jutils.c">
+    <ClCompile Include="..\include\jpeg6\jutils.c">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
       </PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -449,7 +455,7 @@
     <ClCompile Include="ogl.cpp" />
     <ClCompile Include="oldskins.cpp" />
     <ClCompile Include="parser.cpp" />
-    <ClCompile Include="png\png.cpp">
+    <ClCompile Include="..\include\png\png.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
       </PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -483,67 +489,67 @@
       </PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="wintalk.cpp" />
-    <ClCompile Include="zlib\adler32.c">
+    <ClCompile Include="..\include\zlib\adler32.c">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
       </PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
       </PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="zlib\crc32.cpp">
+    <ClCompile Include="..\include\zlib\crc32.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
       </PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
       </PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="zlib\deflate.c">
+    <ClCompile Include="..\include\zlib\deflate.c">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
       </PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
       </PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="zlib\infblock.c">
+    <ClCompile Include="..\include\zlib\infblock.c">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
       </PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
       </PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="zlib\infcodes.c">
+    <ClCompile Include="..\include\zlib\infcodes.c">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
       </PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
       </PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="zlib\inffast.c">
+    <ClCompile Include="..\include\zlib\inffast.c">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
       </PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
       </PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="zlib\inflate.c">
+    <ClCompile Include="..\include\zlib\inflate.c">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
       </PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
       </PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="zlib\inftrees.c">
+    <ClCompile Include="..\include\zlib\inftrees.c">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
       </PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
       </PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="zlib\infutil.c">
+    <ClCompile Include="..\include\zlib\infutil.c">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
       </PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
       </PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="zlib\trees.c">
+    <ClCompile Include="..\include\zlib\trees.c">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
       </PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
       </PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="zlib\zutil.c">
+    <ClCompile Include="..\include\zlib\zutil.c">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
       </PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -551,28 +557,30 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="ClassDiagram.cd" />
     <None Include="MDXView.reg" />
-    <CustomBuild Include="minimal.frag">
+    <None Include="glsl\minimal.frag">
       <FileType>Document</FileType>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
       </ExcludedFromBuild>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">copy $(ProjectDir)minimal.frag $(OutDir)</Command>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ProjectDir)minimal.frag</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">copy $(ProjectDir)\glsl\minimal.frag $(OutDir)</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+      </Outputs>
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">copying minimal.frag...</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">copy $(ProjectDir)minimal.frag $(OutDir)</Command>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">copying minimal.frag...</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(ProjectDir)minimal.frag</Outputs>
-    </CustomBuild>
-    <CustomBuild Include="minimal.vert">
+    </None>
+    <None Include="glsl\minimal.vert">
       <FileType>Document</FileType>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">copy $(ProjectDir)minimal.vert $(OutDir)</Command>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ProjectDir)minimal.vert</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">copy $(ProjectDir)\glsl\minimal.vert $(OutDir)</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ProjectDir)\glsl\minimal.vert</Outputs>
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">copying minimal.vert...</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">copy $(ProjectDir)minimal.vert $(OutDir)</Command>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">copying minimal.vert...</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(ProjectDir)minimal.vert</Outputs>
-    </CustomBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+      </ExcludedFromBuild>
+    </None>
     <None Include="res\MDXView.rc2" />
   </ItemGroup>
   <ItemGroup>
@@ -593,4 +601,8 @@
       <UserProperties RESOURCE_FILE="MDXView.rc" />
     </VisualStudio>
   </ProjectExtensions>
+  <Target Name="SpicNSpan" AfterTargets="Clean"> <!-- common vars https://msdn.microsoft.com/en-us/library/c02as0cs.aspx?f=255&MSPPError=-2147217396 -->
+     <RemoveDir Directories="$(TargetDir)" /> <!-- bin -->
+     <RemoveDir Directories="$(ProjectDir)$(BaseIntermediateOutputPath)" /> <!-- obj -->
+  </Target>
 </Project>

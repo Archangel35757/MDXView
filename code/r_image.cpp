@@ -6,7 +6,7 @@
 #include "includes.h"
 #include "R_Common.h"
 #include "jpeg_interface.h"
-#include "png/png.h"
+#include "../include/png/png.h"
 //
 #include "R_Image.h"
 
