@@ -558,29 +558,8 @@ copy $(ProjectDir)glsl\minimal.vert $(OutDir)</Command>
   </ItemGroup>
   <ItemGroup>
     <None Include="MDXView.reg" />
-    <None Include="glsl\minimal.frag">
-      <FileType>Document</FileType>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-      </ExcludedFromBuild>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">copy $(ProjectDir)\glsl\minimal.frag $(OutDir)</Command>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-      </Outputs>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">copying minimal.frag...</Message>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">copy $(ProjectDir)minimal.frag $(OutDir)</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">copying minimal.frag...</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(ProjectDir)minimal.frag</Outputs>
-    </None>
-    <None Include="glsl\minimal.vert">
-      <FileType>Document</FileType>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">copy $(ProjectDir)\glsl\minimal.vert $(OutDir)</Command>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ProjectDir)\glsl\minimal.vert</Outputs>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">copying minimal.vert...</Message>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">copy $(ProjectDir)minimal.vert $(OutDir)</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">copying minimal.vert...</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(ProjectDir)minimal.vert</Outputs>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-      </ExcludedFromBuild>
-    </None>
+    <None Include="glsl\minimal.frag" />
+    <None Include="glsl\minimal.vert" />
     <None Include="res\MDXView.rc2" />
   </ItemGroup>
   <ItemGroup>
